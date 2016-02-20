@@ -1,0 +1,11 @@
+{
+  "name": "WebGL Planets",
+  "description": "",
+  "version": "0.0.1",
+  "homepage": "",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "threejs": "*"
+  }
+}
