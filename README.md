@@ -1,6 +1,6 @@
 # WebGL Planets Client
 
-To run, simple serve up index.html from a webserver.
+To run, simply serve up index.html from a webserver.
 
 To develop:
 1. npm istall
