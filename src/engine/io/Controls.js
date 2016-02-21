@@ -2,7 +2,7 @@ import { Keyboard } from "./Keyboard.js";
 import { Mouse } from "./Mouse.js";
 import { Gamepad } from "./Gamepad.js";
 
-export class Controlls {
+export class Controls {
 	constructor() {
 		
 		this.keyoard = new Keyboard();

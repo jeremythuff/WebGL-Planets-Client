@@ -1,1 +1,3 @@
-ShaderLoader.js
+export class ShaderLoader {
+	constructor() {}
+}

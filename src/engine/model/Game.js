@@ -2,12 +2,13 @@
 import { Engine } from "../Engine.js";
 
 export class Game extends Engine {
-	constructor(name) { 
-		super();
-		
-		this.name = name;
-		this.currentState = null;
-		this.states = {};
+	  constructor(name) { 
+  		super();
+  		
+  		this.setName(name);
+
+  		this.currentState = null;
+  		this.states = new Map();
 
   	}
 
@@ -53,12 +54,22 @@ export class Game extends Engine {
 
   	}
 
+    getName() {
+      return this.name;
+    }
+
+    setName(name) {
+      this.name = name;
+      document.title = name;
+    }
+
   	addState(state) {
-  		this.states[state.getName()] = state;
+      state.utils = this.utils;
+  		this.states.set(state.getName(), state);
   	}
 
   	getState(stateName) {
-  		return this.states[stateName];
+  		return this.states.get(stateName);
   	}
 
   	getCurrentState() {

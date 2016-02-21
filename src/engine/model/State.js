@@ -1,5 +1,5 @@
 import { Scene } from "./Scene.js";
-import { Controlls } from "./../io/Controlls.js";
+import { Controls } from "./../io/Controls.js";
 
 export class State {
 	constructor(name) {
@@ -12,8 +12,11 @@ export class State {
 		this.closeCbs = new Set();
 		this.destroyCbs = new Set();
 
+		this.loaded = false;
+		this.initialized = false;
+
 		this.scene = new Scene();
-		this.controlls = new Controlls();
+		this.controls = new Controls();
 
 	}
 
@@ -37,7 +40,16 @@ export class State {
 	}
 
 	runInit() {
-		return _runCbs(this.initCbs);
+		
+		let state = this;
+		let initPromise = _runCbs(this.initCbs);
+		
+		initPromise.then(function() {
+			state.initialized = true;
+		});
+		
+		return initPromise;
+
 	}
 
 	load(cb) {
@@ -45,7 +57,15 @@ export class State {
 	}
 
 	runLoad() {
-		return _runCbs(this.loadCbs);
+
+		let state = this;
+		let loadPromise = _runCbs(this.loadCbs);
+
+		loadPromise.then(function() {
+			state.loaded = true;
+		});
+
+		return loadPromise;
 	}
 
 	update(cb) {

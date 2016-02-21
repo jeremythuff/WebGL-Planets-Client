@@ -11,13 +11,9 @@ Intro.load(function() {
 	console.log("Intro load");
 });
 
-Intro.update(function(delta) {
-	console.log("Intro update " + delta);
-});
+Intro.update(function(delta) {});
 
-Intro.render(function(delta) {
-	console.log("Intro render " + delta);
-});
+Intro.render(function(delta) {});
 
 Intro.close(function() {
 	console.log("Intro close");

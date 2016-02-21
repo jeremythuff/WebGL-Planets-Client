@@ -1,7 +1,10 @@
 
+import {Utilities} from "./utils/Utilities.js"
+
 export class Engine {
 	constructor() {
 		this.startLoop();
+		this.utils = new Utilities();
 		this.running = false;
 	}
 

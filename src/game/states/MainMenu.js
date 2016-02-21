@@ -11,13 +11,9 @@ MainMenu.load(function() {
 	console.log("MainMenu load");
 });
 
-MainMenu.update(function(delta) {
-	console.log("MainMenu update " + delta);
-});
+MainMenu.update(function(delta) {});
 
-MainMenu.render(function(delta) {
-	console.log("MainMenu render " + delta);
-});
+MainMenu.render(function(delta) {});
 
 MainMenu.close(function() {
 	console.log("MainMenu close");
