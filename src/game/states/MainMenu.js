@@ -5,6 +5,9 @@ let MainMenu = new State("Main Menu");
 
 MainMenu.init(function() {
 	console.log("MainMenu init");
+
+	console.log(MainMenu);
+	
 });
 
 MainMenu.load(function() {
@@ -21,6 +24,14 @@ MainMenu.close(function() {
 
 MainMenu.destroy(function() {
 	console.log("MainMenu destroy");
+});
+
+MainMenu.controls.keyoard.pressed([13], function() {
+	MainMenu.game.setCurrentState("Playing");
+});
+
+MainMenu.controls.keyoard.pressed([27], function() {
+	MainMenu.game.stop();
 });
 
 export {MainMenu};

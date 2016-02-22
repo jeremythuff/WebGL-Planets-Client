@@ -64,6 +64,7 @@ export class Game extends Engine {
     }
 
   	addState(state) {
+      state.game = this;
       state.utils = this.utils;
   		this.states.set(state.getName(), state);
   	}

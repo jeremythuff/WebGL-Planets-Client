@@ -10,4 +10,16 @@ export class Controls {
 		this.gamepad = new Gamepad();
 
 	}
+
+	init() {
+		this.keyoard.init();
+		//this.mouse.init();
+		//this.gamepad.init();
+	}
+
+	destroy() {
+		this.keyoard.destroy();
+		//this.mouse.destroy();
+		//this.gamepad.destroy();
+	}
 }

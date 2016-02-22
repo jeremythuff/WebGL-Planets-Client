@@ -3,6 +3,9 @@ import { Controls } from "./../io/Controls.js";
 
 export class State {
 	constructor(name) {
+
+		this.game;
+
 		this.setName(name);
 		
 		this.initCbs = new Set();
@@ -22,6 +25,9 @@ export class State {
 
 	start() {
 		let state = this;
+
+		state.controls.init();
+
 		state.runLoad().then(function() {
 			state.runInit();
 		});
@@ -30,6 +36,9 @@ export class State {
 
 	stop() {
 		let state = this;
+
+		state.controls.destroy();
+
 		state.runClose().then(function() {
 			state.runDestroy();
 		});

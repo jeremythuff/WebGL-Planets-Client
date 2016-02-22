@@ -5,6 +5,9 @@ let Intro = new State("Intro");
 
 Intro.init(function() {
 	console.log("Intro init");
+
+	console.log(Intro);
+
 });
 
 Intro.load(function() {
@@ -21,6 +24,10 @@ Intro.close(function() {
 
 Intro.destroy(function() {
 	console.log("Intro destroy");
+});
+
+Intro.controls.keyoard.pressed([13], function() {
+	Intro.game.setCurrentState("Playing");
 });
 
 export {Intro};

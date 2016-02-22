@@ -5,6 +5,9 @@ let Playing = new State("Playing");
 
 Playing.init(function() {
 	console.log("Playing init");
+
+	console.log(Playing);
+
 });
 
 Playing.load(function() {
@@ -21,6 +24,10 @@ Playing.close(function() {
 
 Playing.destroy(function() {
 	console.log("Playing destroy");
+});
+
+Playing.controls.keyoard.pressed([27], function() {
+	Playing.game.setCurrentState("Main Menu");
 });
 
 export {Playing};
