@@ -2,6 +2,7 @@ import { Game } from "./../engine/model/Game.js";
 
 import { Intro } from "./states/Intro.js";
 import { MainMenu } from "./states/MainMenu.js";
+import { MapMode } from "./states/MapMode.js";
 import { PlanetMode } from "./states/PlanetMode.js";
 
 export class Planets extends Game {
@@ -12,6 +13,7 @@ export class Planets extends Game {
 	init(initialStateName) {
 		this.addState(Intro);
 		this.addState(MainMenu);
+		this.addState(MapMode);
 		this.addState(PlanetMode);
 		return super.init(initialStateName);
 	}

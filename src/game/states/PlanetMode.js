@@ -13,6 +13,10 @@ PlanetMode.init(function() {
 		PlanetMode.game.setCurrentState("Main Menu");
 	});
 
+	PlanetMode.controls.keyboard.pressed([17, 66], function() {
+		PlanetMode.game.setCurrentState("Map Mode");
+	});
+
 	console.log("PlanetMode init");
 	console.log(PlanetMode);
 
