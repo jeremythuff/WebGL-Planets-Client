@@ -12,7 +12,7 @@ MainMenu.init(function() {
 	MainMenu.renderer.clear();
 
 	MainMenu.controls.keyboard.pressed([13], function() {
-		MainMenu.game.setCurrentState("Playing");
+		MainMenu.game.setCurrentState("Planet Mode");
 	});
 
 	MainMenu.controls.keyboard.pressed([27], function() {
