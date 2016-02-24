@@ -29,4 +29,14 @@ export class Planet {
 	getMesh() {
 		return this.mesh;
 	}
+
+	getCloudMesh() {
+		return this.cloudMesh;
+	}
+
+	update(delta) {
+		let planet = this;
+		planet.getMesh().rotation.y  += 1/28 * delta;
+		planet.getCloudMesh().rotation.y  += 1/40 * delta;
+	}
 }

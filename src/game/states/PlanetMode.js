@@ -1,6 +1,7 @@
 
 import { State } from "./../../engine/model/State.js";
 import { Camera } from "./../../engine/model/Camera.js";
+import { Starfield } from "./../entities/Starfield.js";
 import { PlanetModeLights } from "./../lights/PlanetModeLights.js";
 import { Planet } from "./../entities/Planet.js";
 
@@ -18,22 +19,29 @@ PlanetMode.init(function() {
 });
 
 PlanetMode.load(function() {
+	
 	if(PlanetMode.loaded) return;
 
 	PlanetMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-
-	PlanetMode.lights = new PlanetModeLights(PlanetMode.scene);
-
-    let planet = new Planet();
+	PlanetMode.lights = new PlanetModeLights();
+    PlanetMode.planet = new Planet();
+    PlanetMode.startfield = new Starfield();
 	
-	PlanetMode.scene.add(planet.getMesh());
-	
+
+    PlanetMode.scene.add(PlanetMode.lights.getAmbientLight());
+    PlanetMode.scene.add(PlanetMode.lights.getSpotlight());
+	PlanetMode.scene.add(PlanetMode.startfield.getMesh());
+	PlanetMode.scene.add(PlanetMode.planet.getMesh());
+
 	PlanetMode.camera.position.z = 1;
 
 	console.log("PlanetMode load");
+
 });
 
-PlanetMode.update(function(delta) {});
+PlanetMode.update(function(delta) {
+	PlanetMode.planet.update(delta);
+});
 
 PlanetMode.render(function(delta) {
 	PlanetMode.renderer.render(PlanetMode.scene, PlanetMode.camera);
