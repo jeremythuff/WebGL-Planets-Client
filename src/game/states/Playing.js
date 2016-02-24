@@ -6,11 +6,19 @@ let Playing = new State("Playing");
 
 Playing.init(function() {
 
-	Playing.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
-
 	Playing.controls.keyboard.pressed([27], function() {
 		Playing.game.setCurrentState("Main Menu");
 	});
+
+	console.log("Playing init");
+	console.log(Playing);
+
+});
+
+Playing.load(function() {
+	if(Playing.loaded) return;
+
+	Playing.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 
 	Playing.ambientLight = new THREE.AmbientLight( 0x555555 ); // soft white light 
 	Playing.scene.add( Playing.ambientLight );
@@ -47,13 +55,6 @@ Playing.init(function() {
 	
 	Playing.camera.position.z = 1;
 
-	console.log("Playing init");
-	console.log(Playing);
-
-});
-
-Playing.load(function() {
-	if(Playing.loaded) return;
 	console.log("Playing load");
 });
 

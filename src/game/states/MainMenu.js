@@ -9,7 +9,7 @@ MainMenu.init(function() {
 
 	console.log("MainMenu init");
 
-	console.log(MainMenu);
+	MainMenu.renderer.clear();
 
 	MainMenu.controls.keyboard.pressed([13], function() {
 		MainMenu.game.setCurrentState("Playing");

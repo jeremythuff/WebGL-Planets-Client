@@ -2,7 +2,6 @@ export class Camera {
 	constructor( fov, aspect, near, far) {
 		
 		this.PerspectiveCamera = new THREE.PerspectiveCamera( fov, aspect, near, far );
-
 		this.registerResizeEvent();
 
 		return this.PerspectiveCamera;
