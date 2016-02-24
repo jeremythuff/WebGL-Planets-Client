@@ -8,10 +8,15 @@ Intro.init(function() {
 
 	console.log(Intro);
 
+	Intro.controls.keyboard.pressed([13], function() {
+		Intro.game.setCurrentState("Main Menu");
+	});
+
 });
 
 Intro.load(function() {
-	console.log("Intro load");
+	if(Intro.loaded) return;
+	console.log("Intro loaded");
 });
 
 Intro.update(function(delta) {});
@@ -24,10 +29,6 @@ Intro.close(function() {
 
 Intro.destroy(function() {
 	console.log("Intro destroy");
-});
-
-Intro.controls.keyoard.pressed([13], function() {
-	Intro.game.setCurrentState("Playing");
 });
 
 export {Intro};

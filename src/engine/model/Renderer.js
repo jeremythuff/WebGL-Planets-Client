@@ -1,7 +1,7 @@
 import { completeAssign } from "./../extensions/completeAssign.js"
 
-export class Scene {
+export class Renderer {
 	constructor() {
-		return new THREE.Scene();
+		return new THREE.WebGLRenderer();
 	}
 }

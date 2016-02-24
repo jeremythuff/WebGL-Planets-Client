@@ -3,37 +3,52 @@ export class Keyboard {
 
 		this.keys = new Map();
 		this.cbs = new Map();
+		this.ready = false;
 		
 	}
 
 	init() {
-		window.addEventListener('keydown', function(e) {
-            _keyDown(this, e);
-        }.bind(this), false);
 		
-		window.addEventListener('keyup', function(e) {
-            _keyUp(this, e);
-        }.bind(this), false);
+		let keyboard = this;
+
+		window.addEventListener('keydown', _keyDownHandler.bind(this), false);
+		window.addEventListener('keyup', _keyUpHandler.bind(this), false);
+
 	}
 
 	destroy() {
-		window.removeEventListener('keydown', function(e) {
-            _keyDown(this, e);
-        }, false);
 		
-		window.removeEventListener('keyup', function(e) {
-            _keyUp(this, e);
-        }, false);
+		let keyboard = this;
+
+		window.removeEventListener('keydown', _keyDownHandler.bind(this), false);
+		window.removeEventListener('keyup', _keyUpHandler.bind(this), false);
+
+		keyboard.cbs.clear();
+		keyboard.keys.clear();
+
+		keyboard.ready = false;
+
+	}
+
+	activate() {
+		let keyboard = this;
+		keyboard.ready = true;
 	}
 
 	pressed(keys,cb) {
-		this.cbs.set(keys, cb);
+		let keyboard = this;
+		keyboard.cbs.set(keys, cb);
 	}
 
 	getCbs() {
-		return this.cbs;
+		let keyboard = this;
+		return keyboard.cbs;
 	}
 
+}
+
+let _keyDownHandler = function(e) {
+    _keyDown(this, e);
 }
 
 let _keyDown = function(keyboard, e) {
@@ -41,11 +56,17 @@ let _keyDown = function(keyboard, e) {
 	_runCbs(keyboard);
 }	
 
+let _keyUpHandler = function(e) {
+    _keyUp(this, e);
+}
+
 let _keyUp = function(keyboard, e) {
 	keyboard.keys.set(e.which, false);
 }
 
 let _runCbs = function(keyboard) {
+
+	if(!keyboard.ready) return
 
 	keyboard.cbs.forEach(function(cb, keys) {
 

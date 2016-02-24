@@ -21,27 +21,40 @@ export class State {
 		this.scene = new Scene();
 		this.controls = new Controls();
 
+		this.renderer;
+		this.utils;
+
 	}
 
 	start() {
+
 		let state = this;
 
 		state.controls.init();
 
-		state.runLoad().then(function() {
+		let loadPromise = state.runLoad();
+
+		loadPromise.then(function() {
 			state.runInit();
+			state.controls.activate();
 		});
+
+		return loadPromise;
 
 	}
 
 	stop() {
+
 		let state = this;
+		let stopPromise = state.runClose();
 
-		state.controls.destroy();
-
-		state.runClose().then(function() {
+		stopPromise.then(function() {
 			state.runDestroy();
+			state.controls.destroy();
 		});
+
+		return stopPromise;
+
 	}
 
 	init(cb) {
@@ -78,31 +91,44 @@ export class State {
 	}
 
 	update(cb) {
-		this.updateCbs.add(cb);
+		let state = this;
+		state.updateCbs.add(cb);
 	}
 
 	render(cb) {
-		this.renderCbs.add(cb);
+		let state = this;
+		state.renderCbs.add(cb);
 	}
 
 	close(cb) {
-		this.closeCbs.add(_promiseify(cb));
+		let state = this;
+		state.closeCbs.add(_promiseify(cb));
 	}
 
 	runClose() {
-        return _runCbs(this.closeCbs);
+
+		let state = this;
+		let closePromise = _runCbs(this.closeCbs);
+
+		return closePromise;
+    
 	}
 
 	destroy(cb) {
-		this.destroyCbs.add(_promiseify(cb));
+		let state = this;
+		state.destroyCbs.add(_promiseify(cb));
 	}
 
 	runDestroy() {
-        return _runCbs(this.destroyCbs);
+        let state = this;
+		let destroyPromise = _runCbs(this.destroyCbs);
+
+		return destroyPromise;
 	}
 
 	setName(name) {
-		this.name = name;
+		let state = this;
+		state.name = name;
 	}
 
 	getName() {
@@ -116,7 +142,7 @@ let _runCbs = function(cbSet) {
 
 	for(let cb of cbSet) {
         promises.add(new Promise(function(resolve){
-          cb(resolve);
+        	cb(resolve);
         }));
     }
 

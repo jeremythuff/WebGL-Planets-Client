@@ -1,108 +1,130 @@
 
 import { Engine } from "../Engine.js";
+import { Renderer } from "./Renderer.js";
 
 export class Game extends Engine {
-	  constructor(name) { 
+	constructor(name) { 
   		super();
   		
   		this.setName(name);
-
+        this.renderer = new Renderer();
   		this.currentState = null;
   		this.states = new Map();
 
   	}
 
   	init(stateName) {
+
   		let game = this;
+
+        console.log("Game Start");
+
+        game.renderer.setSize( window.innerWidth, window.innerHeight );
+
+        document.body.insertBefore(game.renderer.domElement, document.body.firstChild);
+
+        window.addEventListener('resize', function(){
+            game.renderer.setSize( window.innerWidth, window.innerHeight );
+        }, true);
+        
   		return game.setCurrentState(stateName);
   	}
 
   	update(delta) {
-  		if(this.currentState) {
-        for(let updateCb of this.currentState.updateCbs) {
-          updateCb(delta);
-        }
-      } 
+        let game = this;
+  		if(game.currentState) {
+            for(let updateCb of game.currentState.updateCbs) {
+                updateCb(delta);
+            }
+        } 
   	}
 
   	render(delta) {
-  		if(this.currentState)
-  		for(let renderCb of this.currentState.renderCbs) {
-  			renderCb(delta);
-  		}
+        let game = this;
+  		
+        if(game.currentState && game.currentState.initialized) {
+            for(let renderCb of game.currentState.renderCbs) {
+                renderCb(delta);
+            }
+        }
   	}
 
   	destroy() {
   		
   		let game = this;
-      let currentState = game.getCurrentState();
+        let currentState = game.getCurrentState();
   		let promises = new Set();
 
-      if(currentState) {
-        for(let closeCb of currentState.closeCbs) {
-          promises.add(currentState.stop());
+        if(currentState) {
+            for(let closeCb of currentState.closeCbs) {
+                promises.add(currentState.stop());
+            }
         }
-      }
 
-      let stateDestroyedPromise = Promise.all(promises);
+        let stateDestroyedPromise = Promise.all(promises);
 
-      stateDestroyedPromise.then(function() {
-        game.currentState = null;
-      });
+        stateDestroyedPromise.then(function() {
+            game.currentState = null;
+            console.log("Game Stop");
+        });
 
-      return stateDestroyedPromise;
+        return stateDestroyedPromise;
 
   	}
 
     getName() {
-      return this.name;
+        let game = this;
+        return game.name;
     }
 
     setName(name) {
-      this.name = name;
-      document.title = name;
+        let game = this;
+        game.name = name;
+        document.title = name;
     }
 
   	addState(state) {
-      state.game = this;
-      state.utils = this.utils;
-  		this.states.set(state.getName(), state);
+        let game = this;
+        state.game = game;
+        state.renderer = game.renderer;
+        state.utils = game.utils;
+  		game.states.set(state.getName(), state);
   	}
 
   	getState(stateName) {
-  		return this.states.get(stateName);
+        let game = this;
+  		return game.states.get(stateName);
   	}
 
   	getCurrentState() {
-  		return this.currentState;
+        let game = this;
+  		return game.currentState;
   	}
 
   	setCurrentState(stateName) {
 
   		let game = this;
-		  let lastState = game.getCurrentState();
+		let lastState = game.getCurrentState();
   		let nextState = game.getState(stateName);
-      let promises = new Set();
+        let promises = new Set();
 
-      if(lastState) {
-        for(let closeCb of lastState.closeCbs) {
-          promises.add(lastState.stop());
+        let stateLoadedPromise;
+
+        if(lastState) {
+            lastState.stop().then(function() {
+                if(nextState) {
+                    stateLoadedPromise = nextState.start();
+                    game.currentState = nextState;
+                }
+            });
+        } else {
+            if(nextState) {
+                stateLoadedPromise = nextState.start();
+                game.currentState = nextState;
+            }
         }
-      }
-      
-      if(nextState) {
-         for(let loadCb of nextState.loadCbs) {
-            promises.add(nextState.start());
-         }
-      }
 
-      let stateLoadedPromise = Promise.all(promises);
-
-      stateLoadedPromise.then(function() {
-        game.currentState = nextState;
-      });
-
-      return stateLoadedPromise;
+        return stateLoadedPromise;
 
   	}
 
