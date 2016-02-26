@@ -5,7 +5,7 @@ export class Starfield {
 		// create the material, using a texture of startfield
 		this.material  = new THREE.MeshBasicMaterial({transparent: true, opacity: 0.5});
 		this.material.map   = THREE.ImageUtils.loadTexture('src/game/resources/textures/starfield.png');
-		this.material.side  = THREE.BackSide
+		this.material.side  = THREE.BackSide;
 		// create the mesh based on geometry and material
 		this.mesh  = new THREE.Mesh(this.geometry, this.material);
 	}

@@ -1,5 +1,8 @@
 export class TextureLoader {
 	constructor() {
-		return new THREE.TextureLoader();
+		return new THREE.TextureLoader(this._manager);
 	}
+
+
+
 }

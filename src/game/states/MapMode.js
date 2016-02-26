@@ -31,7 +31,7 @@ MapMode.load(function() {
 	MapMode.lights = new PlanetModeLights();
 
 
-    let planeGeometry = new THREE.PlaneGeometry(180, 120, 1, 1);
+	let planeGeometry = new THREE.PlaneGeometry(180, 120, 1, 1);
 	let material  = new THREE.MeshPhongMaterial({transparent: true, opacity: 0.5});
 	material.map    = THREE.ImageUtils.loadTexture('src/game/resources/textures/spiral-galaxy.png');
 	let plane = new THREE.Mesh( planeGeometry, material );
@@ -47,7 +47,7 @@ MapMode.load(function() {
     MapMode.camera.lookAt(plane.position);
 
 	MapMode.scene.add(plane);
-    MapMode.scene.add(MapMode.lights.getAmbientLight());
+ 	MapMode.scene.add(MapMode.lights.getAmbientLight()); 
 	MapMode.scene.add(MapMode.startfield.getMesh());
 
 
