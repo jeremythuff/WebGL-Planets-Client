@@ -27,24 +27,17 @@ export class AssetLoader {
 
 	}
 
-	loadTexture(url, name) {
+	loadTexture(texture) {
 
 		let assetLoader = this;
-
 		let deffered = new Deferred();
 
-		if(!name) {
-			let urlSplit = url.split("/");
-			let nameWithExt = urlSplit[urlSplit.length-1];
-			let name = nameWithExt.split(".")[0];
-		}
-
-		assetLoader._textureLoader.load( url, function ( texture ) {
-			this.resources.texture.set(name, texture);
-			deferred.resolve(this.resources);
+		assetLoader._textureLoader.load( texture.getUrl(), function ( loadedTexture ) {
+			assetLoader.resources.textures.set(texture.name, loadedTexture);
+			deffered.resolve();
 		});
 
-		return deferred.promise;
+		return deffered.promise;
 
 	}
 
@@ -63,21 +56,26 @@ export class AssetLoader {
 	loadAll(requestedAssets) {
 
 		let assetLoader = this;
-
+		let loadAllDefer = new Deferred();
 		let promises = new Set();
 
 		requestedAssets.forEach(function(requestedAsset) {
-		  
-			var load;
+		
+			let loadPromise = [];
 
-			if(requestedAsset.type == "texture") load = assetLoader.loadTexture;
+			if(requestedAsset.type == "TEXTURE") {
+				loadPromise = assetLoader.loadTexture(requestedAsset);
+			}
 
-			promises.set(load(requestedAsset.url, requestedAsset.name))
+			promises.add(loadPromise);
+	
+		});
 
+		Promise.all(promises).then(function() {
+			loadAllDefer.resolve(assetLoader.resources);
+		});
 
-		});	
-
-		return Promise.all(promises);
+		return loadAllDefer.promise; 
 
 	}
 
