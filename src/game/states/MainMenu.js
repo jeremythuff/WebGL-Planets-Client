@@ -23,6 +23,7 @@ MainMenu.init(function() {
 
 MainMenu.load(function() {
 	if(MainMenu.loaded) return;
+	console.log(MainMenu);
 	console.log("MainMenu loaded");
 });
 

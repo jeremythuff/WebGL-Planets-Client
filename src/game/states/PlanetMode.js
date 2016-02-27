@@ -9,6 +9,8 @@ let PlanetMode = new State("Planet Mode");
 
 PlanetMode.init(function() {
 
+	console.log("PlanetMode init");
+
 	PlanetMode.controls.keyboard.pressed([27], function() {
 		PlanetMode.game.setCurrentState("Main Menu");
 	});
@@ -16,9 +18,6 @@ PlanetMode.init(function() {
 	PlanetMode.controls.keyboard.pressed([17, 66], function() {
 		PlanetMode.game.setCurrentState("Map Mode");
 	});
-
-	console.log("PlanetMode init");
-	console.log(PlanetMode);
 
 });
 
@@ -42,6 +41,7 @@ PlanetMode.load(function() {
     	PlanetMode.scene.add(PlanetMode.startfield.getMesh());
     	PlanetMode.scene.add(PlanetMode.lights.getSpotlight());
     	
+    	console.log(PlanetMode);
     	console.log("PlanetMode load");
 
     });

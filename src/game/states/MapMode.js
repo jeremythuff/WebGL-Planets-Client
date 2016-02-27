@@ -25,6 +25,7 @@ MapMode.init(function() {
 });
 
 MapMode.load(function() {
+
 	if(MapMode.loaded) return;
 
 	MapMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
@@ -45,7 +46,9 @@ MapMode.load(function() {
 	    MapMode.camera.position.z = 10;
 	    MapMode.camera.lookAt(MapMode.starMap.getMesh().position);
 
+	    console.log(MapMode);
 		console.log("MapMode loaded");
+
 	});
 
 });
