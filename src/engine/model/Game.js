@@ -7,9 +7,12 @@ export class Game extends Engine {
   		super();
   		
   		this.setName(name);
+      
       this.renderer = new Renderer();
-      this.renderer.shadowMapType = THREE.PCFSoftShadowMap;
-  		this.currentState = null;
+      this.renderer.shadowMap.enabled = true;
+      this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+  		
+      this.currentState = null;
   		this.states = new Map();
 
   	}

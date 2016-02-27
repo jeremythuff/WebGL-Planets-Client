@@ -1,17 +1,14 @@
 export class PlanetModeLights {
 	constructor() {
-		this.ambientLight = new THREE.AmbientLight( 0x555555 ); // soft white light 
-		this.spotLight = new THREE.SpotLight(0xbbbbbb,1);
-    	this.spotLight.position.set(5, 3, 5);
-    	this.spotLight.castShadow = true;
-	}
+		
+		this._spotLight = new THREE.SpotLight(0x999999,1);
+    	this._spotLight.position.set(6, 4, 6);
+    	this._spotLight.castShadow = true;
 
-	getAmbientLight() {
-		return this.ambientLight;
 	}
 
 	getSpotlight() {
-		return this.spotLight;
+		return this._spotLight;
 	}
 
 }

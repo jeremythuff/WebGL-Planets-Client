@@ -1,13 +1,40 @@
+import { AssetLoader } from "./../../engine/utils/AssetLoader.js"
+import { Texture } from "./../../engine/model/Texture.js"
+
+let assetLoader = new AssetLoader();
+
 export class Starfield {
 	constructor() {
-		// create the geometry sphere
-		this.geometry  = new THREE.SphereGeometry(90, 32, 32);
-		// create the material, using a texture of startfield
-		this.material  = new THREE.MeshBasicMaterial({transparent: true, opacity: 0.5});
-		this.material.map   = THREE.ImageUtils.loadTexture('src/game/resources/textures/starfield.png');
-		this.material.side  = THREE.BackSide;
-		// create the mesh based on geometry and material
-		this.mesh  = new THREE.Mesh(this.geometry, this.material);
+
+		let Starfield = this;
+		Starfield.loaded = false;
+		Starfield.mesh = null;
+
+	}
+
+	load() {
+
+		let Starfield = this;
+
+		let loadPromise = assetLoader.loadAll([
+			new Texture("src/game/resources/textures/starfield.png")
+		]).then(function(resources) {
+
+			let geometry  = new THREE.SphereGeometry(90, 32, 32);
+			let material  = new THREE.MeshBasicMaterial({
+				transparent: true, 
+				opacity: 0.5,
+				map: resources.textures.get("starfield"),
+				side: THREE.BackSide
+			});
+			
+			Starfield.mesh  = new THREE.Mesh(geometry, material);
+			Starfield.loaded = true
+			
+		});
+
+		return loadPromise;
+
 	}
 
 	getMesh() {

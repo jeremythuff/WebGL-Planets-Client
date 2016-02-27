@@ -28,17 +28,23 @@ PlanetMode.load(function() {
 
 	PlanetMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 	PlanetMode.lights = new PlanetModeLights();
-    PlanetMode.planet = new Planet(PlanetMode.scene);
+    PlanetMode.planet = new Planet();
     PlanetMode.startfield = new Starfield();
-	
 
-    PlanetMode.scene.add(PlanetMode.lights.getAmbientLight());
-    PlanetMode.scene.add(PlanetMode.lights.getSpotlight());
-	PlanetMode.scene.add(PlanetMode.startfield.getMesh());
+    Promise.all([
+    	PlanetMode.startfield.load(),
+    	PlanetMode.planet.load()
+    ]).then(function() {
+    	
+    	PlanetMode.camera.position.z = 1;
 
-	PlanetMode.camera.position.z = 1;
+    	PlanetMode.scene.add(PlanetMode.planet.mesh);
+    	PlanetMode.scene.add(PlanetMode.startfield.getMesh());
+    	PlanetMode.scene.add(PlanetMode.lights.getSpotlight());
+    	
+    	console.log("PlanetMode load");
 
-	console.log("PlanetMode load");
+    });
 
 });
 

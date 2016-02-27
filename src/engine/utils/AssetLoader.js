@@ -9,7 +9,7 @@ export class AssetLoader {
 	constructor() {
 
 		this._manager = new THREE.LoadingManager();
-		this._textureLoader = new TextureLoader();
+		this._textureLoader = new TextureLoader(this._manager);
 		this._modelLoader = new ModelLoader();
 		this._imageLoader = new AjaxLoader();
 		this._shaderLoader = new ShaderLoader();
