@@ -7,7 +7,7 @@ import { PlanetMode } from "./states/PlanetMode.js";
 
 export class Planets extends Game {
 	constructor() {
-		super("WGL Planets");
+		super("WebGL Planets");
 	}
 
 	init(initialStateName) {

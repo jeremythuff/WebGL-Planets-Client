@@ -3,37 +3,40 @@ import { Deferred } from "./../extensions/Deferred.js"
 import { AjaxLoader } from "./AjaxLoader.js"
 import { TextureLoader } from "./TextureLoader.js"
 import { ShaderLoader } from "./ShaderLoader.js"
-import { ModelLoader } from "./ModelLoader.js"
+import { ObjectLoader } from "./ObjectLoader.js"
 
 export class AssetLoader {
 	constructor() {
 
-		this._manager = new THREE.LoadingManager();
-		this._textureLoader = new TextureLoader(this._manager);
-		this._modelLoader = new ModelLoader();
-		this._imageLoader = new AjaxLoader();
-		this._shaderLoader = new ShaderLoader();
+		let AssetLoader = this;
 
-		this._manager.onProgress = function ( item, loaded, total ) {
+		AssetLoader._manager = new THREE.LoadingManager();
+		AssetLoader._textureLoader = new TextureLoader(AssetLoader._manager);
+		AssetLoader._objectLoader = new ObjectLoader(AssetLoader._manager);
+		AssetLoader._imageLoader = new AjaxLoader();
+		AssetLoader._shaderLoader = new ShaderLoader();
+
+		AssetLoader._manager.onProgress = function ( item, loaded, total ) {
 			console.log( item, loaded, total );
 		};
 
-		this.resources = {
+		AssetLoader.resources = {
 			"images": new Map(),
 			"shaders": new Map(),
-			"models": new Map(),
+			"objects": new Map(),
 			"textures": new Map(),
+			"misc": new Map()
 		}
 
 	}
 
-	loadTexture(texture) {
+	loadTexture(requesteTexture) {
 
-		let assetLoader = this;
+		let AssetLoader = this;
 		let deffered = new Deferred();
 
-		assetLoader._textureLoader.load( texture.getUrl(), function ( loadedTexture ) {
-			assetLoader.resources.textures.set(texture.name, loadedTexture);
+		AssetLoader._textureLoader.load( requesteTexture.getUrl(), function ( loadedTexture ) {
+			AssetLoader.resources.textures.set(requesteTexture.name, loadedTexture);
 			deffered.resolve();
 		});
 
@@ -41,15 +44,62 @@ export class AssetLoader {
 
 	}
 
-	loadShader(url) {
+	loadShader(requestedShader) {
+
+		let AssetLoader = this;
+		let deffered = new Deferred();
+
+		AssetLoader._shaderLoader.load( requestedShader.getUrl(), function ( loadedShader ) {
+			AssetLoader.resources.shaders.set(requestedShader.name, loadedShader);
+			deffered.resolve();
+		});
+
+		return deffered.promise;
 
 	}
 
-	loadImage(url) {
+	loadImage(RequestedImage) {
+
+		let AssetLoader = this;
+		let deffered = new Deferred();
+
+		AssetLoader._shaderLoader.load( RequestedImage.getUrl(), function ( loadedImage ) {
+			AssetLoader.resources.images.set(RequestedImage.name, loadedImage);
+			deffered.resolve();
+		});
+
+		return deffered.promise;
 
 	}
 
-	loadModel(url) {
+	loadObject(requestedObject) {
+
+		let assetLoader = this;
+		let deffered = new Deferred();
+
+		let load = assetLoader._objectLoader.load;
+		if(type == "json") load = assetLoader._objectLoader.loadJson;
+
+		load( requestedObject.getUrl(), function ( loadedObject ) {
+			assetLoader.resources.objects.set(requestedObject.name, loadedObject);
+			deffered.resolve();
+		});
+
+		return deffered.promise;
+
+	}
+
+	loadAsset(RequestedAsset) {
+
+		let AssetLoader = this;
+		let deffered = new Deferred();
+
+		AssetLoader._shaderLoader.load( RequestedImage.getUrl(), function ( loadedImage ) {
+			AssetLoader.resources.misc.set(RequestedImage.name, loadedImage);
+			deffered.resolve();
+		});
+
+		return deffered.promise;
 
 	}
 
@@ -60,11 +110,22 @@ export class AssetLoader {
 		let promises = new Set();
 
 		requestedAssets.forEach(function(requestedAsset) {
-		
-			let loadPromise = [];
 
-			if(requestedAsset.type == "TEXTURE") {
-				loadPromise = assetLoader.loadTexture(requestedAsset);
+			switch(requestedAsset.type) {
+				case "IMAGE":
+					let loadPromise = assetLoader.loadImage(requestedAsset);	
+					break;
+				case "SHADER":
+					loadPromise = assetLoader.loadShader(requestedAsset);
+					break;
+				case "OBJECT":
+					loadPromise = assetLoader.loadObject(requestedAsset);
+					break;
+				case "TEXTURE":
+					loadPromise = assetLoader.loadTexture(requestedAsset);	
+					break;
+				default: 
+					loadPromise = assetLoader.loadAsset(requestedAsset);	
 			}
 
 			promises.add(loadPromise);
