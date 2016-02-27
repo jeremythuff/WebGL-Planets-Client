@@ -8,6 +8,7 @@ export class StarMap {
 		let StarMap = this;
 		StarMap.loaded = false;
 		StarMap.mesh = null;
+		StarMap.spin = "left"
 	}
 
 	load() {
@@ -18,7 +19,7 @@ export class StarMap {
 			new Texture("src/game/resources/textures/spiral-galaxy.png")
 		]).then(function(resources) {
 
-			let planeGeometry = new THREE.PlaneGeometry(180, 120, 1, 1);
+			let planeGeometry = new THREE.PlaneGeometry(180, 180, 1, 1);
 			let material  = new THREE.MeshPhongMaterial({
 				transparent: true, 
 				opacity: 0.5,
@@ -26,15 +27,26 @@ export class StarMap {
 			});
 			
 			StarMap.mesh = new THREE.Mesh( planeGeometry, material );
-
-			StarMap.mesh.rotation.x = -0.5 * Math.PI;
-		    StarMap.mesh.position.x = 0;
-		    StarMap.mesh.position.y = 0;
-		    StarMap.mesh.position.z = 0;
+			StarMap.loaded = true;
 
 		});
 
 		return loadPromise;
+
+	}
+
+	update(delta) {
+		let StarMap = this;
+		if(!StarMap.loaded) return;
+		
+		if(StarMap.getMesh().rotation.z > 0.025)
+			StarMap.spin = "left"
+
+		if(StarMap.getMesh().rotation.z < -0.025)
+			StarMap.spin = "right"
+			
+		if(StarMap.spin == "right") StarMap.getMesh().rotation.z  += 1/120 * delta;
+		if(StarMap.spin == "left") StarMap.getMesh().rotation.z  -= 1/120 * delta;
 
 	}
 

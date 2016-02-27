@@ -41,9 +41,7 @@ MapMode.load(function() {
 		MapMode.scene.add(MapMode.starMap.getMesh());
 		MapMode.scene.add(MapMode.startfield.getMesh());
 
-		MapMode.camera.position.x = -30;
-	    MapMode.camera.position.y = 80;
-	    MapMode.camera.position.z = 10;
+	    MapMode.camera.position.z = 100;
 	    MapMode.camera.lookAt(MapMode.starMap.getMesh().position);
 
 	    console.log(MapMode);
@@ -53,7 +51,9 @@ MapMode.load(function() {
 
 });
 
-MapMode.update(function(delta) {});
+MapMode.update(function(delta) {
+	MapMode.starMap.update(delta);
+});
 
 MapMode.render(function(delta) {
 	MapMode.renderer.render(MapMode.scene, MapMode.camera);
