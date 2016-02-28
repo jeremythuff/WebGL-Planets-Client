@@ -9,6 +9,7 @@ export class StarMap {
 		StarMap.loaded = false;
 		StarMap.mesh = null;
 		StarMap.spin = "left";
+		StarMap.fade = false;
 	}
 
 	load() {
@@ -16,7 +17,9 @@ export class StarMap {
 		let StarMap = this;
 
 		let loadPromise = assetLoader.loadAll([
-			new Texture("src/game/resources/textures/spiral-galaxy.png")		]).then(function(resources) {
+			new Texture("src/game/resources/textures/spiral-galaxy.png"),		
+			new Texture("src/game/resources/textures/glowSpan.png")		
+		]).then(function(resources) {
 
 			StarMap.mesh = new THREE.Object3D();
 
@@ -29,15 +32,28 @@ export class StarMap {
 			
 			StarMap.nubulaMesh = new THREE.Mesh( nebulaGeometry, nebulaMaterial );
 
-			let cylinerGeometry = new THREE.CylinderGeometry( 1, 180, 0, 8, 100);
+			let cylinerGeometry = new THREE.CylinderGeometry( 5, 180, 0, (360/8) - 1, 100);
 			let cylinderMaterial = new THREE.MeshBasicMaterial({
-					transparent: true,
-					opacity: 0.05,
-					wireframe: true
-				});
+				map: resources.textures.get("glowSpan"),
+				blending: THREE.AdditiveBlending,
+				transparent: true,
+				depthTest: false,
+				depthWrite: false,		
+				wireframe: true,
+				opacity: 0.25,
+			});
 			StarMap.cylinderMesh = new THREE.Mesh( cylinerGeometry, cylinderMaterial );
 
-			StarMap.cylinderMesh.rotation.x = Math.PI / 2;			
+			StarMap.cylinderMesh.position.z = 5;			
+			StarMap.cylinderMesh.rotation.x = Math.PI / 2;
+
+			StarMap.cylinderMesh.material.map.wrapS = THREE.RepeatWrapping;
+			StarMap.cylinderMesh.material.map.wrapT = THREE.RepeatWrapping;
+			StarMap.cylinderMesh.material.map.needsUpdate = true;
+			StarMap.cylinderMesh.material.map.onUpdate = function(){
+				this.offset.y -= 0.001;
+				this.needsUpdate = true;
+			}			
 
 			StarMap.mesh.add(StarMap.nubulaMesh);
 			StarMap.mesh.add(StarMap.cylinderMesh);
@@ -63,15 +79,14 @@ export class StarMap {
 		if(StarMap.spin == "right") StarMap.getNebulaMesh().rotation.z  += 1/120 * delta;
 		if(StarMap.spin == "left") StarMap.getNebulaMesh().rotation.z  -= 1/120 * delta;
 
-
-		// if(StarMap.cylinderMesh.material.opacity < 0.01)
+		// if(StarMap.cylinderMesh.material.opacity < -0.05)
 		// 	StarMap.fade = false;
 
-		// if(StarMap.cylinderMesh.material.opacity > 0.05)
+		// if(StarMap.cylinderMesh.material.opacity > 0.2)
 		// 	StarMap.fade = true
 
-		// if(StarMap.fade) StarMap.cylinderMesh.material.opacity -= 0.00025
-		// if(!StarMap.fade) StarMap.cylinderMesh.material.opacity += 0.005
+		// if(StarMap.fade) StarMap.cylinderMesh.material.opacity -= 0.001
+		// if(!StarMap.fade) StarMap.cylinderMesh.material.opacity += 0.01
 	
 
 	}
