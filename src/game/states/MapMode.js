@@ -41,8 +41,8 @@ MapMode.load(function() {
 		MapMode.scene.add(MapMode.starMap.getMesh());
 		MapMode.scene.add(MapMode.startfield.getMesh());
 
-	    MapMode.camera.position.z = 50.00;
-	    MapMode.camera.position.y = -35.00;
+	    MapMode.camera.position.z = 35.00;
+	    MapMode.camera.position.y = -25.00;
 	    MapMode.camera.lookAt(MapMode.starMap.getMesh().position);
 
 	    console.log(MapMode);

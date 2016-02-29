@@ -7,6 +7,7 @@ module.exports = {
   output: { path: __dirname, filename: 'build/js/build.js' },
   module: {
     loaders: [
+		//ES6 Transpiler
 	    {
 	        test: /.js?$/,
 	        loader: 'babel-loader',
