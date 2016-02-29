@@ -34,15 +34,15 @@ let _makeXhrReq = function(method, url, data, deferred) {
 	let client = new XMLHttpRequest();
 	let uri = url;
 
-	if (args && (method === 'POST' || method === 'PUT' || method === 'DELETE')) {
+	if (data && (method === 'POST' || method === 'PUT' || method === 'DELETE')) {
 		uri += '?';
 		var argcount = 0;
-		for (var key in args) {
-			if (args.hasOwnProperty(key)) {
+		for (var key in data) {
+			if (data.hasOwnProperty(key)) {
 				if (argcount++) {
 					uri += '&';
 				}
-				uri += encodeURIComponent(key) + '=' + encodeURIComponent(args[key]);
+				uri += encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
 			}
 		}
 	}

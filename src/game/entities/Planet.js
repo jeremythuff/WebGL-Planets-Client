@@ -33,8 +33,8 @@ export class Planet {
 			Planet.mesh = new THREE.Mesh(planetGeometry, planetMaterial);
 			Planet.mesh.recievesShadow = true;
 
-			let clodGeometry   = new THREE.SphereGeometry(0.508, 32, 32)
-			let cloudMaterial  = new THREE.MeshPhongMaterial({
+			let atmosphereGeometry   = new THREE.SphereGeometry(0.508, 32, 32)
+			let atmosphereMaterial  = new THREE.MeshPhongMaterial({
 				map     : resources.textures.get("clouds"),
 				side        : THREE.DoubleSide,
 				opacity     : 0.9,
@@ -42,10 +42,10 @@ export class Planet {
 				depthWrite  : false
 			});
 			
-			Planet.cloudMesh = new THREE.Mesh(clodGeometry, cloudMaterial);
-			Planet.cloudMesh.castShadow = true;
+			Planet.atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
+			Planet.atmosphereMesh.castShadow = true;
 
-			Planet.mesh.add(Planet.cloudMesh);
+			Planet.mesh.add(Planet.atmosphereMesh);
 
 			Planet.loaded = true;
 
@@ -59,19 +59,18 @@ export class Planet {
 		return this.mesh;
 	}
 
-	getCloudMesh() {
-		return this.cloudMesh;
+	getAtmosphereMesh() {
+		return this.atmosphereMesh;
 	}
 
 	update(delta) {
 	
 		let planet = this;
-	
 		if(!planet.loaded) return;
 		
 		planet.getMesh().rotation.y  += 1/28 * delta;
-		planet.getCloudMesh().rotation.y  += 1/120 * delta;
-		planet.getCloudMesh().rotation.x  += 1/240 * delta;
+		planet.getAtmosphereMesh().rotation.y  += 1/120 * delta;
+		planet.getAtmosphereMesh().rotation.x  += 1/240 * delta;
 	
 	}
 }

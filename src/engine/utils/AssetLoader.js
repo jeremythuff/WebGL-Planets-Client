@@ -49,8 +49,9 @@ export class AssetLoader {
 		let AssetLoader = this;
 		let deffered = new Deferred();
 
-		AssetLoader._shaderLoader.load( requestedShader.getUrl(), function ( loadedShader ) {
-			AssetLoader.resources.shaders.set(requestedShader.name, loadedShader);
+		AssetLoader._shaderLoader.load( requestedShader.getUrl(), function ( program ) {
+			requestedShader.setProgram(program);
+			AssetLoader.resources.shaders.set(requestedShader.name, requestedShader);
 			deffered.resolve();
 		});
 

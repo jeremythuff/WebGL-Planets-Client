@@ -1,6 +1,11 @@
 @import './src/engine/resources/styles/sass/engine.scss';
 
 
+body, html { 
+    overflow-x: hidden; 
+    overflow-y: auto;
+}
+
 body {
 	background: #efefef;
 	margin: 0px;
