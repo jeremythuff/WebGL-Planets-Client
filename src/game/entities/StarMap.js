@@ -10,7 +10,7 @@ export class StarMap {
 		let StarMap = this;
 		StarMap.loaded = false;
 		StarMap.mesh = null;
-		StarMap.spin = "left";
+
 	}
 
 	load() {
@@ -27,8 +27,8 @@ export class StarMap {
 			StarMap.mesh = new THREE.Object3D();
 
 			StarMap.nebulaMesh = drawNebula(StarMap.mesh, resources);
-			drawCircleGuide(StarMap.mesh, resources);
-			//drawSquareGuide(StarMap.mesh, resources);
+			//drawCircleGuide(StarMap.mesh, resources);
+			drawSquareGuide(StarMap.mesh, resources);
 			StarMap.galaxyMesh = drawGalaxy(StarMap.mesh, resources);
 
 			StarMap.loaded = true;
@@ -43,14 +43,7 @@ export class StarMap {
 		let StarMap = this;
 		if(!StarMap.loaded) return;
 		
-		if(StarMap.getMesh().rotation.z > 0.025)
-			StarMap.spin = "left"
-
-		if(StarMap.getMesh().rotation.z < -0.025)
-			StarMap.spin = "right"
-			
-		if(StarMap.spin == "right") StarMap.nebulaMesh.rotation.z  += 1/120 * delta;
-		if(StarMap.spin == "left") StarMap.nebulaMesh.rotation.z  -= 1/120 * delta;
+		StarMap.nebulaMesh.rotation.z  += 1/120 * delta;
 	
 	}
 
@@ -65,7 +58,7 @@ let drawNebula = function(mesh, resources) {
 	let nebulaGeometry = new THREE.PlaneGeometry(180, 180, 1, 1);
 	let nebulaMaterial  = new THREE.MeshPhongMaterial({
 		transparent: true, 
-		opacity: 0.45,
+		opacity: 0.5,
 		map: resources.textures.get("spiral-galaxy")
 	});
 	
@@ -209,7 +202,7 @@ let drawGalaxy = function(mesh, resources) {
 		}
 	}
 
-	let shaderMaterial = new THREE.PointsMaterial({size: 0.25, transparent: true, opacity: 0.5});
+	let shaderMaterial = new THREE.PointsMaterial({size: 0.25, transparent: true, opacity: 0.25});
 
 	// let shaderMaterial = new THREE.ShaderMaterial( {
 	// 	uniforms: 		uniforms,
