@@ -20,6 +20,7 @@ export class StarMap {
 		let loadPromise = assetLoader.loadAll([
 			new Texture("src/game/resources/textures/spiral-galaxy.png"),		
 			new Texture("src/game/resources/textures/glowSpan.png"),
+			new Texture("src/game/resources/textures/bg-light.png"),
 			new Shader("src/engine/resources/shaders/default.fs.glsl"),		
 			new Shader("src/engine/resources/shaders/default.vs.glsl")
 		]).then(function(resources) {
@@ -27,7 +28,6 @@ export class StarMap {
 			StarMap.mesh = new THREE.Object3D();
 
 			StarMap.nebulaMesh = drawNebula(StarMap.mesh, resources);
-			//drawCircleGuide(StarMap.mesh, resources);
 			drawSquareGuide(StarMap.mesh, resources);
 			StarMap.galaxyMesh = drawGalaxy(StarMap.mesh, resources);
 
@@ -69,52 +69,6 @@ let drawNebula = function(mesh, resources) {
 	return nebulaMesh;
 }
 
-
-let drawCircleGuide = function(mesh, resources) {
-
-	let cylinerGeometry = new THREE.CylinderGeometry( 5, 90, 0, (360/8) - 1, 100);
-	//let cylinerGeometry = new THREE.PlaneGeometry( 50, 50, 20, 20);
-	let cylinderMaterial = new THREE.MeshBasicMaterial({
-		map: resources.textures.get("glowSpan"),
-		blending: THREE.AdditiveBlending,
-		transparent: true,
-		depthTest: false,
-		depthWrite: false,		
-		wireframe: true,
-		opacity: 0.25,
-	});
-
-	let cylinderMaterialDark = new THREE.MeshBasicMaterial({
-		transparent: true,
-		depthTest: false,
-		depthWrite: false,		
-		wireframe: true,
-		opacity: 0.015,
-	});
-
-	let cylinderMesh = new THREE.Mesh( cylinerGeometry, cylinderMaterial );
-	let cylinderMeshUnder = new THREE.Mesh( cylinerGeometry, cylinderMaterialDark );
-
-	cylinderMesh.position.z = 0.2;			
-	cylinderMeshUnder.position.z = 0.1;
-
-	cylinderMesh.rotation.x = Math.PI / 2;
-	cylinderMeshUnder.rotation.x = Math.PI / 2;
-
-
-	cylinderMesh.material.map.wrapS = THREE.RepeatWrapping;
-	cylinderMesh.material.map.wrapT = THREE.RepeatWrapping;
-	cylinderMesh.material.map.needsUpdate = true;
-	cylinderMesh.material.map.onUpdate = function(){
-		this.offset.y += 0.0025;
-		this.needsUpdate = true;
-	}
-
-	mesh.add(cylinderMesh);
-	mesh.add(cylinderMeshUnder);
-
-}
-
 let drawSquareGuide = function(mesh, resources) {
 
 	let gridGeometry = new THREE.PlaneGeometry( 50, 50, 20, 20);
@@ -133,7 +87,7 @@ let drawSquareGuide = function(mesh, resources) {
 		depthTest: false,
 		depthWrite: false,		
 		wireframe: true,
-		opacity: 0.05,
+		opacity: 0.075,
 	});
 
 	let gridMesh = new THREE.Mesh( gridGeometry, gridMaterial );
@@ -157,22 +111,18 @@ let drawSquareGuide = function(mesh, resources) {
 
 let drawGalaxy = function(mesh, resources) {
 	// Galaxy properties
-	let attributes = {
-		size: {	type: 'f', value: [] },
-		ca:   {	type: 'c', value: [] }
-	};
 
 	let uniforms = {
 		amplitude: { type: "f", value: 1.0 },
 		color:     { type: "c", value: new THREE.Color( 0xffffff ) },
-		texture:   { type: "t", value: new THREE.Texture(generateCircleTexture()) },
+		texture:   { type: "t", value: resources.textures.get("bg-light") },
 	};
 
 	// let galaxy = new THREE.BufferGeometry({
 	// 	attributes: attributes
 	// });
 
-	let galaxy = new THREE.Geometry();
+	let galaxy = new THREE.BufferGeometry();
 
 	let starsPerArm = 1250;
 	let arms = 10;
@@ -182,6 +132,17 @@ let drawGalaxy = function(mesh, resources) {
 	uniforms.texture.value.wrapS = uniforms.texture.value.wrapT = THREE.RepeatWrapping;
 
 	// Create the galaxy structure
+	let c3 = 0;
+	let c = 0;
+
+	let positions = new Float32Array( starsPerArm * arms * 3 );
+	let colors = new Float32Array( starsPerArm * arms * 3 );
+	let sizes = new Float32Array( starsPerArm * arms );
+
+	let color = new THREE.Color( 0x555555 );
+
+	console.log();
+
 	for (let arm = 0; arm < arms; arm++) {
 		for (let i = 0; i <= starsPerArm; i++) {
 			let radius = i / 40;
@@ -190,48 +151,51 @@ let drawGalaxy = function(mesh, resources) {
 			let y = rand() / 5;
 			let z = radius * Math.sin(angle) + rand();
 			// Add stars
-			let randResult = Math.random() * (starsPerArm);
-			if(randResult < i*i) {
-				galaxy.vertices.push(new THREE.Vector3(x + rand(), y + rand(), z + rand()));
-			}
-			// Add about 50% more stars with some position variation for a better result
-			galaxy.vertices.push(new THREE.Vector3(x, y, z));
-			if(rand() >= 0) {
-				galaxy.vertices.push(new THREE.Vector3(x + rand(), y + rand(), z + rand()));
-			}
+
+			positions[c3+0] = x + rand();
+			positions[c3+1] = y + rand();
+			positions[c3+2] = z + rand();
+
+			let starType = rand();
+
+			colors[c3+0] = color.r + starType;
+			colors[c3+1] = color.g + starType;
+			colors[c3+2] = color.b + starType;
+
+			sizes[c] = 5*rand();
+
+			c3+=3;
+			c++;
 		}
 	}
 
-	let shaderMaterial = new THREE.PointsMaterial({size: 0.25, transparent: true, opacity: 0.25});
+	galaxy.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
+	galaxy.addAttribute( 'ca', new THREE.BufferAttribute( colors, 3 ) );
+	galaxy.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
 
-	// let shaderMaterial = new THREE.ShaderMaterial( {
-	// 	uniforms: 		uniforms,
-	// 	vertexShader:   resources.shaders.get("default-vs"),
-	// 	fragmentShader: resources.shaders.get("default-fs"),
-	// 	transparent:	true
-	// });
+	//let shaderMaterial = new THREE.PointsMaterial({size: 0.25, transparent: true, opacity: 0.25});
+
+	console.log(resources.shaders.get("default-vs"));
+	console.log(resources.shaders.get("default-fs"));
+
+	let shaderMaterial = new THREE.ShaderMaterial({
+		uniforms: uniforms,
+		vertexShader: resources.shaders.get("default-vs").program,
+		fragmentShader: resources.shaders.get("default-fs").program,
+		blending:       THREE.AdditiveBlending,
+		depthTest:      false,
+		transparent: true
+	});
 
 	// Create the particle system
 	let particleSystem = new THREE.Points(galaxy, shaderMaterial);
 	particleSystem.sortParticles = true;
-	particleSystem.position.z = -0.5;
+	particleSystem.position.z = 0.5;
 	particleSystem.rotation.x = Math.PI / 2;
-	
-	// Data to send to the shader
-	let vertices = particleSystem.geometry.vertices;
-	let values_size = attributes.size.value;
-	let values_color = attributes.ca.value;
-	console.log("vertices = " + vertices.length);
-	// Color variation
-	for( var v = 0; v < vertices.length; v++ ) {
-		values_size[ v ] = 0.2 + rand();
-		values_color[ v ] = new THREE.Color( 0xffffff );
-		let starType = Math.random();
-		values_color[ v ].setRGB(1, 1, 1);
-	}
-	// Add the particle system to the scene
+
 	mesh.add(particleSystem);
 
+	console.log(mesh);
 	return particleSystem;
 
 }
