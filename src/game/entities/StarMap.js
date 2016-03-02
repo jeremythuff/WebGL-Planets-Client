@@ -65,9 +65,9 @@ export class StarMap {
 		}
 		
 		let attributes = StarMap.galaxyMesh.geometry.attributes;
-
-		for ( let i = 0; i < attributes.size.array.length; i++ ) {
-			let twinkleBase = 0.02; 
+		let halfTheStars = attributes.size.array.length/2;
+		for ( let i = halfTheStars; i < halfTheStars; i++ ) {
+			let twinkleBase = 0.05; 
 			let twinkle = twinkleBase*(Math.floor(Math.random()*2) == 1 ? 1 : -1);
 			attributes.size.array[i] += twinkle;
 			if(attributes.size.array[i] <= 0) attributes.size.array[i] += twinkleBase;
@@ -111,15 +111,16 @@ let drawSquareGuide = function(mesh, resources) {
 		depthTest: false,
 		depthWrite: false,		
 		wireframe: true,
-		opacity: 0.25,
+		opacity: 0.35,
 	});
 
 	let gridMaterialDark = new THREE.MeshBasicMaterial({
+		color: new THREE.Color(167, 119, 209),
 		transparent: true,
 		depthTest: false,
 		depthWrite: false,		
 		wireframe: true,
-		opacity: 0.025,
+		opacity: 0.05,
 	});
 
 	let gridMesh = new THREE.Mesh( gridGeometry, gridMaterial );
