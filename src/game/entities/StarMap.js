@@ -44,6 +44,7 @@ export class StarMap {
 		if(!StarMap.loaded) return;
 		
 		StarMap.nebulaMesh.rotation.z  += 1/120 * delta;
+		console.log(StarMap.galaxyMesh);
 	
 	}
 
