@@ -41,30 +41,34 @@ export class StarMap {
 	}
 
 	update(delta) {
+
 		let StarMap = this;
 		if(!StarMap.loaded) return;
 		
 		StarMap.nebulaMesh.rotation.z  += 1/120 * delta;
 
-
 		let rockSpeed = 1/200 * delta;
 		let rockDistance = 0.01;
 
-
 		if(StarMap.rockLeft) {
 			StarMap.galaxyMesh.rotation.y += rockSpeed;
-			if(StarMap.galaxyMesh.rotation.y >= rockDistance) StarMap.rockLeft = false;	
+			if(StarMap.galaxyMesh.rotation.y >= rockDistance) {
+				StarMap.galaxyMesh.rotation.y = rockDistance;
+				StarMap.rockLeft = false;	
+			}
 		} else {
 			StarMap.galaxyMesh.rotation.y -= rockSpeed;	
-			if(StarMap.galaxyMesh.rotation.y <= -rockDistance) StarMap.rockLeft = true;	
+			if(StarMap.galaxyMesh.rotation.y <= -rockDistance) {
+				StarMap.galaxyMesh.rotation.y = -rockDistance;
+				StarMap.rockLeft = true;	
+			}
 		}
-		
 		
 		let attributes = StarMap.galaxyMesh.geometry.attributes;
 
 		for ( let i = 0; i < attributes.size.array.length; i++ ) {
-			if(Math.random() > 0.99995)
-			attributes.size.array[i] = 5*rand();;
+			if(Math.random() > 0.9999)
+			attributes.size.array[i] = attributes.size.array[i]*rand();;
 		}
 
 		attributes.size.needsUpdate = true;
