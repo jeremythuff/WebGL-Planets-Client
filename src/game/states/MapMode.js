@@ -17,8 +17,8 @@ MapMode.init(function() {
 		MapMode.game.setCurrentState("Planet Mode");
 	});
 
-	MapMode.controls.keyboard.pressed([17, 83], function() {
-		MapMode.game.setCurrentState("Star Mode");
+	MapMode.controls.keyboard.pressed([17, 68], function() {
+		MapMode.game.setCurrentState("Dev Mode");
 	});
 
 	MapMode.controls.keyboard.pressed([27], function() {
