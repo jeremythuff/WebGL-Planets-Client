@@ -10,6 +10,7 @@ export class StarMap {
 		let StarMap = this;
 		StarMap.loaded = false;
 		StarMap.mesh = null;
+		StarMap.rockLeft = true;
 
 	}
 
@@ -21,14 +22,14 @@ export class StarMap {
 			new Texture("src/game/resources/textures/spiral-galaxy.png"),		
 			new Texture("src/game/resources/textures/glowSpan.png"),
 			new Texture("src/game/resources/textures/bg-light.png"),
-			new Shader("src/engine/resources/shaders/default.fs.glsl"),		
-			new Shader("src/engine/resources/shaders/default.vs.glsl")
+			new Shader("src/game/resources/shaders/galaxy-spiral.fs.glsl"),		
+			new Shader("src/game/resources/shaders/galaxy-spiral.vs.glsl")
 		]).then(function(resources) {
 
 			StarMap.mesh = new THREE.Object3D();
 
 			StarMap.nebulaMesh = drawNebula(StarMap.mesh, resources);
-			drawSquareGuide(StarMap.mesh, resources);
+			StarMap.gridMesh = drawSquareGuide(StarMap.mesh, resources);
 			StarMap.galaxyMesh = drawGalaxy(StarMap.mesh, resources);
 
 			StarMap.loaded = true;
@@ -44,7 +45,29 @@ export class StarMap {
 		if(!StarMap.loaded) return;
 		
 		StarMap.nebulaMesh.rotation.z  += 1/120 * delta;
-		console.log(StarMap.galaxyMesh);
+
+
+		let rockSpeed = 1/200 * delta;
+		let rockDistance = 0.01;
+
+
+		if(StarMap.rockLeft) {
+			StarMap.galaxyMesh.rotation.y += rockSpeed;
+			if(StarMap.galaxyMesh.rotation.y >= rockDistance) StarMap.rockLeft = false;	
+		} else {
+			StarMap.galaxyMesh.rotation.y -= rockSpeed;	
+			if(StarMap.galaxyMesh.rotation.y <= -rockDistance) StarMap.rockLeft = true;	
+		}
+		
+		
+		let attributes = StarMap.galaxyMesh.geometry.attributes;
+
+		for ( let i = 0; i < attributes.size.array.length; i++ ) {
+			if(Math.random() > 0.99995)
+			attributes.size.array[i] = 5*rand();;
+		}
+
+		attributes.size.needsUpdate = true;
 	
 	}
 
@@ -80,7 +103,7 @@ let drawSquareGuide = function(mesh, resources) {
 		depthTest: false,
 		depthWrite: false,		
 		wireframe: true,
-		opacity: 0.5,
+		opacity: 0.25,
 	});
 
 	let gridMaterialDark = new THREE.MeshBasicMaterial({
@@ -88,7 +111,7 @@ let drawSquareGuide = function(mesh, resources) {
 		depthTest: false,
 		depthWrite: false,		
 		wireframe: true,
-		opacity: 0.075,
+		opacity: 0.025,
 	});
 
 	let gridMesh = new THREE.Mesh( gridGeometry, gridMaterial );
@@ -105,8 +128,10 @@ let drawSquareGuide = function(mesh, resources) {
 		this.needsUpdate = true;
 	}
 
+	gridMesh.add(gridMeshUnder);
 	mesh.add(gridMesh);
-	mesh.add(gridMeshUnder);
+
+	return gridMesh;
 
 }
 
@@ -114,14 +139,10 @@ let drawGalaxy = function(mesh, resources) {
 	// Galaxy properties
 
 	let uniforms = {
-		amplitude: { type: "f", value: 1.0 },
 		color:     { type: "c", value: new THREE.Color( 0xffffff ) },
 		texture:   { type: "t", value: resources.textures.get("bg-light") },
+		alpha:     { type: "f", value: 0.35 }
 	};
-
-	// let galaxy = new THREE.BufferGeometry({
-	// 	attributes: attributes
-	// });
 
 	let galaxy = new THREE.BufferGeometry();
 
@@ -142,15 +163,13 @@ let drawGalaxy = function(mesh, resources) {
 
 	let color = new THREE.Color( 0x555555 );
 
-	console.log();
-
 	for (let arm = 0; arm < arms; arm++) {
 		for (let i = 0; i <= starsPerArm; i++) {
 			let radius = i / 40;
 			let angle = i / 100 + (armAngle * (arm + 1));
-			let x = radius * Math.cos(angle) + rand();
-			let y = rand() / 5;
-			let z = radius * Math.sin(angle) + rand();
+			let y = radius * Math.cos(angle) + rand();
+			let x = radius * Math.sin(angle) + rand();
+			let z = rand() / 5;
 			// Add stars
 
 			positions[c3+0] = x + rand();
@@ -174,15 +193,10 @@ let drawGalaxy = function(mesh, resources) {
 	galaxy.addAttribute( 'ca', new THREE.BufferAttribute( colors, 3 ) );
 	galaxy.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
 
-	//let shaderMaterial = new THREE.PointsMaterial({size: 0.25, transparent: true, opacity: 0.25});
-
-	console.log(resources.shaders.get("default-vs"));
-	console.log(resources.shaders.get("default-fs"));
-
 	let shaderMaterial = new THREE.ShaderMaterial({
 		uniforms: uniforms,
-		vertexShader: resources.shaders.get("default-vs").program,
-		fragmentShader: resources.shaders.get("default-fs").program,
+		vertexShader: resources.shaders.get("galaxy-spiral-vs").program,
+		fragmentShader: resources.shaders.get("galaxy-spiral-fs").program,
 		blending:       THREE.AdditiveBlending,
 		depthTest:      false,
 		transparent: true
@@ -192,37 +206,12 @@ let drawGalaxy = function(mesh, resources) {
 	let particleSystem = new THREE.Points(galaxy, shaderMaterial);
 	particleSystem.sortParticles = true;
 	particleSystem.position.z = 0.5;
-	particleSystem.rotation.x = Math.PI / 2;
 
 	mesh.add(particleSystem);
 
-	console.log(mesh);
 	return particleSystem;
 
 }
-
-function generateCircleTexture() {
-	// draw a circle in the center of the canvas
-	var size = 64;
-	// create canvas
-	var canvas = document.createElement('canvas');
-	canvas.width = size;
-	canvas.height = size;
-	// get context
-	var context = canvas.getContext('2d');
-	// draw circle
-	var centerX = size / 2;
-	var centerY = size / 2;
-	var radius = size / 2;
-	for(var i = 1; i < 33; i++) {
-		context.beginPath();
-		context.arc(centerX, centerY, (radius / 2) + (i / 2), 0, 2 * Math.PI, false);
-		context.fillStyle = "rgba(255, 255, 255, " + (1 / i) + ")";
-		context.fill();
-	}
-	return canvas;
-}
-
 
 let rand = function() {
 	return Math.random() - 0.5;

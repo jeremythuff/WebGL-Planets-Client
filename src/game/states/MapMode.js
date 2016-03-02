@@ -7,7 +7,6 @@ import { StarMap } from "./../entities/StarMap.js";
 
 let MapMode = new State("Map Mode");
 
-
 MapMode.init(function() {
 
 	console.log("MapMode init");
@@ -41,8 +40,8 @@ MapMode.load(function() {
 		MapMode.scene.add(MapMode.starMap.getMesh());
 		MapMode.scene.add(MapMode.startfield.getMesh());
 
-	    MapMode.camera.position.z = 35.00;
-	    MapMode.camera.position.y = -25.00;
+	    MapMode.camera.position.z = 40.00;
+	    MapMode.camera.position.y = -15;
 	    MapMode.camera.lookAt(MapMode.starMap.getMesh().position);
 
 	    console.log(MapMode);
