@@ -67,8 +67,12 @@ export class StarMap {
 		let attributes = StarMap.galaxyMesh.geometry.attributes;
 
 		for ( let i = 0; i < attributes.size.array.length; i++ ) {
-			if(Math.random() > 0.9999)
-			attributes.size.array[i] = attributes.size.array[i]*rand();;
+			let twinkleBase = 0.02; 
+			let twinkle = twinkleBase*(Math.floor(Math.random()*2) == 1 ? 1 : -1);
+			attributes.size.array[i] += twinkle;
+			if(attributes.size.array[i] <= 0) attributes.size.array[i] += twinkleBase;
+			if(attributes.size.array[i] >= 5) attributes.size.array[i] -= twinkleBase;
+			
 		}
 
 		attributes.size.needsUpdate = true;
