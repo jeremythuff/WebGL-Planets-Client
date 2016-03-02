@@ -3,7 +3,7 @@ import { State } from "./../../engine/model/State.js";
 import { Camera } from "./../../engine/model/Camera.js";
 import { Starfield } from "./../entities/Starfield.js";
 import { PlanetModeLights } from "./../lights/PlanetModeLights.js";
-import { Planet } from "./../entities/Planet.js";
+import { Earth } from "./../entities/Earth.js";
 
 let PlanetMode = new State("Planet Mode");
 
@@ -27,7 +27,7 @@ PlanetMode.load(function() {
 
 	PlanetMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
 	PlanetMode.lights = new PlanetModeLights();
-    PlanetMode.planet = new Planet();
+    PlanetMode.planet = new Earth();
     PlanetMode.startfield = new Starfield();
 
     Promise.all([

@@ -1,41 +1,49 @@
 import { AssetLoader } from "./../../engine/utils/AssetLoader.js"
-import { Texture } from "./../../engine/model/Texture.js"
 
 let assetLoader = new AssetLoader();
 
 export class Planet {
-	constructor() {
+	constructor(properties) {
 		let Planet = this;
 		Planet.loaded = false;
 		Planet.mesh = null;
+
+		Planet._unloadedResources = new Set();
+
+		Planet._size = properties.size !== undefined ? properties.size : 0.5;
+		Planet._atmosphereSize = properties.atmosphereSize !== undefined ? properties.atmosphereSize : Planet._size*0.02;
+		Planet._rotationSpeed = properties.rotationSpeed !== undefined ? (1/properties.rotationSpeed) : 28;
+		Planet._windSpeed = properties.windSpeed !== undefined ? (1/properties.windSpeed) : 1/140;
+
+		if(properties.map) Planet._unloadedResources.add(properties.map);
+		if(properties.bump) Planet._unloadedResources.add(properties.bump);
+		if(properties.spec) Planet._unloadedResources.add(properties.spec);
+		if(properties.atmosphere) Planet._unloadedResources.add(properties.atmosphere);
+
+
 	}
 
 	load() {
 
 		let Planet = this;
 
-		let loadPromise = assetLoader.loadAll([
-			new Texture("src/game/resources/textures/earth/earthmap.jpg"),
-			new Texture("src/game/resources/textures/earth/earthbump.jpg"),
-			new Texture("src/game/resources/textures/earth/earthspec.jpg"),
-			new Texture("src/game/resources/textures/earth/clouds.png")
-		]).then(function(resources) {
+		let loadPromise = assetLoader.loadAll(Planet._unloadedResources).then(function(resources) {
 		
-			let planetGeometry  = new THREE.SphereGeometry(0.5, 32, 32)
+			let planetGeometry  = new THREE.SphereGeometry(Planet._size, 32, 32)
 			let planetMaterial  = new THREE.MeshPhongMaterial({
-				map: resources.textures.get("earthmap"),
-				bumpMap: resources.textures.get("earthbump"),
+				map: resources.textures.get("map"),
+				bumpMap: resources.textures.get("bump"),
 				bumpScale: 0.005,
-				specularMap: resources.textures.get("earthspec"),
+				specularMap: resources.textures.get("spec"),
 				specular: new THREE.Color('grey')
 			});
 			
 			Planet.mesh = new THREE.Mesh(planetGeometry, planetMaterial);
 			Planet.mesh.recievesShadow = true;
 
-			let atmosphereGeometry   = new THREE.SphereGeometry(0.508, 32, 32)
+			let atmosphereGeometry   = new THREE.SphereGeometry(Planet._size+Planet._atmosphereSize, 32, 32)
 			let atmosphereMaterial  = new THREE.MeshPhongMaterial({
-				map     : resources.textures.get("clouds"),
+				map     : resources.textures.get("atmosphere"),
 				side        : THREE.DoubleSide,
 				opacity     : 0.9,
 				transparent : true,
@@ -68,9 +76,9 @@ export class Planet {
 		let planet = this;
 		if(!planet.loaded) return;
 		
-		planet.getMesh().rotation.y  += 1/28 * delta;
-		planet.getAtmosphereMesh().rotation.y  += 1/120 * delta;
-		planet.getAtmosphereMesh().rotation.x  += 1/240 * delta;
+		planet.getMesh().rotation.y  += planet._rotationSpeed * delta;
+		planet.getAtmosphereMesh().rotation.y  += planet._windSpeed * delta;
+		planet.getAtmosphereMesh().rotation.x  += planet._windSpeed/2 * delta;
 	
 	}
 }
