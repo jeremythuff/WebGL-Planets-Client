@@ -5,18 +5,18 @@ import { Shader } from "./../../engine/model/Shader.js"
 
 let assetLoader = new AssetLoader();
 
-export class StarMap {
+export class StarMapBg {
 	constructor() {
-		let StarMap = this;
-		StarMap.loaded = false;
-		StarMap.mesh = null;
-		StarMap.rockLeft = true;
+		let StarMapBg = this;
+		StarMapBg.loaded = false;
+		StarMapBg.mesh = null;
+		StarMapBg.rockLeft = true;
 
 	}
 
 	load() {
 
-		let StarMap = this;
+		let StarMapBg = this;
 
 		let loadPromise = assetLoader.loadAll([
 			new Texture("src/game/resources/textures/spiral-galaxy.png"),		
@@ -26,13 +26,13 @@ export class StarMap {
 			new Shader("src/game/resources/shaders/galaxy-spiral.vs.glsl")
 		]).then(function(resources) {
 
-			StarMap.mesh = new THREE.Object3D();
+			StarMapBg.mesh = new THREE.Object3D();
 
-			StarMap.nebulaMesh = drawNebula(StarMap.mesh, resources);
-			StarMap.gridMesh = drawSquareGuide(StarMap.mesh, resources);
-			StarMap.galaxyMesh = drawGalaxy(StarMap.mesh, resources);
+			StarMapBg.nebulaMesh = drawNebula(StarMapBg.mesh, resources);
+			StarMapBg.gridMesh = drawSquareGuide(StarMapBg.mesh, resources);
+			StarMapBg.galaxyMesh = drawGalaxy(StarMapBg.mesh, resources);
 
-			StarMap.loaded = true;
+			StarMapBg.loaded = true;
 
 		});
 
@@ -42,29 +42,29 @@ export class StarMap {
 
 	update(delta) {
 
-		let StarMap = this;
-		if(!StarMap.loaded) return;
+		let StarMapBg = this;
+		if(!StarMapBg.loaded) return;
 		
-		StarMap.nebulaMesh.rotation.z  += 1/120 * delta;
+		StarMapBg.nebulaMesh.rotation.z  += 1/120 * delta;
 
 		let rockSpeed = 1/200 * delta;
 		let rockDistance = 0.01;
 
-		if(StarMap.rockLeft) {
-			StarMap.galaxyMesh.rotation.y += rockSpeed;
-			if(StarMap.galaxyMesh.rotation.y >= rockDistance) {
-				StarMap.galaxyMesh.rotation.y = rockDistance;
-				StarMap.rockLeft = false;	
+		if(StarMapBg.rockLeft) {
+			StarMapBg.galaxyMesh.rotation.y += rockSpeed;
+			if(StarMapBg.galaxyMesh.rotation.y >= rockDistance) {
+				StarMapBg.galaxyMesh.rotation.y = rockDistance;
+				StarMapBg.rockLeft = false;	
 			}
 		} else {
-			StarMap.galaxyMesh.rotation.y -= rockSpeed;	
-			if(StarMap.galaxyMesh.rotation.y <= -rockDistance) {
-				StarMap.galaxyMesh.rotation.y = -rockDistance;
-				StarMap.rockLeft = true;	
+			StarMapBg.galaxyMesh.rotation.y -= rockSpeed;	
+			if(StarMapBg.galaxyMesh.rotation.y <= -rockDistance) {
+				StarMapBg.galaxyMesh.rotation.y = -rockDistance;
+				StarMapBg.rockLeft = true;	
 			}
 		}
 		
-		let attributes = StarMap.galaxyMesh.geometry.attributes;
+		let attributes = StarMapBg.galaxyMesh.geometry.attributes;
 		let halfTheStars = attributes.size.array.length/2;
 		for ( let i = halfTheStars; i < halfTheStars; i++ ) {
 			let twinkleBase = 0.05; 

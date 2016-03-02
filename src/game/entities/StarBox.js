@@ -3,18 +3,18 @@ import { Texture } from "./../../engine/model/Texture.js"
 
 let assetLoader = new AssetLoader();
 
-export class Starfield {
+export class StarBox {
 	constructor() {
 
-		let Starfield = this;
-		Starfield.loaded = false;
-		Starfield.mesh = null;
+		let StarBox = this;
+		StarBox.loaded = false;
+		StarBox.mesh = null;
 
 	}
 
 	load() {
 
-		let Starfield = this;
+		let StarBox = this;
 
 		let loadPromise = assetLoader.loadAll([
 			new Texture("src/game/resources/textures/starfield.png")
@@ -28,8 +28,8 @@ export class Starfield {
 				side: THREE.BackSide
 			});
 			
-			Starfield.mesh  = new THREE.Mesh(geometry, material);
-			Starfield.loaded = true
+			StarBox.mesh  = new THREE.Mesh(geometry, material);
+			StarBox.loaded = true
 			
 		});
 

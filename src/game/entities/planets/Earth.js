@@ -1,7 +1,7 @@
-import { Planet } from "./Planet.js"
-import { Texture } from "./../../engine/model/Texture.js"
+import { AbstractPlanet } from "./AbstractPlanet.js"
+import { Texture } from "./../../../engine/model/Texture.js"
 
-export class Earth extends Planet {
+export class Earth extends AbstractPlanet {
 	constructor() {
 		super({
 	    	size: 0.5,
