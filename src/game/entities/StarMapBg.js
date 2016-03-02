@@ -115,12 +115,12 @@ let drawSquareGuide = function(mesh, resources) {
 	});
 
 	let gridMaterialDark = new THREE.MeshBasicMaterial({
-		color: new THREE.Color(167, 119, 209),
+		color: 0x247f91,
 		transparent: true,
 		depthTest: false,
 		depthWrite: false,		
 		wireframe: true,
-		opacity: 0.05,
+		opacity: 0.1,
 	});
 
 	let gridMesh = new THREE.Mesh( gridGeometry, gridMaterial );
@@ -137,8 +137,8 @@ let drawSquareGuide = function(mesh, resources) {
 		this.needsUpdate = true;
 	}
 
-	gridMesh.add(gridMeshUnder);
-	mesh.add(gridMesh);
+	gridMeshUnder.add(gridMesh);
+	mesh.add(gridMeshUnder);
 
 	return gridMesh;
 

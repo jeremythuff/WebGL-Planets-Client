@@ -15,8 +15,12 @@ PlanetMode.init(function() {
 		PlanetMode.game.setCurrentState("Main Menu");
 	});
 
-	PlanetMode.controls.keyboard.pressed([17, 66], function() {
+	PlanetMode.controls.keyboard.pressed([17, 77], function() {
 		PlanetMode.game.setCurrentState("Map Mode");
+	});
+
+	MapMode.controls.keyboard.pressed([17, 83], function() {
+		MapMode.game.setCurrentState("Star Mode");
 	});
 
 });

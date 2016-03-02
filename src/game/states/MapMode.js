@@ -13,8 +13,12 @@ MapMode.init(function() {
 
 	MapMode.renderer.clear();
 
-	MapMode.controls.keyboard.pressed([13], function() {
+	MapMode.controls.keyboard.pressed([17, 80], function() {
 		MapMode.game.setCurrentState("Planet Mode");
+	});
+
+	MapMode.controls.keyboard.pressed([17, 83], function() {
+		MapMode.game.setCurrentState("Star Mode");
 	});
 
 	MapMode.controls.keyboard.pressed([27], function() {
