@@ -52,6 +52,7 @@ let _keyDownHandler = function(e) {
 }
 
 let _keyDown = function(keyboard, e) {
+	e.preventDefault();
 	keyboard.keys.set(e.which, true);
 	_runCbs(keyboard);
 }	
@@ -61,6 +62,7 @@ let _keyUpHandler = function(e) {
 }
 
 let _keyUp = function(keyboard, e) {
+	e.preventDefault();
 	keyboard.keys.set(e.which, false);
 }
 

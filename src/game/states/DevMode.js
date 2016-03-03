@@ -12,7 +12,7 @@ DevMode.init(function() {
 		DevMode.game.setCurrentState("Main Menu");
 	});
 
-	DevMode.controls.keyboard.pressed([17, 66], function() {
+	DevMode.controls.keyboard.pressed([17, 77], function() {
 		DevMode.game.setCurrentState("Map Mode");
 	});
 

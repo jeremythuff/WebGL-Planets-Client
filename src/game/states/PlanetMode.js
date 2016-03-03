@@ -23,10 +23,6 @@ PlanetMode.init(function() {
 		PlanetMode.game.setCurrentState("Map Mode");
 	});
 
-	MapMode.controls.keyboard.pressed([17, 83], function() {
-		MapMode.game.setCurrentState("Star Mode");
-	});
-
 });
 
 PlanetMode.load(function() {

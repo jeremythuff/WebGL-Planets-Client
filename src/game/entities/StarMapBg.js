@@ -9,8 +9,8 @@ export class StarMapBg {
 	constructor() {
 		let StarMapBg = this;
 		StarMapBg.loaded = false;
-		StarMapBg.mesh = null;
-		StarMapBg.rockLeft = true;
+		StarMapBg._mesh = null;
+		StarMapBg._rockLeft = true;
 
 	}
 
@@ -26,11 +26,11 @@ export class StarMapBg {
 			new Shader("src/game/resources/shaders/galaxy-spiral.vs.glsl")
 		]).then(function(resources) {
 
-			StarMapBg.mesh = new THREE.Object3D();
+			StarMapBg._mesh = new THREE.Object3D();
 
-			StarMapBg.nebulaMesh = drawNebula(StarMapBg.mesh, resources);
-			StarMapBg.gridMesh = drawSquareGuide(StarMapBg.mesh, resources);
-			StarMapBg.galaxyMesh = drawGalaxy(StarMapBg.mesh, resources);
+			StarMapBg.nebulaMesh = drawNebula(StarMapBg._mesh, resources);
+			StarMapBg.gridMesh = drawSquareGuide(StarMapBg._mesh, resources);
+			StarMapBg.galaxyMesh = drawGalaxy(StarMapBg._mesh, resources);
 
 			StarMapBg.loaded = true;
 
@@ -50,17 +50,17 @@ export class StarMapBg {
 		let rockSpeed = 1/200 * delta;
 		let rockDistance = 0.01;
 
-		if(StarMapBg.rockLeft) {
+		if(StarMapBg._rockLeft) {
 			StarMapBg.galaxyMesh.rotation.y += rockSpeed;
 			if(StarMapBg.galaxyMesh.rotation.y >= rockDistance) {
 				StarMapBg.galaxyMesh.rotation.y = rockDistance;
-				StarMapBg.rockLeft = false;	
+				StarMapBg._rockLeft = false;	
 			}
 		} else {
 			StarMapBg.galaxyMesh.rotation.y -= rockSpeed;	
 			if(StarMapBg.galaxyMesh.rotation.y <= -rockDistance) {
 				StarMapBg.galaxyMesh.rotation.y = -rockDistance;
-				StarMapBg.rockLeft = true;	
+				StarMapBg._rockLeft = true;	
 			}
 		}
 		
@@ -80,7 +80,7 @@ export class StarMapBg {
 	}
 
 	getMesh() {
-		return this.mesh;
+		return this._mesh;
 	}
 
 }
@@ -90,7 +90,7 @@ let drawNebula = function(mesh, resources) {
 	let nebulaGeometry = new THREE.PlaneGeometry(180, 180, 1, 1);
 	let nebulaMaterial  = new THREE.MeshPhongMaterial({
 		transparent: true, 
-		opacity: 0.5,
+		opacity: 0.35,
 		map: resources.textures.get("spiral-galaxy")
 	});
 	
@@ -107,9 +107,7 @@ let drawSquareGuide = function(mesh, resources) {
 	let gridMaterial = new THREE.MeshBasicMaterial({
 		map: resources.textures.get("glowSpan"),
 		blending: THREE.AdditiveBlending,
-		transparent: true,
-		depthTest: false,
-		depthWrite: false,		
+		transparent: true,		
 		wireframe: true,
 		opacity: 0.35,
 	});
@@ -117,7 +115,7 @@ let drawSquareGuide = function(mesh, resources) {
 	let gridMaterialDark = new THREE.MeshBasicMaterial({
 		color: 0x247f91,
 		transparent: true,
-		depthTest: false,
+		depthTest: true,
 		depthWrite: false,		
 		wireframe: true,
 		opacity: 0.1,
@@ -150,7 +148,7 @@ let drawGalaxy = function(mesh, resources) {
 	let uniforms = {
 		color:     { type: "c", value: new THREE.Color( 0xffffff ) },
 		texture:   { type: "t", value: resources.textures.get("bg-light") },
-		alpha:     { type: "f", value: 0.35 }
+		alpha:     { type: "f", value: 0.25 }
 	};
 
 	let galaxy = new THREE.BufferGeometry();
@@ -207,7 +205,7 @@ let drawGalaxy = function(mesh, resources) {
 		vertexShader: resources.shaders.get("galaxy-spiral-vs").program,
 		fragmentShader: resources.shaders.get("galaxy-spiral-fs").program,
 		blending:       THREE.AdditiveBlending,
-		depthTest:      false,
+		depthTest:      true,
 		transparent: true
 	});
 
