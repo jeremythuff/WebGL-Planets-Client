@@ -1,3 +1,5 @@
+import { THREE } from 'three';
+
 export class ObjectLoader {
 	constructor(manager) {
 

@@ -9,13 +9,15 @@
     "webpack": "^1.12.1"
   },
   "scripts": {
-    "postinstall": "bower install; webpack;",
+    "postinstall": "webpack;",
     "prestart": "npm install",
     "preupdate-webdriver": "npm install"
   },
   "dependencies": {
     "css-loader": "*",
+    "exports-loader": "^0.6.3",
     "sass-loader": "*",
-    "style-loader": "*"
+    "style-loader": "*",
+    "three": "*"
   }
 }

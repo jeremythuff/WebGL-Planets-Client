@@ -1,4 +1,4 @@
-import { completeAssign } from "./../extensions/completeAssign.js"
+import { THREE } from 'three';
 
 export class Scene {
 	constructor() {

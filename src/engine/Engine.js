@@ -1,4 +1,4 @@
-
+import { THREE } from 'three';
 import {Utilities} from "./utils/Utilities.js"
 
 export class Engine {

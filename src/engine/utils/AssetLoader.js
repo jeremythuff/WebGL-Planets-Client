@@ -1,5 +1,5 @@
+import { THREE } from 'three';
 import { Deferred } from "./../extensions/Deferred.js"
-
 import { AjaxLoader } from "./AjaxLoader.js"
 import { TextureLoader } from "./TextureLoader.js"
 import { ShaderLoader } from "./ShaderLoader.js"

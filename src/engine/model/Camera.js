@@ -1,3 +1,5 @@
+import { THREE } from 'three';
+
 export class Camera {
 	constructor( fov, aspect, near, far) {
 		
