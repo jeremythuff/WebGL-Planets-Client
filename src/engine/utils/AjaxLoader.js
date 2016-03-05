@@ -1,4 +1,4 @@
-import { Deferred } from "./../extensions/Deferred.js";
+import { Deferred } from "engine/extensions/Deferred.js";
 
 export class AjaxLoader {
 	constructor() {}

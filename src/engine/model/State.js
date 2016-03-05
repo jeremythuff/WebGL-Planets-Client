@@ -1,4 +1,4 @@
-import { Scene } from "./Scene.js";
+import { Scene } from "engine/model/Scene.js";
 import { Controls } from "./../io/Controls.js";
 
 export class State {

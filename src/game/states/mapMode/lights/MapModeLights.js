@@ -1,4 +1,5 @@
 import { THREE } from 'three';
+
 export class MapModeLights {
 	constructor() {
 

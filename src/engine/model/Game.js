@@ -1,6 +1,6 @@
 import { THREE } from 'three';
-import { Engine } from "../Engine.js";
-import { Renderer } from "./Renderer.js";
+import { Engine } from "engine/Engine.js";
+import { Renderer } from "engine/model/Renderer.js";
 
 export class Game extends Engine {
 	constructor(name) { 

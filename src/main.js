@@ -1,4 +1,4 @@
-import { Planets } from "./game//planetsMain.js";
+import { Planets } from "game/planetsMain.js";
 
 let planets = new Planets();
 

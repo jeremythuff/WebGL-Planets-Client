@@ -1,4 +1,4 @@
-import { AssetLoader } from "./AssetLoader.js"
+import { AssetLoader } from "engine/utils/AssetLoader.js"
 
 export class Utilities {
 	constructor() {

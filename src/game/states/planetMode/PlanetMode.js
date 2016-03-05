@@ -1,9 +1,9 @@
 
-import { State } from "./../../engine/model/State.js";
-import { Camera } from "./../../engine/model/Camera.js";
-import { StarBox } from "./../entities/StarBox.js";
-import { PlanetModeLights } from "./../lights/PlanetModeLights.js";
-import { Earth } from "./../entities/planets/Earth.js";
+import { State } from "engine/model/State.js";
+import { Camera } from "engine/model/Camera.js";
+import { StarBox } from "game/entities/StarBox.js";
+import { PlanetModeLights } from "game/states/planetMode/lights/PlanetModeLights.js";
+import { Earth } from "game/states/planetMode/entities/Earth.js";
 
 let PlanetMode = new State("Planet Mode");
 

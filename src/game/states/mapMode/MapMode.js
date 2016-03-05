@@ -1,10 +1,10 @@
 
-import { State } from "./../../engine/model/State.js";
-import { Camera } from "./../../engine/model/Camera.js";
-import { MapModeLights } from "./../lights/MapModeLights.js";
-import { StarBox } from "./../entities/StarBox.js";
-import { StarMapBg } from "./../entities/StarMapBg.js";
-import { StarMap } from "./../entities/StarMap.js";
+import { State } from "engine/model/State.js";
+import { Camera } from "engine/model/Camera.js";
+import { MapModeLights } from "game/states/mapMode/lights/MapModeLights.js";
+import { StarBox } from "game/entities/StarBox.js";
+import { StarMapBg } from "game/states/mapMode/entities/StarMapBg.js";
+import { StarMap } from "game/states/mapMode/entities/StarMap.js";
 
 
 let MapMode = new State("Map Mode");

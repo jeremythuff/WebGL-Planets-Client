@@ -1,5 +1,5 @@
 
-import { State } from "./../../engine/model/State.js";
+import { State } from "engine/model/State.js";
 
 let MainMenu = new State("Main Menu");
 

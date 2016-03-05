@@ -1,10 +1,12 @@
-import { Game } from "./../engine/model/Game.js";
+import { Game } from "engine/model/Game.js";
 
-import { Intro } from "./states/Intro.js";
-import { MainMenu } from "./states/MainMenu.js";
-import { MapMode } from "./states/MapMode.js";
-import { PlanetMode } from "./states/PlanetMode.js";
-import { DevMode } from "./states/DevMode.js";
+import { Intro } from "game/states/intro/Intro.js";
+import { MainMenu } from "game/states/mainMenu/MainMenu.js";
+import { MapMode } from "game/states/mapMode/MapMode.js";
+import { PlanetMode } from "game/states/planetMode/PlanetMode.js";
+
+//This is for experementation
+import { DevMode } from "game/states/DevMode.js";
 
 
 export class Planets extends Game {

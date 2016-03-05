@@ -3,6 +3,11 @@ var path = require('path');
 
 
 module.exports = {
+	resolve: {
+		root: [
+			path.resolve('./src/')
+		]
+	},
   	entry: {
 		"planets": ['./src/main.js', './src/game/resources/styles/sass/game.scss']
 	},
@@ -27,7 +32,6 @@ module.exports = {
 		    }
     	]
   	},
-
   	sassLoader: {
     	includePaths: [path.resolve(__dirname, "./src/resources/styles/sass/")]
   	}
