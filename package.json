@@ -1,23 +1,26 @@
 {
+  
   "name": "es6-test",
   "version": "1.0.0",
   "devDependencies": {
     "babel-core": "^6.0.12",
     "babel-loader": "^6.0.1",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.0.12",
     "extract-text-webpack-plugin": "^1.0.1",
-    "webpack": "^1.12.1"
-  },
-  "scripts": {
-    "postinstall": "webpack;",
-    "prestart": "npm install",
-    "preupdate-webdriver": "npm install"
-  },
-  "dependencies": {
+    "webpack": "^1.12.1",
+    "babel-plugin-syntax-decorators": "^6.5.0",
+    "babel-preset-stage-0": "^6.5.0",
     "css-loader": "*",
     "exports-loader": "^0.6.3",
     "sass-loader": "*",
     "style-loader": "*",
     "three": "*"
+  },
+  "scripts": {
+    "postinstall": "webpack;",
+    "prestart": "npm install",
+    "preupdate-webdriver": "npm install"
   }
+
 }

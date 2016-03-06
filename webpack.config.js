@@ -22,8 +22,16 @@ module.exports = {
 		        	path.resolve(__dirname, "src")
 		      	],
 		        query: {
-		          presets: ['es2015']
-		        }
+					cacheDirectory: true,
+					plugins: [
+						'transform-decorators-legacy', 
+						'syntax-decorators'
+					],
+					presets: [
+						'es2015', 
+						'stage-0'
+					]
+				}
 	    	},
 		    // SASS
 		    {
