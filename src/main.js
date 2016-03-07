@@ -24,13 +24,15 @@ import { Wired } from "context/Wired.js"
 
 @Wired
 class InjectedServices {
-	constructor(ActualArg, TestComponent) {
+	constructor(ActualArgOne, TestComponent, ActualArgTwo, TestService) {
 
-		console.log(ActualArg);
+		console.log(ActualArgOne);
 		console.log(TestComponent);
+		console.log(ActualArgTwo);
+		console.log(TestService);
 
 	}
 }
 
 
-new InjectedServices("foo");
+new InjectedServices("foo", "bar");
