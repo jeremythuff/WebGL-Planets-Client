@@ -9,7 +9,8 @@ module.exports = {
 		]
 	},
   	entry: {
-		"planets": ['./src/main.js', './src/game/resources/styles/sass/game.scss']
+		"planets": ['./src/main.js'],
+		"lib": ['./src/game/resources/styles/sass/game.scss'],
 	},
   	output: { path: __dirname, filename: 'build/[name].js' },
   	module: {
@@ -33,15 +34,23 @@ module.exports = {
 					]
 				}
 	    	},
+	    	// Handlebars
+	    	{ 
+	    		test: /\.hbs$/, 
+	    		loader: ["handlebars"]
+	    	},
 		    // SASS
 		    {
 		      	test: /\.scss$/,
-		      	 loaders: ["style", "css", "sass"]
+		      	loaders: ["style", "css", "sass"]
 		    }
     	]
   	},
   	sassLoader: {
     	includePaths: [path.resolve(__dirname, "./src/resources/styles/sass/")]
-  	}
+  	},
+  	node: {
+	  fs: "empty"
+	}
 
 };
