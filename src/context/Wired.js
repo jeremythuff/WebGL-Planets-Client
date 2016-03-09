@@ -1,4 +1,5 @@
 import { ComponentRegistry } from "context/Component.js"
+import { ServiceRegistry } from "context/Service.js"
 
 let Wired = function(target) {
 
@@ -13,6 +14,9 @@ let Wired = function(target) {
 			
 			if(ComponentRegistry.has(arument)) {
 				let component = ComponentRegistry.get(arument);
+				injectedArgs.push(component);
+			} else if(ServiceRegistry.has(arument)) { 
+				let component = ServiceRegistry.get(arument);
 				injectedArgs.push(component);
 			} else {
 				injectedArgs[i] = originalArgs[originalArgsUsed];

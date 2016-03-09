@@ -34,11 +34,6 @@ module.exports = {
 					]
 				}
 	    	},
-	    	// Handlebars
-	    	{ 
-	    		test: /\.hbs$/, 
-	    		loader: ["handlebars"]
-	    	},
 		    // SASS
 		    {
 		      	test: /\.scss$/,

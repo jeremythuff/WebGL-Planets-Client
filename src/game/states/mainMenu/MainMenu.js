@@ -3,8 +3,6 @@ import { State } from "engine/model/State.js";
 
 let MainMenu = new State("Main Menu");
 
-
-
 MainMenu.init(function() {
 
 	console.log("MainMenu init");
@@ -18,11 +16,28 @@ MainMenu.init(function() {
 	MainMenu.controls.keyboard.pressed([27], function() {
 		MainMenu.game.stop();
 	});
-	
+
+	MainMenu.gui.init();
+
 });
 
 MainMenu.load(function() {
 	if(MainMenu.loaded) return;
+
+	MainMenu.gui.setOnContext("mainMenu", {
+		title: "WebGL Planets",
+		menu: [
+			{option: "Map Mode"},
+			{option: "Planet Mode"},
+			{option: "Exit"}
+		]
+	});
+
+	MainMenu.gui.addView("Title", "src/game/states/MainMenu/gui/templates/title.hbs");
+	MainMenu.gui.addView("Menu", "src/game/states/MainMenu/gui/templates/menu.hbs");
+
+	MainMenu.gui.load();
+
 	console.log(MainMenu);
 	console.log("MainMenu loaded");
 });

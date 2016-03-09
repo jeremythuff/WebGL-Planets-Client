@@ -1,5 +1,6 @@
 import { Scene } from "engine/model/Scene.js";
-import { Controls } from "./../io/Controls.js";
+import { GUI } from "engine/model/GUI.js";
+import { Controls } from "engine/io/Controls.js";
 
 export class State {
 	constructor(name) {
@@ -18,6 +19,7 @@ export class State {
 		this.loaded = false;
 		this.initialized = false;
 
+		this.gui = new GUI();
 		this.scene = new Scene();
 		this.controls = new Controls();
 
