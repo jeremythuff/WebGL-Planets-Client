@@ -14,6 +14,7 @@ export class GUI {
 		GUI._views = new Map();
 		GUI._context = {};
 		GUI._loadAllPromise;
+		GUI._dirtyContext = [];
 		GUI.loaded = false;
 
 	}
@@ -24,8 +25,23 @@ export class GUI {
 	}
 
 	setOnContext(key, value) {
+
 		let GUI = this;
-		GUI._context[key] = value;
+
+		eval("GUI._context." + key + " = value");
+
+		var bindings = document.querySelectorAll("[data-bind='"+key+"']");
+		for (var i = 0; i < bindings.length; ++i) {
+		  	var binding = bindings[i];
+		  	
+		  	if(binding instanceof HTMLInputElement) {
+		  		binding.value = value;
+		  	} else {
+		  		binding.innerHTML = value;
+		  	}
+		  
+		}
+
 	}
 
 	load() {
@@ -48,6 +64,17 @@ export class GUI {
 			GUI.loaded = true;
 		});
 
+		Handlebars.registerHelper("bindfrom", function(binding) {
+			var template = Handlebars.compile("<span data-bind='"+binding+"'>{{"+binding+"}}</span>");
+			var result = template(GUI._context);
+		  	return  new Handlebars.SafeString(result);
+		});
+
+		Handlebars.registerHelper("bindwith", function(binding) {
+			var template = Handlebars.compile("data-bind='"+binding+"' value='{{"+binding+"}}'");
+			var result = template(GUI._context);
+		  	return  new Handlebars.SafeString(result);
+		});
 	}
 
 	init() {
@@ -65,6 +92,7 @@ export class GUI {
 	}
 
 	update() {
+
 	}
 
 	drawGui() {
@@ -73,6 +101,16 @@ export class GUI {
 		GUI._views.forEach(function(viewNode) {
 			document.body.insertBefore(viewNode.cloneNode(true), document.body.firstChild); // Now, append all elements at once
 		});
+
+		var bindings = document.querySelectorAll("[data-bind]");
+		
+		for (var i = 0; i < bindings.length; ++i) {
+	  		var binding = bindings[i];
+
+		  	binding.addEventListener("input", function() {
+		  		GUI.setOnContext(binding.dataset.bind, binding.value)
+		  	}, false);
+		}
 
 	}
 

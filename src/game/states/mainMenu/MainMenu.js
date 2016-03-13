@@ -19,6 +19,10 @@ MainMenu.init(function() {
 
 	MainMenu.gui.init();
 
+	setTimeout(function() {
+		MainMenu.gui.setOnContext("mainMenu.title", "It changed!!!!");
+	}, 5000);
+
 });
 
 MainMenu.load(function() {

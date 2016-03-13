@@ -95,9 +95,6 @@ export class State {
 		state.updateCbs.add(cb);
 	}
 
-	updateGui() {
-	}
-
 	render(cb) {
 		let state = this;
 		state.renderCbs.add(cb);

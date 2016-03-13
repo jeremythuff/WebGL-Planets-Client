@@ -40,7 +40,7 @@ export class Game extends Engine {
             for(let updateCb of game.currentState.updateCbs) {
                 updateCb(delta);
             }
-            game.currentState.updateGui();
+            game.currentState.gui.update();
         } 
   	}
 
