@@ -1,37 +1,31 @@
+import { AjaxLoader } from "engine/utils/AjaxLoader.js"
 import { Wired } from "context/Wired.js"
 import Handlebars from "handlebars/dist/handlebars.js"
 
 @Wired
 export class GUI {
 	constructor(AjaxLoader) {
-		this._ajax = AjaxLoader;
-		this._viewUrls = new Map();
-		this._loadPromises = new Set();
-		this.views = new Map();
-		this.context = {};
 
-		Handlebars.registerHelper('list', function(items, options) {
-			let out = "<ul>";
+		let GUI = this;
 
-			for(let i=0, l=items.length; i<l; i++) {
-			    out = out + "<li>" + options.fn(items[i]) + "</li>";
-			}
-
-			return out + "</ul>";
-		});
+		GUI._ajax = AjaxLoader;
+		GUI._viewUrls = new Map();
+		GUI._loadPromises = new Set();
+		GUI._views = new Map();
+		GUI._context = {};
+		GUI._loadAllPromise;
+		GUI.loaded = false;
 
 	}
 
 	addView(name, url) {
 		let GUI = this;
-
 		GUI._viewUrls.set(name, url);
-
-		
 	}
 
 	setOnContext(key, value) {
-		this.context[key] = value;
+		let GUI = this;
+		GUI._context[key] = value;
 	}
 
 	load() {
@@ -42,11 +36,16 @@ export class GUI {
 			
 			let loadPromise = GUI._ajax.GET(url).then(function(source) {
 				let template = Handlebars.compile(source);
-				GUI.views.set(name, template(GUI.context));
+				let viewNode = _makeElementFragment(template(GUI._context))
+				GUI._views.set(name, viewNode);
 			});
 
 			GUI._loadPromises.add(loadPromise);
 
+		});
+
+		GUI._loadAllPromise = Promise.all(GUI._loadPromises).then(function() {
+			GUI.loaded = true;
 		});
 
 	}
@@ -55,26 +54,52 @@ export class GUI {
 
 		let GUI = this;
 
-		Promise.all(GUI._loadPromises).then(function() {
-			GUI.views.forEach(function(view) {
-				console.log(view);
-				_appendStringAsNodes(view);
+		if(!GUI.loaded) {
+			GUI._loadAllPromise.then(function() {
+				GUI.drawGui();
 			});
-		});
+		} else {
+			GUI.drawGui();
+		}
 			
+	}
+
+	update() {
+	}
+
+	drawGui() {
+
+		let GUI = this;
+		GUI._views.forEach(function(viewNode) {
+			document.body.insertBefore(viewNode.cloneNode(true), document.body.firstChild); // Now, append all elements at once
+		});
+
+	}
+
+	close() {
+
+		let GUI = this;
+
+		let guiElems = [].slice.call(document.querySelectorAll(".gui-element"));
+
+		guiElems.forEach(function(guiElem) {
+			document.body.removeChild(guiElem);
+		});
+
 	}
 
 }
 
-let _appendStringAsNodes = function(html) {
+let _makeElementFragment = function(html) {
     var frag = document.createDocumentFragment(),
         tmp = document.createElement('body'), child;
     tmp.innerHTML = html;
     // Append elements in a loop to a DocumentFragment, so that the browser does
     // not re-render the document for each node
     while (child = tmp.firstChild) {
+    	child.className += " gui-element"
         frag.appendChild(child);
     }
-    document.body.insertBefore(frag, document.body.firstChild); // Now, append all elements at once
-    frag = tmp = null;
+    
+    return frag;
 }

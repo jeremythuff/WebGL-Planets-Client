@@ -24,8 +24,6 @@ export class State {
 		this.controls = new Controls();
 
 		this.renderer;
-		this.utils;
-
 	}
 
 	start() {
@@ -95,6 +93,9 @@ export class State {
 	update(cb) {
 		let state = this;
 		state.updateCbs.add(cb);
+	}
+
+	updateGui() {
 	}
 
 	render(cb) {

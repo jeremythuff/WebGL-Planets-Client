@@ -1,3 +1,7 @@
 <guibox class="main-menu menu">
-	{{#list mainMenu.menu}}{{option}}{{/list}}
+	<ul>
+		{{#each mainMenu.menu as |option|}}
+			<li>{{option.label}}</li>
+		{{/each}}
+	</ul>
 </guibox>

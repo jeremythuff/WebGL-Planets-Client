@@ -27,9 +27,9 @@ MainMenu.load(function() {
 	MainMenu.gui.setOnContext("mainMenu", {
 		title: "WebGL Planets",
 		menu: [
-			{option: "Map Mode"},
-			{option: "Planet Mode"},
-			{option: "Exit"}
+			{label: "Map Mode"},
+			{label: "Planet Mode"},
+			{label: "Exit"}
 		]
 	});
 
@@ -47,6 +47,7 @@ MainMenu.update(function(delta) {});
 MainMenu.render(function(delta) {});
 
 MainMenu.close(function() {
+	MainMenu.gui.close();
 	console.log("MainMenu close");
 });
 
