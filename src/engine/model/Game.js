@@ -24,7 +24,7 @@ export class Game extends Engine {
         console.log("Game Start");
 
         game.renderer.setSize( window.innerWidth, window.innerHeight );
-
+      
         document.body.insertBefore(game.renderer.domElement, document.body.firstChild);
 
         window.addEventListener('resize', function(){

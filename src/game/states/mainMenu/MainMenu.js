@@ -20,7 +20,9 @@ MainMenu.init(function() {
 	MainMenu.gui.init();
 
 	setTimeout(function() {
-		MainMenu.gui.setOnContext("mainMenu.title", "It changed!!!!");
+		MainMenu.gui.updateContext("mainMenu.title", "It changed!!!!");
+		MainMenu.gui.updateContext("mainMenu.bool", true);
+		MainMenu.gui.updateContext("mainMenu.select", 3);
 	}, 5000);
 
 });
@@ -28,14 +30,24 @@ MainMenu.init(function() {
 MainMenu.load(function() {
 	if(MainMenu.loaded) return;
 
-	MainMenu.gui.setOnContext("mainMenu", {
-		title: "WebGL Planets",
-		menu: [
-			{label: "Map Mode"},
-			{label: "Planet Mode"},
-			{label: "Exit"}
-		]
-	});
+	let context = {};
+
+	MainMenu.gui.updateContext("mainMenu", context);
+
+	context.title = "WebGL Planets";
+	context.bool = false;
+	context.select = 2;
+	context.selectOptions = [
+		{label:"option one", value: 1},
+		{label:"option two", value: 2},
+		{label:"option three", value: 3}
+	];
+	context.menu = [
+		{label: "Map Mode"},
+		{label: "Planet Mode"},
+		{label: "Exit"}
+	];
+
 
 	MainMenu.gui.addView("Title", "src/game/states/MainMenu/gui/templates/title.hbs");
 	MainMenu.gui.addView("Menu", "src/game/states/MainMenu/gui/templates/menu.hbs");

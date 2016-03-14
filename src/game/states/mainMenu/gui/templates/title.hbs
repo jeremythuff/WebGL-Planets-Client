@@ -1,4 +1,20 @@
 <guibox class="main-menu title">
-	<h1>{{bindfrom "mainMenu.title"}}</h1>
-	<input type="text" {{bindwith "mainMenu.title"}} />
+	
+	<h1>{{bind "mainMenu.title"}}</h1>
+	<input type="text" {{bindinput "mainMenu.title"}} />
+	
+	<br><hr><br>
+
+	<select {{bindinput "mainMenu.select"}} >
+		{{#each mainMenu.selectOptions}}
+			<option value="{{value}}">{{label}}</options>
+		{{/each}}
+	</select>
+	{{bind "mainMenu.select"}}
+
+	<br><hr><br>
+
+	<input type="checkbox" {{bindcheck "mainMenu.bool"}} />
+	{{bind "mainMenu.bool"}}
+	
 </guibox>

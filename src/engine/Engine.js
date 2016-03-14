@@ -1,8 +1,10 @@
 import { THREE } from 'three';
-import {Utilities} from "engine/utils/Utilities.js"
+import { Utilities } from "engine/utils/Utilities.js"
+import { Context } from "context/Context"
 
 export class Engine {
 	constructor() {
+		this.context = new Context();
 		this.startLoop();
 		this.utils = new Utilities();
 		this.running = false;
