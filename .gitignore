@@ -41,3 +41,10 @@ bundle.js
 
 #sass
 .sass-cache
+
+#fonts 
+/*.eot
+/*.woff
+/*.ttf
+/*.woff2
+/*.svg
