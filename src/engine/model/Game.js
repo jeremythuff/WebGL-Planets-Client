@@ -18,6 +18,11 @@ export class Game extends Engine {
 
   	}
 
+    stop() {
+      this.renderer.clear();
+      super.stop();
+    }
+
   	init(stateName) {
 
   		let game = this;

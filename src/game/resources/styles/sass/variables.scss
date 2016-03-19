@@ -1,5 +1,5 @@
 $primary-color: #2BEDE6;
-$highlight-color: #AAFFFC;
+$highlight-color: lighten( $primary-color, 20% );;
 $lowlight-color: darken( $primary-color, 20% );
 $dark-accesnt: #134242;
 
