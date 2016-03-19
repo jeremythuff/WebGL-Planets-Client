@@ -7,52 +7,39 @@ MainMenu.init(function() {
 
 	console.log("MainMenu init");
 
-	MainMenu.renderer.clear();
-
-	MainMenu.controls.keyboard.pressed([13], function() {
-		MainMenu.game.setCurrentState("Map Mode");
-	});
-
 	MainMenu.controls.keyboard.pressed([27], function() {
-		MainMenu.game.stop();
+		let lastStateName = MainMenu.game.getLastState().name;
+		MainMenu.game.setCurrentState(lastStateName);
 	});
-
-	MainMenu.gui.init();
-
-	setTimeout(function() {
-		MainMenu.gui.updateContext("mainMenu.title", "It changed!!!!");
-		MainMenu.gui.updateContext("mainMenu.bool", true);
-		MainMenu.gui.updateContext("mainMenu.select", 3);
-	}, 5000);
 
 });
 
 MainMenu.load(function() {
 	if(MainMenu.loaded) return;
-
-	let context = {};
-
-	MainMenu.gui.updateContext("mainMenu", context);
-
-	context.title = "WebGL Planets";
-	context.bool = false;
-	context.select = 2;
-	context.selectOptions = [
-		{label:"option one", value: 1},
-		{label:"option two", value: 2},
-		{label:"option three", value: 3}
-	];
-	context.menu = [
-		{label: "Map Mode"},
-		{label: "Planet Mode"},
-		{label: "Exit"}
-	];
-
-
+	
+	MainMenu.context.menu = {
+		mapMode: {
+			gloss: "Map Mode",
+			action: function(e) {
+				MainMenu.game.setCurrentState("Map Mode");
+			}
+		},
+		planetMode: {
+			gloss: "Planet Mode",
+			action: function(e) {
+				MainMenu.game.setCurrentState("Planet Mode");
+			}
+		},
+		exit: {
+			gloss: "Exit",
+			action: function(e) {
+				MainMenu.game.stop();
+			}
+		}
+	};
+		
 	MainMenu.gui.addView("Title", "src/game/states/MainMenu/gui/templates/title.hbs");
 	MainMenu.gui.addView("Menu", "src/game/states/MainMenu/gui/templates/menu.hbs");
-
-	MainMenu.gui.load();
 
 	console.log(MainMenu);
 	console.log("MainMenu loaded");

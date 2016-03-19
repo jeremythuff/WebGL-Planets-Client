@@ -19,7 +19,8 @@ export class State {
 		this.loaded = false;
 		this.initialized = false;
 
-		this.gui = new GUI();
+		this.context = {};
+		this.gui = new GUI(this.context);
 		this.scene = new Scene();
 		this.controls = new Controls();
 
@@ -67,6 +68,7 @@ export class State {
 		let initPromise = _runCbs(this.initCbs);
 		
 		initPromise.then(function() {
+			state.gui.init();
 			state.initialized = true;
 		});
 		
@@ -84,6 +86,7 @@ export class State {
 		let loadPromise = _runCbs(this.loadCbs);
 
 		loadPromise.then(function() {
+			state.gui.load();
 			state.loaded = true;
 		});
 

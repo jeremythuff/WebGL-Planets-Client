@@ -1,14 +1,14 @@
 import { TemplateEngine } from "engine/io/TemplateEngine"
 
 export class GUI {
-	constructor() {
+	constructor(context) {
 		let GUI = this;
 
 		GUI._templateEngine = new TemplateEngine(this);
 		GUI._viewUrls = new Map();
 		GUI._loadPromises = new Set();
 		GUI._views = new Map();
-		GUI._context = {};
+		GUI._context = context;
 		GUI._loadAllPromise;
 		GUI.loaded = false;
 	}
@@ -48,6 +48,12 @@ export class GUI {
 		return eval("GUI._context." + key);
 	}
 
+	callOnContext(toCall) {
+		let GUI = this;
+		console.log(GUI._context);
+		eval("GUI._context." + toCall);
+	}
+
 	load() {
 		let GUI = this;
 
@@ -70,16 +76,16 @@ export class GUI {
 		GUI._templateEngine.load();
 	}
 
-	init() {
+	init(cb) {
 		let GUI = this;
 
 		if(!GUI.loaded) {
 			GUI._loadAllPromise.then(function() {
-				GUI._templateEngine.drawViews(GUI._views);
+				GUI._templateEngine.drawViews(GUI._views, cb);
 			});
 		} else {
-			GUI._templateEngine.drawViews(GUI._views);
-		}	
+			GUI._templateEngine.drawViews(GUI._views, cb);
+		}
 	}
 
 	update() {}

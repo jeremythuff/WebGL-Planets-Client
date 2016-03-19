@@ -7,11 +7,18 @@ export class TemplateEngine {
 		let TemplateEngine = this;
 
 		TemplateEngine._ajax = new AjaxLoader();
+		TemplateEngine._clickListeners = new Map();
 		TemplateEngine.GUI = gui;
 	}
 
 	load() {
 		let TemplateEngine = this;
+
+		Handlebars.registerHelper("concat",  function(){
+			var arg = Array.prototype.slice.call(arguments,0);
+			arg.pop();
+			return arg.join('');
+		});
 
 		Handlebars.registerHelper("bind", function(binding) {
 			let template = Handlebars.compile("<span data-bind='"+binding+"'>{{"+binding+"}}</span>");
@@ -83,9 +90,41 @@ export class TemplateEngine {
 	  		})(i);
 		  	
 		}
+
+		this.registerListeners();
+	}
+
+	registerListeners() {
+
+		let TemplateEngine = this;
+
+		let nodeList = document.querySelectorAll("[data-on]");
+		Array.from(nodeList).forEach(function(eventElem) {
+			let eventArray = eventElem.dataset.on.split(",");
+			let eventType = eventArray[0];
+			let functionToCall = eventArray[1];
+
+
+			let eventHandler = function(e) {
+				TemplateEngine.GUI.callOnContext(functionToCall);
+			}
+
+			eventElem.addEventListener(eventType, eventHandler);
+
+			TemplateEngine._clickListeners.set(eventElem, {type: eventType, handler: eventHandler});
+
+		});
+
 	}
 
 	destroyViews(viewNodes) {
+
+		let TemplateEngine = this;
+
+		TemplateEngine._clickListeners.forEach(function(eventObj, eventElem) {
+			eventElem.removeEventListener(eventObj.type, eventObj.handler);
+		});
+
 		viewNodes.forEach(function(guiElem) {
 			document.body.removeChild(guiElem);
 		});

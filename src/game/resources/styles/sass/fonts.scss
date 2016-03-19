@@ -1,0 +1,27 @@
+@font-face {
+    font-family: 'Orbitron';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Orbitron Regular'), local('Orbitron-Regular'), url(/planets/src/game/resources/fonts/Orbitron/Orbitron-Regular.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: medium;
+    font-weight: 500;
+    src: local('Orbitron Medium'), local('Orbitron-Medium'), url(/planets/src/game/resources/fonts/Orbitron/Orbitron-Medium.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: bold;
+    font-weight: 700;
+    src: local('Orbitron Bold'), local('Orbitron-Bold'), url(/planets/src/game/resources/fonts/Orbitron/Orbitron-Bold.ttf) format('truetype');
+}
+
+@font-face {
+    font-family: 'Orbitron';
+    font-style: black;
+    font-weight: 900;
+    src: local('Orbitron Black'), local('Orbitron-Black'), url(/planets/src/game/resources/fonts/Orbitron/Orbitron-Black.ttf) format('truetype');
+}

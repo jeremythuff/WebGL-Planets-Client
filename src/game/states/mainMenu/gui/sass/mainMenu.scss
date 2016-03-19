@@ -1,16 +1,90 @@
 
 .main-menu.title {
+	width: 300px;
 	top: 10px;
 	left: 50%;
-	margin-left: -100px;
-	color: white;
-	font-family: sans-serif;
+	margin-left: -150px;
+	color: $primary-color;
 }
 
 .main-menu.menu {
 	top: 250px;
 	left: 50%;
-	margin-left: -100px;
+	width: 250px;
+	margin-left: -125px;
 	color: white;
-	font-family: sans-serif;
 }
+
+.main-menu.menu ul {
+	list-style-type: none;
+    list-style-position:inside;
+    margin:0;
+    padding:0;
+    width: 250px;
+    font-size: .85em;
+    color: $lowlight-color;
+    /*#4DA29E*/
+}
+
+.main-menu.menu ul li {
+	cursor: pointer;
+	position: relative;
+	margin-bottom: 10px;
+	text-align: center;
+	padding: 5px 25px;
+	box-shadow: inset 0 0 -1px 1px $highlight-color;
+	background: linear-gradient(135deg,rgba( $dark-accesnt, .5 ),rgba( $dark-accesnt, .2 ));
+	transition: color 0.25s ease-out, box-shadow 0.5s ease-out;
+}
+
+.main-menu.menu ul li::before {
+	content: '';
+	position: absolute;
+	background: darken( $primary-color, 50% );
+	left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+	width: 100%;
+	height: 100%;
+    -webkit-filter: blur(4px);
+    opacity: 0.8;
+    z-index: -1;
+}
+
+.main-menu.menu ul li:hover {
+	color: $highlight-color;
+	box-shadow: inset 0 -4px 10px -5px #AAFFFC;
+}
+
+.main-menu.menu ul li:active {
+	color: $success-color;
+}
+
+.main-menu.menu .corner {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	background: $lowlight-color;
+}
+
+.main-menu.menu .corner.top-left {
+	top: 0;
+	left: 0;
+}
+
+.main-menu.menu .corner.top-right {
+	top: 0;
+	right: 0;
+}
+
+.main-menu.menu .corner.bottom-left {
+	bottom: 0;
+	left: 0;
+}
+
+.main-menu.menu .corner.bottom-right {
+	bottom: 0;
+	right: 0;
+}
+
