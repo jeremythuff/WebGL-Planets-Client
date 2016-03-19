@@ -1,4 +1,9 @@
+@import './src/game/resources/styles/sass/fonts.scss';
+@import './src/game/resources/styles/sass/variables.scss';
+
 @import './src/engine/resources/styles/sass/engine.scss';
+@import './src/game/states/mainMenu/gui/sass/mainMenu.scss';
+
 
 
 body, html, canvas { 
@@ -12,4 +17,5 @@ body {
 	background: #efefef;
 	margin: 0px;
 	padding: 0px;
+	font-family: Orbitron;
 }

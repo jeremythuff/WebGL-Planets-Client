@@ -12,6 +12,7 @@ export class Game extends Engine {
       this.renderer.shadowMap.enabled = true;
       this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   		
+      this.lastState = null;
       this.currentState = null;
   		this.states = new Map();
 
@@ -24,7 +25,7 @@ export class Game extends Engine {
         console.log("Game Start");
 
         game.renderer.setSize( window.innerWidth, window.innerHeight );
-
+      
         document.body.insertBefore(game.renderer.domElement, document.body.firstChild);
 
         window.addEventListener('resize', function(){
@@ -40,6 +41,7 @@ export class Game extends Engine {
             for(let updateCb of game.currentState.updateCbs) {
                 updateCb(delta);
             }
+            game.currentState.gui.update();
         } 
   	}
 
@@ -101,21 +103,26 @@ export class Game extends Engine {
   	}
 
   	getCurrentState() {
-        let game = this;
+      let game = this;
   		return game.currentState;
   	}
+
+    getLastState() {
+      let game = this;
+      return game.lastState;
+    }
 
   	setCurrentState(stateName) {
 
   		let game = this;
-		let lastState = game.getCurrentState();
+		game.lastState = game.getCurrentState();
   		let nextState = game.getState(stateName);
         let promises = new Set();
 
         let stateLoadedPromise;
 
-        if(lastState) {
-            lastState.stop().then(function() {
+        if(game.lastState) {
+            game.lastState.stop().then(function() {
                 if(nextState) {
                     stateLoadedPromise = nextState.start();
                     game.currentState = nextState;

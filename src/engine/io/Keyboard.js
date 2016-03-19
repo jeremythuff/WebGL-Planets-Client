@@ -52,9 +52,8 @@ let _keyDownHandler = function(e) {
 }
 
 let _keyDown = function(keyboard, e) {
-	e.preventDefault();
 	keyboard.keys.set(e.which, true);
-	_runCbs(keyboard);
+	_runCbs(keyboard, e);
 }	
 
 let _keyUpHandler = function(e) {
@@ -62,11 +61,10 @@ let _keyUpHandler = function(e) {
 }
 
 let _keyUp = function(keyboard, e) {
-	e.preventDefault();
 	keyboard.keys.set(e.which, false);
 }
 
-let _runCbs = function(keyboard) {
+let _runCbs = function(keyboard, e) {
 
 	if(!keyboard.ready) return
 
@@ -78,7 +76,10 @@ let _runCbs = function(keyboard) {
 			if(!keyboard.keys.get(key)) pressed = false;
 		});
 
-		if(pressed) cb();
+		if(pressed) {
+			e.preventDefault();
+			cb();
+		}
 
 	});
 

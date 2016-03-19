@@ -1,0 +1,13 @@
+<guibox class="main-menu menu">
+	<ul>
+		{{#each menu as |option|}}
+			<li data-on="click, menu.{{@key}}.action()">
+				<div class="corner top-left"></div>
+				<div class="corner top-right"></div>
+				{{option.gloss}}<i class="fa fa-chevron-right float-right"></i>
+				<div class="corner bottom-left"></div>
+				<div class="corner bottom-right"></div>
+			</li>
+		{{/each}}
+	</ul>
+</guibox>

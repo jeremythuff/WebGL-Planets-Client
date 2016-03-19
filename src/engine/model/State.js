@@ -1,5 +1,6 @@
 import { Scene } from "engine/model/Scene.js";
-import { Controls } from "./../io/Controls.js";
+import { GUI } from "engine/model/GUI.js";
+import { Controls } from "engine/io/Controls.js";
 
 export class State {
 	constructor(name) {
@@ -18,12 +19,12 @@ export class State {
 		this.loaded = false;
 		this.initialized = false;
 
+		this.context = {};
+		this.gui = new GUI(this.context);
 		this.scene = new Scene();
 		this.controls = new Controls();
 
 		this.renderer;
-		this.utils;
-
 	}
 
 	start() {
@@ -67,6 +68,7 @@ export class State {
 		let initPromise = _runCbs(this.initCbs);
 		
 		initPromise.then(function() {
+			state.gui.init();
 			state.initialized = true;
 		});
 		
@@ -84,6 +86,7 @@ export class State {
 		let loadPromise = _runCbs(this.loadCbs);
 
 		loadPromise.then(function() {
+			state.gui.load();
 			state.loaded = true;
 		});
 

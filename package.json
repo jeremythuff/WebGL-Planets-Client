@@ -1,5 +1,4 @@
 {
-  
   "name": "es6-test",
   "version": "1.0.0",
   "devDependencies": {
@@ -21,6 +20,8 @@
     "postinstall": "webpack;",
     "prestart": "npm install",
     "preupdate-webdriver": "npm install"
+  },
+  "dependencies": {
+    "handlebars": "^4.0.5"
   }
-
 }
