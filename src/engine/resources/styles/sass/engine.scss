@@ -1,3 +1,4 @@
+@import "./src/engine/resources/fonts/font-awesome/scss/font-awesome.scss";
 
 body {
 	background: red;
@@ -5,4 +6,12 @@ body {
 
 guibox {
 	position: fixed;
+}
+
+.float-right {
+	float: right;
+}
+
+.float-left {
+	float: left;
 }
