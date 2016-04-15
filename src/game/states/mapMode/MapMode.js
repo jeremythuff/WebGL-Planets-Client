@@ -15,17 +15,7 @@ MapMode.init(function() {
 
 	MapMode.renderer.clear();
 
-	MapMode.controls.keyboard.pressed([17, 80], function() {
-		MapMode.game.setCurrentState("Planet Mode");
-	});
-
-	MapMode.controls.keyboard.pressed([17, 68], function() {
-		MapMode.game.setCurrentState("Dev Mode");
-	});
-
-	MapMode.controls.keyboard.pressed([27], function() {
-		MapMode.game.setCurrentState("Main Menu");
-	});
+	_registerControlls();
 	
 });
 
@@ -54,7 +44,7 @@ MapMode.load(function() {
 		MapMode.scene.add(MapMode.starBox.getMesh());
 
 	    MapMode.camera.position.z = 40.00;
-	    MapMode.camera.position.y = -15;
+	    //MapMode.camera.position.y = -15;
 	 	MapMode.camera.lookAt(MapMode.starMapBg.getMesh().position);
 
 	    console.log(MapMode);
@@ -80,4 +70,23 @@ MapMode.destroy(function() {
 	console.log("MapMode destroy");
 });
 
+
+let _registerControlls = function() {
+
+
+	MapMode.controls.keyboard.pressed([17, 80], function() {
+		MapMode.game.setCurrentState("Planet Mode");
+	});
+
+	MapMode.controls.keyboard.pressed([17, 68], function() {
+		MapMode.game.setCurrentState("Dev Mode");
+	});
+
+	MapMode.controls.keyboard.pressed([27], function() {
+		MapMode.game.setCurrentState("Main Menu");
+	});
+}
+
 export {MapMode};
+
+

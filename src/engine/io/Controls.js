@@ -11,13 +11,13 @@ export class Controls {
 
 	}
 
-	init() {
+	init(canvas) {
 	
 		let controls = this;
 	
-		this.keyboard.init();
-		//this.mouse.init();
-		//this.gamepad.init();
+		controls.keyboard.init(canvas);
+		controls.mouse.init(canvas);
+		//controls.gamepad.init(canvas);
 	
 	}
 
@@ -27,19 +27,19 @@ export class Controls {
 	
 		setTimeout(function() {
 			controls.keyboard.activate();
-			//this.mouse.activate();
-			//this.gamepad.activate();
+			controls.mouse.activate();
+			//controls.gamepad.activate();
 		}, 250);	
 	
 	}
 
-	destroy() {
+	destroy(canvas) {
 		
 		let controls = this;
 
-		this.keyboard.destroy();
-		//this.mouse.destroy();
-		//this.gamepad.destroy();
+		controls.keyboard.destroy(canvas);
+		controls.mouse.destroy(canvas);
+		//controls.gamepad.destroy(canvas);
 	
 	}
 }

@@ -4,24 +4,25 @@ export class Keyboard {
 		this.keys = new Map();
 		this.cbs = new Map();
 		this.ready = false;
-		
+		this._keyDownHandler = _keyDownHandler.bind(this);
+		this._keyUpHandler = _keyUpHandler.bind(this);
 	}
 
-	init() {
+	init(canvas) {
+
+		let keyboard = this;
+		
+		window.addEventListener('keydown', keyboard._keyDownHandler, false);
+		window.addEventListener('keyup', keyboard._keyUpHandler, false);
+
+	}
+
+	destroy(canvas) {
 		
 		let keyboard = this;
 
-		window.addEventListener('keydown', _keyDownHandler.bind(this), false);
-		window.addEventListener('keyup', _keyUpHandler.bind(this), false);
-
-	}
-
-	destroy() {
-		
-		let keyboard = this;
-
-		window.removeEventListener('keydown', _keyDownHandler.bind(this), false);
-		window.removeEventListener('keyup', _keyUpHandler.bind(this), false);
+		window.removeEventListener('keydown', keyboard._keyDownHandler, false);
+		window.removeEventListener('keyup', keyboard._keyUpHandler, false);
 
 		keyboard.cbs.clear();
 		keyboard.keys.clear();

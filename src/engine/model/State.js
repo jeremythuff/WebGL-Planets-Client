@@ -31,7 +31,7 @@ export class State {
 
 		let state = this;
 
-		state.controls.init();
+		state.controls.init(state.renderer.domElement);
 
 		let loadPromise = state.runLoad();
 
@@ -51,7 +51,7 @@ export class State {
 
 		stopPromise.then(function() {
 			state.runDestroy();
-			state.controls.destroy();
+			state.controls.destroy(state.renderer.domElement);
 		});
 
 		return stopPromise;
