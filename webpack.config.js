@@ -34,6 +34,7 @@ module.exports = {
 					]
 				}
 	    	}, 
+	    	// FONTS
 	    	{
 				test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
 				loader: "url?limit=10000&mimetype=application/font-woff"
