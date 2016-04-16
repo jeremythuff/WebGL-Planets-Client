@@ -125,8 +125,8 @@ let drawSquareGuide = function(mesh, resources) {
 	let gridMesh = new THREE.Mesh( gridGeometry, gridMaterial );
 	let gridMeshUnder = new THREE.Mesh( gridGeometry, gridMaterialDark );
 
-	gridMesh.position.z = 0.2;			
-	gridMeshUnder.position.z = 0.1;
+	gridMesh.position.z = 0.02;			
+	gridMeshUnder.position.z = 0.01;
 
 	gridMesh.material.map.wrapS = THREE.RepeatWrapping;
 	gridMesh.material.map.wrapT = THREE.RepeatWrapping;

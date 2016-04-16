@@ -7,7 +7,7 @@ MainMenu.init(function() {
 
 	console.log("MainMenu init");
 
-	MainMenu.controls.keyboard.pressed([27], function() {
+	MainMenu.controls.keyboard.when([27], function() {
 		let lastStateName = MainMenu.game.getLastState().name;
 		MainMenu.game.setCurrentState(lastStateName);
 	});

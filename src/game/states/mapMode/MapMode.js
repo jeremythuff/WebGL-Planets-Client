@@ -44,7 +44,6 @@ MapMode.load(function() {
 		MapMode.scene.add(MapMode.starBox.getMesh());
 
 	    MapMode.camera.position.z = 40.00;
-	    //MapMode.camera.position.y = -15;
 	 	MapMode.camera.lookAt(MapMode.starMapBg.getMesh().position);
 
 	    console.log(MapMode);
@@ -74,17 +73,45 @@ MapMode.destroy(function() {
 let _registerControlls = function() {
 
 
-	MapMode.controls.keyboard.pressed([17, 80], function() {
+	MapMode.controls.keyboard.when([17, 80], function() {
 		MapMode.game.setCurrentState("Planet Mode");
 	});
 
-	MapMode.controls.keyboard.pressed([17, 68], function() {
+	MapMode.controls.keyboard.when([17, 68], function() {
 		MapMode.game.setCurrentState("Dev Mode");
 	});
 
-	MapMode.controls.keyboard.pressed([27], function() {
+	MapMode.controls.keyboard.when([27], function() {
 		MapMode.game.setCurrentState("Main Menu");
 	});
+
+	MapMode.controls.mouse.when(['scrollup'],function(mouse, e) {
+
+		let zoomFactor = mouse.scroll.get("deltaY")/100;
+		let tiltFactor = zoomFactor/8;
+
+		if(MapMode.camera.position.z+zoomFactor>40) return;
+		
+		MapMode.camera.position.z += zoomFactor;
+		MapMode.camera.position.y += tiltFactor;
+	 	MapMode.camera.lookAt(MapMode.starMapBg.getMesh().position);
+	
+	});
+
+	MapMode.controls.mouse.when(['scrolldown'],function(mouse, e) {
+		let zoomFactor = mouse.scroll.get("deltaY")/100;
+		let tiltFactor = zoomFactor/8;
+		
+		if(MapMode.camera.position.z+zoomFactor<5) return;
+		
+		MapMode.camera.position.z += zoomFactor;
+		MapMode.camera.position.y += tiltFactor;
+	 	
+	 	MapMode.camera.lookAt(MapMode.starMapBg.getMesh().position);
+	
+	});
+
+
 }
 
 export {MapMode};

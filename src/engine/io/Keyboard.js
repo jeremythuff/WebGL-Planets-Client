@@ -36,7 +36,7 @@ export class Keyboard {
 		keyboard.ready = true;
 	}
 
-	pressed(keys,cb) {
+	when(keys,cb) {
 		let keyboard = this;
 		keyboard.cbs.set(keys, cb);
 	}
@@ -79,7 +79,7 @@ let _runCbs = function(keyboard, e) {
 
 		if(pressed) {
 			e.preventDefault();
-			cb();
+			cb(keyboard, e);
 		}
 
 	});
