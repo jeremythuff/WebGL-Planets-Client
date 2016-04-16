@@ -11,6 +11,12 @@ export class Mouse {
 		this._mouseupHandler = _mouseupHandler.bind(this).bind(this);
 		this._mouseMoveHandler = _mouseMoveHandler.bind(this);
 		this._mouseWheelHandler = _mouseWheelHandler.bind(this);
+		this.MOVE = 0.1;
+		this.SCROLL = 0.2;
+		this.SCROLLUP = 0.3;
+		this.SCROLLDOWN = 0.4;
+		this.LEFTCLICK = 0.5;
+		this.RIGHTCLICK = 0.6;
 	}
 
 	init(canvas) {	
@@ -64,6 +70,10 @@ let _mousedownHandler = function(e) {
 
 let _mousedown = function(mouse, e) {
 	mouse.buttons.set(e.which, true);
+
+	if(e.which == 1) mouse.buttons.set(mouse.LEFTCLICK, true);
+	if(e.which == 3) mouse.buttons.set(mouse.RIGHT, true);
+
 	_runCbs(mouse, e);
 }
 
@@ -73,22 +83,41 @@ let _mouseupHandler = function(e) {
 
 let _mouseup = function(mouse, e) {
 	mouse.buttons.set(e.which, false);
+	if(e.which == 1) mouse.buttons.set(mouse.LEFTCLICK, false);
+	if(e.which == 3) mouse.buttons.set(mouse.RIGHT, false);
 }
 
 let _mouseMoveHandler = function(e) {
 	let mouse = this;
 
+	let originalX = mouse.position.get("x");
+	let originalY = mouse.position.get("y");
+
 	mouse.position.set("x", e.clientX);
 	mouse.position.set("y", e.clientY);
 
-	mouse.buttons.set("move", true);
+	if(originalX>e.clientX) {
+		mouse.position.set("deltaX", (originalX-e.clientX));	
+	} else {
+		mouse.position.set("deltaX", (e.clientX-originalX)*-1);
+	}
+
+	if(originalY>e.clientY) {
+		mouse.position.set("deltaY", (originalY-e.clientY)*-1);	
+	} else {
+		mouse.position.set("deltaY", (e.clientY-originalY));	
+	}
+
+	mouse.buttons.set(mouse.MOVE, true);
 
 	if(mouse.moveTimer !== null) {
         clearTimeout(mouse.moveTimer);        
     }
     
     mouse.moveTimer = setTimeout(function() {
-    	mouse.buttons.set("move", false);
+    	mouse.buttons.set(mouse.MOVE, false);
+    	mouse.position.set("deltaX", 0);
+		mouse.position.set("deltaY", 0);
     }, 100);
 
     _runCbs(mouse, e);
@@ -115,18 +144,18 @@ let _mouseWheelHandler = function(e) {
 	mouse.scroll.set("deltaY", e.deltaY);
 	mouse.scroll.set("deltaZ", e.deltaZ);
 
-	mouse.buttons.set("scroll", true);
-	mouse.buttons.set("scrollup", originalY<mouse.scroll.get("y"));
-	mouse.buttons.set("scrolldown", originalY>mouse.scroll.get("y"));
+	mouse.buttons.set(mouse.SCROLL, true);
+	mouse.buttons.set(mouse.SCROLLUP, originalY<mouse.scroll.get("y"));
+	mouse.buttons.set(mouse.SCROLLDOWN, originalY>mouse.scroll.get("y"));
 
 	if(mouse.scrollTimer !== null) {
         clearTimeout(mouse.scrollTimer);        
     }
     
     mouse.scrollTimer = setTimeout(function() {
-    	mouse.buttons.set("scroll", false);
-    	mouse.buttons.set("scrollup", false);
-    	mouse.buttons.set("scrolldown", false);
+    	mouse.buttons.set(mouse.SCROLL, false);
+    	mouse.buttons.set(mouse.SCROLLUP, false);
+    	mouse.buttons.set(mouse.SCROLLDOWN, false);
     	mouse.scroll.set("deltaX", 0);
 		mouse.scroll.set("deltaY", 0);
 		mouse.scroll.set("deltaZ", 0);

@@ -146,10 +146,12 @@ let drawSquareGuide = function(mesh, resources) {
 let drawGalaxy = function(mesh, resources) {
 	// Galaxy properties
 
+	let originalOpacity = 0.25;
+
 	let uniforms = {
 		color:     { type: "c", value: new THREE.Color( 0xffffff ) },
 		texture:   { type: "t", value: resources.textures.get("bg-light") },
-		alpha:     { type: "f", value: 0.25 }
+		alpha:     { type: "f", value: originalOpacity }
 	};
 
 	let galaxy = new THREE.BufferGeometry();
@@ -216,6 +218,8 @@ let drawGalaxy = function(mesh, resources) {
 	particleSystem.position.z = 0.5;
 
 	mesh.add(particleSystem);
+
+	particleSystem.originalOpacity = originalOpacity;
 
 	return particleSystem;
 
