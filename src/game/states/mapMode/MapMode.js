@@ -1,11 +1,11 @@
 
-import { THREE } from 'three';
-import { State } from "engine/model/State.js";
-import { Camera } from "engine/model/Camera.js";
-import { MapModeLights } from "game/states/mapMode/lights/MapModeLights.js";
-import { StarBox } from "game/entities/StarBox.js";
-import { StarMapBg } from "game/states/mapMode/entities/StarMapBg.js";
-import { StarMap } from "game/states/mapMode/entities/StarMap.js";
+import { State } from "engine/model/State";
+import { Camera } from "engine/model/Camera";
+import { MapModeLights } from "game/states/mapMode/lights/MapModeLights";
+import { StarBox } from "game/entities/StarBox";
+import { StarMapBg } from "game/states/mapMode/entities/StarMapBg";
+import { StarMap } from "game/states/mapMode/entities/StarMap";
+import { mapModeControlls } from "game/states/mapMode/mapModeControlls";
 
 
 let MapMode = new State("Map Mode");
@@ -16,7 +16,7 @@ MapMode.init(function() {
 
 	MapMode.renderer.clear();
 
-	_registerControlls();
+	mapModeControlls(MapMode);
 	
 });
 
@@ -82,77 +82,6 @@ MapMode.close(function() {
 MapMode.destroy(function() {
 	console.log("MapMode destroy");
 });
-
-
-let _registerControlls = function() {
-
-	let keyboard = MapMode.controls.keyboard;
-	let mouse = MapMode.controls.mouse;
-
-	keyboard.when([keyboard.CTRL, keyboard.P], function() {
-		MapMode.game.setCurrentState("Planet Mode");
-	});
-
-	keyboard.when([keyboard.CTRL, keyboard.D], function() {
-		MapMode.game.setCurrentState("Dev Mode");
-	});
-
-	keyboard.when([keyboard.ESC], function() {
-		MapMode.game.setCurrentState("Main Menu");
-	});
-
-	mouse.when([mouse.SCROLLUP],function(mouse, e) {
-
-		let zoomFactor = mouse.scroll.get("deltaY")/100;
-		let tiltFactor = zoomFactor/8;
-
-		if(MapMode.camera.position.z+zoomFactor>MapMode.minZoom) return;
-		
-		MapMode.camera.position.z += zoomFactor;
-		MapMode.camera.position.y += tiltFactor;
-
-		let offsetCenter = new THREE.Vector3( MapMode.starMapBg.getMesh().position.x+MapMode.offsetX, MapMode.starMapBg.getMesh().position.y+MapMode.offsetY, MapMode.starMapBg.getMesh().position.z );
-	 	
-	 	MapMode.camera.lookAt(offsetCenter);
-
-	 	MapMode.starMapBg.galaxyMesh.material.uniforms.alpha.value = MapMode.starMapBg.galaxyMesh.originalOpacity*(1-MapMode.zoomLevel());
-
-	});
-
-	mouse.when([mouse.SCROLLDOWN],function(mouse, e) {
-
-		let zoomFactor = mouse.scroll.get("deltaY")/100;
-		let tiltFactor = zoomFactor/8;
-		
-		if(MapMode.camera.position.z+zoomFactor<MapMode.maxZoom) return;
-		
-		MapMode.camera.position.z += zoomFactor;
-		MapMode.camera.position.y += tiltFactor;
-
-		let offsetCenter = new THREE.Vector3( MapMode.starMapBg.getMesh().position.x+MapMode.offsetX, MapMode.starMapBg.getMesh().position.y+MapMode.offsetY, MapMode.starMapBg.getMesh().position.z );
-	 	
-	 	MapMode.camera.lookAt(offsetCenter);
-
-	 	MapMode.starMapBg.galaxyMesh.material.uniforms.alpha.value = MapMode.starMapBg.galaxyMesh.originalOpacity*(1-MapMode.zoomLevel());
-	
-	});
-
-	mouse.when([mouse.LEFTCLICK, mouse.MOVE],function(mouse, e) {
-
-		let panFactorX = mouse.position.get("deltaX")/10;
-		let panFactorY = mouse.position.get("deltaY")/10;
-
-		MapMode.camera.position.y += panFactorY;
-		MapMode.camera.position.x += panFactorX;
-
-		MapMode.offsetX+=panFactorX;
-		MapMode.offsetY+=panFactorY;
-
-
-	});
-
-
-}
 
 export {MapMode};
 

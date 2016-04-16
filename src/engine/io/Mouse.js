@@ -11,6 +11,7 @@ export class Mouse {
 		this._mouseupHandler = _mouseupHandler.bind(this).bind(this);
 		this._mouseMoveHandler = _mouseMoveHandler.bind(this);
 		this._mouseWheelHandler = _mouseWheelHandler.bind(this);
+		
 		this.MOVE = 0.1;
 		this.SCROLL = 0.2;
 		this.SCROLLUP = 0.3;
