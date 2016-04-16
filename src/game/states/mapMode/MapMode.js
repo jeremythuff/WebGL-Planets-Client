@@ -57,7 +57,7 @@ MapMode.load(function() {
 		MapMode.scene.add(MapMode.starMap.getMesh());
 		MapMode.scene.add(MapMode.starBox.getMesh());
 
-	    MapMode.camera.position.z = 40.00;
+	    MapMode.camera.position.z = MapMode.minZoom;
 	 	MapMode.camera.lookAt(MapMode.starMapBg.getMesh().position);
 
 	    console.log(MapMode);
@@ -89,15 +89,15 @@ let _registerControlls = function() {
 	let keyboard = MapMode.controls.keyboard;
 	let mouse = MapMode.controls.mouse;
 
-	keyboard.when([17, 80], function() {
+	keyboard.when([keyboard.CTRL, keyboard.P], function() {
 		MapMode.game.setCurrentState("Planet Mode");
 	});
 
-	keyboard.when([17, 68], function() {
+	keyboard.when([keyboard.CTRL, keyboard.D], function() {
 		MapMode.game.setCurrentState("Dev Mode");
 	});
 
-	keyboard.when([27], function() {
+	keyboard.when([keyboard.ESC], function() {
 		MapMode.game.setCurrentState("Main Menu");
 	});
 
@@ -117,8 +117,6 @@ let _registerControlls = function() {
 
 	 	MapMode.starMapBg.galaxyMesh.material.uniforms.alpha.value = MapMode.starMapBg.galaxyMesh.originalOpacity*(1-MapMode.zoomLevel());
 
-	 	console.log(MapMode.zoomLevel());
-
 	});
 
 	mouse.when([mouse.SCROLLDOWN],function(mouse, e) {
@@ -136,8 +134,6 @@ let _registerControlls = function() {
 	 	MapMode.camera.lookAt(offsetCenter);
 
 	 	MapMode.starMapBg.galaxyMesh.material.uniforms.alpha.value = MapMode.starMapBg.galaxyMesh.originalOpacity*(1-MapMode.zoomLevel());
-
-	 	console.log(MapMode.zoomLevel());
 	
 	});
 

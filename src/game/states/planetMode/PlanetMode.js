@@ -11,15 +11,17 @@ PlanetMode.init(function() {
 
 	console.log("PlanetMode init");
 
-	PlanetMode.controls.keyboard.when([27], function() {
+	let keyboard = PlanetMode.controls.keyboard;
+
+	keyboard.when([keyboard.ESC], function() {
 		PlanetMode.game.setCurrentState("Main Menu");
 	});
 
-	PlanetMode.controls.keyboard.when([17, 68], function() {
+	keyboard.when([keyboard.CTRL, keyboard.D], function() {
 		PlanetMode.game.setCurrentState("Dev Mode");
 	});
 
-	PlanetMode.controls.keyboard.when([17, 77], function() {
+	keyboard.when([keyboard.CTRL, keyboard.M], function() {
 		PlanetMode.game.setCurrentState("Map Mode");
 	});
 

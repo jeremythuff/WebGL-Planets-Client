@@ -8,15 +8,17 @@ DevMode.init(function() {
 	console.log("DevMode init");
 	console.log(DevMode);
 
-	DevMode.controls.keyboard.pressed([13], function() {
+	let keyboard = DevMode.controls.keyboard;
+
+	keyboard.when([keyboard.ESC], function() {
 		DevMode.game.setCurrentState("Main Menu");
 	});
 
-	DevMode.controls.keyboard.pressed([17, 77], function() {
+	keyboard.when([keyboard.CTRL, keyboard.M], function() {
 		DevMode.game.setCurrentState("Map Mode");
 	});
 
-	DevMode.controls.keyboard.pressed([17, 80], function() {
+	keyboard.when([keyboard.CTRL, keyboard.P], function() {
 		DevMode.game.setCurrentState("Planet Mode");
 	});
 

@@ -8,7 +8,9 @@ Intro.init(function() {
 
 	console.log(Intro);
 
-	Intro.controls.keyboard.when([13], function() {
+	let keyboard = Intro.controls.keyboard;
+
+	keyboard.when([keyboard.ENTER], function() {
 		Intro.game.setCurrentState("Main Menu");
 	});
 
