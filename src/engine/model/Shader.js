@@ -1,4 +1,4 @@
-import { Asset } from "engine/model/Asset.js"
+import { Asset } from "engine/model/Asset"
 
 export class Shader extends Asset {
 	constructor(url) {

@@ -1,9 +1,9 @@
 import { THREE } from 'three';
-import { Deferred } from "engine/extensions/Deferred.js"
-import { AjaxLoader } from "engine/utils/AjaxLoader.js"
-import { TextureLoader } from "engine/utils/TextureLoader.js"
-import { ShaderLoader } from "engine/utils/ShaderLoader.js"
-import { ObjectLoader } from "engine/utils/ObjectLoader.js"
+import { Deferred } from "engine/extensions/Deferred"
+import { AjaxLoader } from "engine/utils/AjaxLoader"
+import { TextureLoader } from "engine/utils/TextureLoader"
+import { ShaderLoader } from "engine/utils/ShaderLoader"
+import { ObjectLoader } from "engine/utils/ObjectLoader"
 
 export class AssetLoader {
 	constructor() {

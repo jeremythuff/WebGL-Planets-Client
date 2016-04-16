@@ -1,5 +1,5 @@
 import { THREE } from 'three';
-import { AssetLoader } from "engine/utils/AssetLoader.js"
+import { AssetLoader } from "engine/utils/AssetLoader"
 
 let assetLoader = new AssetLoader();
 

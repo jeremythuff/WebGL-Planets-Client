@@ -1,5 +1,5 @@
-import { Service } from "context/Service.js";
-import { Deferred } from "engine/extensions/Deferred.js";
+import { Service } from "context/Service";
+import { Deferred } from "engine/extensions/Deferred";
 
 export class AjaxLoader {
 	constructor() {}

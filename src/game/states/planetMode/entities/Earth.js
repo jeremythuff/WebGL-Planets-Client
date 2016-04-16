@@ -1,5 +1,5 @@
-import { AbstractPlanet } from "game/states/planetMode/entities/AbstractPlanet.js"
-import { Texture } from "engine/model/Texture.js"
+import { AbstractPlanet } from "game/states/planetMode/entities/AbstractPlanet"
+import { Texture } from "engine/model/Texture"
 
 export class Earth extends AbstractPlanet {
 	constructor() {

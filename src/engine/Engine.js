@@ -1,5 +1,5 @@
 import { THREE } from 'three';
-import { Utilities } from "engine/utils/Utilities.js"
+import { Utilities } from "engine/utils/Utilities"
 import { Context } from "context/Context"
 
 export class Engine {

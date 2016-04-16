@@ -1,6 +1,6 @@
-import { Keyboard } from "engine/io/Keyboard.js";
-import { Mouse } from "engine/io/Mouse.js";
-import { Gamepad } from "engine/io/Gamepad.js";
+import { Keyboard } from "engine/io/Keyboard";
+import { Mouse } from "engine/io/Mouse";
+import { Gamepad } from "engine/io/Gamepad";
 
 export class Controls {
 	constructor() {

@@ -1,4 +1,4 @@
-import { AjaxLoader } from "engine/utils/AjaxLoader.js"
+import { AjaxLoader } from "engine/utils/AjaxLoader"
 
 export class ShaderLoader {
 	constructor() {

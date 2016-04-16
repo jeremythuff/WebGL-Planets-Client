@@ -1,6 +1,6 @@
-import { Deferred } from "engine/extensions/Deferred.js";
-import { AjaxLoader } from "engine/utils/AjaxLoader.js"
-import Handlebars from "handlebars/dist/handlebars.js"
+import { Deferred } from "engine/extensions/Deferred";
+import { AjaxLoader } from "engine/utils/AjaxLoader"
+import Handlebars from "handlebars/dist/handlebars"
 
 export class TemplateEngine {
 	constructor(gui) {

@@ -1,6 +1,6 @@
 import { THREE } from 'three';
-import { AssetLoader } from "engine/utils/AssetLoader.js"
-import { Texture } from "engine/model/Texture.js"
+import { AssetLoader } from "engine/utils/AssetLoader"
+import { Texture } from "engine/model/Texture"
 
 let assetLoader = new AssetLoader();
 

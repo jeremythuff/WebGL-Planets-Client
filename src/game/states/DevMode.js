@@ -1,5 +1,5 @@
 
-import { State } from "engine/model/State.js";
+import { State } from "engine/model/State";
 
 let DevMode = new State("Dev Mode");
 
