@@ -48,6 +48,6 @@ export class Engine {
 		      
 	}
 
-	destroy(){}
+	destroy() {}
 
 }

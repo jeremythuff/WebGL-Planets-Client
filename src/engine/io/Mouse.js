@@ -11,6 +11,9 @@ export class Mouse {
 		this._mouseupHandler = _mouseupHandler.bind(this).bind(this);
 		this._mouseMoveHandler = _mouseMoveHandler.bind(this);
 		this._mouseWheelHandler = _mouseWheelHandler.bind(this);
+
+		this.scrolling = false;
+		this.moving = false;
 		
 		this.MOVE = 0.1;
 		this.SCROLL = 0.2;
@@ -109,6 +112,7 @@ let _mouseMoveHandler = function(e) {
 		mouse.position.set("deltaY", (e.clientY-originalY));	
 	}
 
+	mouse.moving = true;
 	mouse.buttons.set(mouse.MOVE, true);
 
 	if(mouse.moveTimer !== null) {
@@ -117,6 +121,7 @@ let _mouseMoveHandler = function(e) {
     
     mouse.moveTimer = setTimeout(function() {
     	mouse.buttons.set(mouse.MOVE, false);
+    	mouse.moving = false;
     	mouse.position.set("deltaX", 0);
 		mouse.position.set("deltaY", 0);
     }, 100);
@@ -145,6 +150,7 @@ let _mouseWheelHandler = function(e) {
 	mouse.scroll.set("deltaY", e.deltaY);
 	mouse.scroll.set("deltaZ", e.deltaZ);
 
+	mouse.scrolling = true;
 	mouse.buttons.set(mouse.SCROLL, true);
 	mouse.buttons.set(mouse.SCROLLUP, originalY<mouse.scroll.get("y"));
 	mouse.buttons.set(mouse.SCROLLDOWN, originalY>mouse.scroll.get("y"));
@@ -157,6 +163,7 @@ let _mouseWheelHandler = function(e) {
     	mouse.buttons.set(mouse.SCROLL, false);
     	mouse.buttons.set(mouse.SCROLLUP, false);
     	mouse.buttons.set(mouse.SCROLLDOWN, false);
+    	mouse.scrolling = false;
     	mouse.scroll.set("deltaX", 0);
 		mouse.scroll.set("deltaY", 0);
 		mouse.scroll.set("deltaZ", 0);

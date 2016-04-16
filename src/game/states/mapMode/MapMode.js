@@ -5,7 +5,7 @@ import { MapModeLights } from "game/states/mapMode/lights/MapModeLights";
 import { StarBox } from "game/entities/StarBox";
 import { StarMapBg } from "game/states/mapMode/entities/StarMapBg";
 import { StarMap } from "game/states/mapMode/entities/StarMap";
-import { mapModeControlls } from "game/states/mapMode/mapModeControlls";
+import { loadControllProfile } from "game/states/mapMode/controllProfile";
 
 
 let MapMode = new State("Map Mode");
@@ -15,8 +15,6 @@ MapMode.init(function() {
 	console.log("MapMode init");
 
 	MapMode.renderer.clear();
-
-	mapModeControlls(MapMode);
 	
 });
 
@@ -24,19 +22,9 @@ MapMode.load(function() {
 
 	if(MapMode.loaded) return;
 
-	MapMode.minZoom = 40;
-	MapMode.maxZoom = 5;
-	MapMode.offsetX = 0;
-	MapMode.offsetY = 0;
+	loadControllProfile(MapMode);
 
 	MapMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
-	MapMode.zoomLevel = function() {
-		let zoomLevel = 1;
-		let zoomRange = MapMode.maxZoom - MapMode.minZoom;
-		zoomLevel = (MapMode.camera.position.z-MapMode.minZoom)/zoomRange;
-		return zoomLevel;
-	}
 
 	MapMode.lights = new MapModeLights();
 	MapMode.starBox = new StarBox();
@@ -65,10 +53,20 @@ MapMode.load(function() {
 
 	});
 
+	MapMode.context.menuBar = {
+		mainMenuBtn: {
+			action: function(e) {
+				MapMode.game.setCurrentState("Main Menu");
+			}
+		}
+	};
+
+	MapMode.gui.addView("Menu Bar", "src/game/states/MapMode/gui/templates/menuBar.hbs");
+
 });
 
 MapMode.update(function(delta) {
-	MapMode.starMapBg.update(delta);
+	MapMode.starMapBg.update(delta, MapMode);
 });
 
 MapMode.render(function(delta) {
@@ -76,6 +74,7 @@ MapMode.render(function(delta) {
 });
 
 MapMode.close(function() {
+	MapMode.gui.close();
 	console.log("MapMode close");
 });
 

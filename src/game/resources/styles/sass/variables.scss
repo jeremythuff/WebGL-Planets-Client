@@ -5,3 +5,7 @@ $dark-accesnt: #134242;
 
 $success-color: #4FE38B;
 $danger-color: #ED3737;
+
+$material-dark: #121212;
+$material-high-light: lighten( $material-dark, 35% );
+$material-high-light-bright: lighten( $material-dark, 50% );

@@ -41,7 +41,7 @@ export class StarMapBg {
 
 	}
 
-	update(delta) {
+	update(delta, MapMode) {
 
 		let StarMapBg = this;
 		if(!StarMapBg.loaded) return;
@@ -77,6 +77,31 @@ export class StarMapBg {
 		}
 
 		attributes.size.needsUpdate = true;
+
+		let zoomFactor = MapMode.controls.mouse.scroll.get("deltaY")/100;		
+		if(MapMode.controls.mouse.scrolling && MapMode.camera.position.z+zoomFactor>MapMode.maxZoom && MapMode.camera.position.z+zoomFactor<MapMode.minZoom) {
+			
+			let tiltFactor = zoomFactor/8;
+
+			MapMode.camera.position.z += zoomFactor;
+			MapMode.camera.position.y += tiltFactor;
+
+			let offsetCenter = new THREE.Vector3( MapMode.starMapBg.getMesh().position.x+MapMode.offsetX, MapMode.starMapBg.getMesh().position.y+MapMode.offsetY, MapMode.starMapBg.getMesh().position.z );
+		 	
+		 	MapMode.camera.lookAt(offsetCenter);
+
+		 	MapMode.starMapBg.galaxyMesh.material.uniforms.alpha.value = MapMode.starMapBg.galaxyMesh.originalOpacity*(1-MapMode.zoomLevel);
+		 	MapMode.updateZoom = false;
+		}
+
+		if(MapMode.controls.mouse.moving && MapMode.panOffsetX != 0 && MapMode.panOffsetY != 0) {
+			
+			MapMode.camera.position.y += MapMode.panY;
+			MapMode.camera.position.x += MapMode.panX;
+
+			MapMode.panX = 0;
+			MapMode.panY = 0;
+		}
 	
 	}
 
