@@ -1,0 +1,16 @@
+.intro.title {
+	width: 500px;
+	bottom: 25%;
+	left: 50%;
+	margin-left: -250px;
+	color: $primary-color;
+	text-align: center;
+}
+
+.intro.title p {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {  
+  50% { opacity: 0.0; }
+}

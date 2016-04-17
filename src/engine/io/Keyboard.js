@@ -77,7 +77,7 @@ let _runCbs = function(keyboard, e) {
 	keyboard.cbs.forEach(function(cb, keys) {
 
 		let pressed = true;
-
+		
 		keys.forEach(function(key) {			
 			if(!keyboard.keys.get(key)) pressed = false;
 		});
@@ -145,7 +145,7 @@ _keyMappings.set(84, 'T');
 _keyMappings.set(85, 'U');
 _keyMappings.set(86, 'V');
 _keyMappings.set(87, 'W');
-_keyMappings.set(88, 'x');
+_keyMappings.set(88, 'X');
 _keyMappings.set(89, 'Y');
 _keyMappings.set(90, 'Z');
 _keyMappings.set(91, 'LEFTWINDOWKEY');

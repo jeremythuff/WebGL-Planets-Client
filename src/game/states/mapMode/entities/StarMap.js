@@ -8,8 +8,8 @@ let assetLoader = new AssetLoader();
 export class StarMap {
 	constructor(data) {
 		let StarMap = this;
-		this._data = data;
-		this._mesh = null;
+		StarMap._data = data;
+		StarMap._mesh = null;
 	}
 
 	load() {

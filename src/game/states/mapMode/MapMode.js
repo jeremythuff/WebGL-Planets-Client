@@ -61,7 +61,7 @@ MapMode.load(function() {
 		}
 	};
 
-	MapMode.gui.addView("Menu Bar", "src/game/states/MapMode/gui/templates/menuBar.hbs");
+	MapMode.gui.addView("Menu Bar", "src/game/states/mapMode/gui/templates/menuBar.hbs");
 
 });
 

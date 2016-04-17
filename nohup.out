@@ -1,0 +1,42 @@
+Hash: c44fe547097f42f257b6
+Version: webpack 1.12.14
+Time: 3233ms
+                                 Asset     Size  Chunks             Chunk Names
+  32400f4e08932a94d8bfd2422702c446.eot  70.8 kB          [emitted]  
+db812d8a70a4e88e888744c1c9a27e89.woff2  66.6 kB          [emitted]  
+ a35720c2fed2c7f043bc7e4ffb45e073.woff  83.6 kB          [emitted]  
+  a3de2170e4e9df77161ea5d3f31b2668.ttf   142 kB          [emitted]  
+  f775f9cca88e21d45bebe185b27c0e5b.svg   366 kB          [emitted]  
+                          build/lib.js  53.2 kB       0  [emitted]  lib
+                      build/planets.js  1.27 MB       1  [emitted]  planets
+   [0] multi lib 28 bytes {0} [built]
+   [0] multi planets 28 bytes {1} [built]
+    + 51 hidden modules
+Hash: 02b71386a50caa5875aa
+Version: webpack 1.12.14
+Time: 3137ms
+                                 Asset     Size  Chunks             Chunk Names
+  32400f4e08932a94d8bfd2422702c446.eot  70.8 kB          [emitted]  
+db812d8a70a4e88e888744c1c9a27e89.woff2  66.6 kB          [emitted]  
+ a35720c2fed2c7f043bc7e4ffb45e073.woff  83.6 kB          [emitted]  
+  a3de2170e4e9df77161ea5d3f31b2668.ttf   142 kB          [emitted]  
+  f775f9cca88e21d45bebe185b27c0e5b.svg   366 kB          [emitted]  
+                          build/lib.js  53.2 kB       0  [emitted]  lib
+                      build/planets.js  1.27 MB       1  [emitted]  planets
+   [0] multi lib 28 bytes {0} [built]
+   [0] multi planets 28 bytes {1} [built]
+    + 51 hidden modules
+Hash: 02b71386a50caa5875aa
+Version: webpack 1.12.14
+Time: 3241ms
+                                 Asset     Size  Chunks             Chunk Names
+  32400f4e08932a94d8bfd2422702c446.eot  70.8 kB          [emitted]  
+db812d8a70a4e88e888744c1c9a27e89.woff2  66.6 kB          [emitted]  
+ a35720c2fed2c7f043bc7e4ffb45e073.woff  83.6 kB          [emitted]  
+  a3de2170e4e9df77161ea5d3f31b2668.ttf   142 kB          [emitted]  
+  f775f9cca88e21d45bebe185b27c0e5b.svg   366 kB          [emitted]  
+                          build/lib.js  53.2 kB       0  [emitted]  lib
+                      build/planets.js  1.27 MB       1  [emitted]  planets
+   [0] multi lib 28 bytes {0} [built]
+   [0] multi planets 28 bytes {1} [built]
+    + 51 hidden modules
