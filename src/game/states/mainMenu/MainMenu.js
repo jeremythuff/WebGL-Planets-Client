@@ -1,5 +1,6 @@
 
 import { State } from "engine/model/State";
+import { Keyboard } from "engine/io/Keyboard";
 
 let MainMenu = new State("Main Menu");
 
@@ -7,9 +8,7 @@ MainMenu.init(function() {
 
 	console.log("MainMenu init");
 
-	let keyboard = MainMenu.controls.keyboard;
-
-	keyboard.when([keyboard.ESC], function() {
+	MainMenu.controls.keyboard.when([Keyboard.ESC], function() {
 		let lastStateName = MainMenu.game.getLastState().name;
 		MainMenu.game.setCurrentState(lastStateName);
 	});
@@ -30,6 +29,12 @@ MainMenu.load(function() {
 			gloss: "Planet Mode",
 			action: function(e) {
 				MainMenu.game.setCurrentState("Planet Mode");
+			}
+		},
+		devMode: {
+			gloss: "Development Mode",
+			action: function(e) {
+				MainMenu.game.setCurrentState("Development Mode");
 			}
 		},
 		exit: {

@@ -6,7 +6,7 @@ import { MapMode } from "game/states/mapMode/MapMode";
 import { PlanetMode } from "game/states/planetMode/PlanetMode";
 
 //This is for experementation
-import { DevMode } from "game/states/DevMode";
+import { DevMode } from "game/states/devMode/devMode";
 
 
 export class Planets extends Game {

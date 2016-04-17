@@ -14,13 +14,7 @@ export class Mouse {
 
 		this.scrolling = false;
 		this.moving = false;
-		
-		this.MOVE = 0.1;
-		this.SCROLL = 0.2;
-		this.SCROLLUP = 0.3;
-		this.SCROLLDOWN = 0.4;
-		this.LEFTCLICK = 0.5;
-		this.RIGHTCLICK = 0.6;
+	
 	}
 
 	init(canvas) {	
@@ -87,8 +81,6 @@ let _mouseupHandler = function(e) {
 
 let _mouseup = function(mouse, e) {
 	mouse.buttons.set(e.which, false);
-	if(e.which == 1) mouse.buttons.set(mouse.LEFTCLICK, false);
-	if(e.which == 3) mouse.buttons.set(mouse.RIGHT, false);
 }
 
 let _mouseMoveHandler = function(e) {
@@ -190,3 +182,10 @@ let _runCbs = function(mouse, e) {
 	});
 
 }
+
+Mouse.MOVE = 0.1;
+Mouse.SCROLL = 0.2;
+Mouse.SCROLLUP = 0.3;
+Mouse.SCROLLDOWN = 0.4;
+Mouse.LEFTCLICK = 1;
+Mouse.RIGHTCLICK = 3;

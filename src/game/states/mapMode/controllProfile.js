@@ -1,4 +1,6 @@
 import { THREE } from 'three';
+import { Keyboard } from "engine/io/Keyboard";
+import { Mouse } from "engine/io/Mouse";
 
 let loadControllProfile = function(MapMode) {
 
@@ -13,19 +15,19 @@ let loadControllProfile = function(MapMode) {
 	MapMode.offsetX = 0;
 	MapMode.offsetY = 0;
 
-	keyboard.when([keyboard.CTRL, keyboard.P], function() {
+	keyboard.when([Keyboard.CTRL, keyboard.P], function() {
 		MapMode.game.setCurrentState("Planet Mode");
 	});
 
-	keyboard.when([keyboard.CTRL, keyboard.D], function() {
+	keyboard.when([Keyboard.CTRL, keyboard.D], function() {
 		MapMode.game.setCurrentState("Dev Mode");
 	});
 
-	keyboard.when([keyboard.ESC], function() {
+	keyboard.when([Keyboard.ESC], function() {
 		MapMode.game.setCurrentState("Main Menu");
 	});
 
-	mouse.when([mouse.LEFTCLICK, mouse.MOVE],function(mouse, e) {
+	mouse.when([Mouse.LEFTCLICK, mouse.MOVE],function(mouse, e) {
 
 		let panFactorX = mouse.position.get("deltaX")/10;
 		let panFactorY = mouse.position.get("deltaY")/10;
@@ -38,7 +40,7 @@ let loadControllProfile = function(MapMode) {
 
 	});
 
-	mouse.when([mouse.SCROLL], function(mouse, e) {
+	mouse.when([Mouse.SCROLL], function(mouse, e) {
 		let zoomLevel = 1;
 		let zoomRange = MapMode.maxZoom - MapMode.minZoom;
 		MapMode.zoomLevel = Number(((MapMode.camera.position.z-MapMode.minZoom)/zoomRange).toFixed(2));

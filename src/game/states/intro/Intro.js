@@ -1,5 +1,6 @@
 import { THREE } from 'three';
 import { State } from "engine/model/State";
+import { Keyboard } from "engine/io/Keyboard";
 import { Camera } from "engine/model/Camera";
 import { StarBox } from "game/entities/StarBox";
 import { IntroLights } from "game/states/intro/lights/IntroLights";
@@ -13,6 +14,10 @@ Intro.init(function() {
 	console.log(Intro);
 
 	Intro.renderer.clear();
+	
+	Intro.controls.keyboard.when([Keyboard.ENTER], function() {
+		Intro.game.setCurrentState("Main Menu");
+	});
 
 });
 
@@ -41,7 +46,7 @@ Intro.load(function() {
 	    console.log(Intro);
 		console.log("Intro loaded");
 
-		let keyboard = Intro.controls.keyboard;
+		//let keyboard = Intro.controls.keyboard;
 
 		// keyboard.when([keyboard.UPARROW, keyboard.X], function() {
 		// 	Intro.directionalLight.position.x += 0.1;
@@ -73,10 +78,6 @@ Intro.load(function() {
 		// 	console.log(Intro.directionalLight.position);
 		// });
 		
-
-		keyboard.when([keyboard.ENTER], function() {
-			Intro.game.setCurrentState("Main Menu");
-		});
 
 	});
 

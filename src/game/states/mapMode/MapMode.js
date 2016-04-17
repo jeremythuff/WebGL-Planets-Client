@@ -15,14 +15,14 @@ MapMode.init(function() {
 	console.log("MapMode init");
 
 	MapMode.renderer.clear();
+
+	loadControllProfile(MapMode);
 	
 });
 
 MapMode.load(function() {
 
 	if(MapMode.loaded) return;
-
-	loadControllProfile(MapMode);
 
 	MapMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 

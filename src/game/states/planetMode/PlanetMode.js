@@ -1,6 +1,7 @@
 
 import { State } from "engine/model/State";
 import { Camera } from "engine/model/Camera";
+import { Keyboard } from "engine/io/Keyboard";
 import { StarBox } from "game/entities/StarBox";
 import { PlanetModeLights } from "game/states/planetMode/lights/PlanetModeLights";
 import { Earth } from "game/states/planetMode/entities/Earth";
@@ -13,15 +14,15 @@ PlanetMode.init(function() {
 
 	let keyboard = PlanetMode.controls.keyboard;
 
-	keyboard.when([keyboard.ESC], function() {
+	keyboard.when([Keyboard.ESC], function() {
 		PlanetMode.game.setCurrentState("Main Menu");
 	});
 
-	keyboard.when([keyboard.CTRL, keyboard.D], function() {
+	keyboard.when([Keyboard.CTRL, keyboard.D], function() {
 		PlanetMode.game.setCurrentState("Dev Mode");
 	});
 
-	keyboard.when([keyboard.CTRL, keyboard.M], function() {
+	keyboard.when([Keyboard.CTRL, keyboard.M], function() {
 		PlanetMode.game.setCurrentState("Map Mode");
 	});
 

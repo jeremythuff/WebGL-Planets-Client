@@ -122,6 +122,8 @@ let drawNebula = function(mesh, resources) {
 	
 	let nebulaMesh = new THREE.Mesh( nebulaGeometry, nebulaMaterial );
 
+	nebulaMesh.position.z = -1.5;
+
 	mesh.add(nebulaMesh);
 
 	return nebulaMesh;
