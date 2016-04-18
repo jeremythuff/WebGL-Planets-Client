@@ -1,10 +1,12 @@
+@import './src/engine/resources/styles/sass/engine.scss';
+
 @import './src/game/resources/styles/sass/fonts.scss';
 @import './src/game/resources/styles/sass/variables.scss';
 
-@import './src/engine/resources/styles/sass/engine.scss';
 @import './src/game/states/intro/gui/sass/intro.scss';
 @import './src/game/states/mainMenu/gui/sass/mainMenu.scss';
 @import './src/game/states/mapMode/gui/sass/mapMode.scss';
+@import './src/game/states/devMode/gui/sass/devMode.scss';
 
 body, html, canvas { 
     margin: 0; 
