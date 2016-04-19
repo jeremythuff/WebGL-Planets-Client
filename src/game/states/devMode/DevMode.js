@@ -24,6 +24,7 @@ DevMode.load(function() {
 	Promise.all([
 		DevMode.star.load()
 	]).then(function() {
+		
 		DevMode.scene.add(new THREE.AmbientLight( 0x666666 ));
 		DevMode.scene.add(DevMode.star.getMesh());
 

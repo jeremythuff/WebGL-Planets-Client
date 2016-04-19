@@ -230,6 +230,9 @@ let drawGalaxy = function(mesh, resources) {
 	galaxy.addAttribute( 'ca', new THREE.BufferAttribute( colors, 3 ) );
 	galaxy.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
 
+	console.log(resources.shaders.get("galaxy-spiral-vs").program);
+	console.log(resources.shaders.get("galaxy-spiral-fs").program);
+
 	let shaderMaterial = new THREE.ShaderMaterial({
 		uniforms: uniforms,
 		vertexShader: resources.shaders.get("galaxy-spiral-vs").program,
