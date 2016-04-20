@@ -79,7 +79,7 @@ export class StarMapBg {
 		attributes.size.needsUpdate = true;
 
 		let zoomFactor = MapMode.controls.mouse.scroll.get("deltaY")/100;		
-		if(MapMode.controls.mouse.scrolling && MapMode.camera.position.z+zoomFactor>MapMode.maxZoom && MapMode.camera.position.z+zoomFactor<MapMode.minZoom) {
+		if(MapMode.controls.mouse.isScrolling() && MapMode.camera.position.z+zoomFactor>MapMode.maxZoom && MapMode.camera.position.z+zoomFactor<MapMode.minZoom) {
 			
 			let tiltFactor = zoomFactor/8;
 
@@ -94,7 +94,7 @@ export class StarMapBg {
 		 	MapMode.updateZoom = false;
 		}
 
-		if(MapMode.controls.mouse.moving && MapMode.panOffsetX != 0 && MapMode.panOffsetY != 0) {
+		if(MapMode.controls.mouse.isMoving() && MapMode.panOffsetX != 0 && MapMode.panOffsetY != 0) {
 			
 			MapMode.camera.position.y += MapMode.panY;
 			MapMode.camera.position.x += MapMode.panX;

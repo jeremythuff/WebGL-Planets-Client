@@ -27,7 +27,7 @@ let loadControllProfile = function(MapMode) {
 		MapMode.game.setCurrentState("Main Menu");
 	});
 
-	mouse.when([Mouse.LEFTCLICK, mouse.MOVE],function(mouse, e) {
+	mouse.when([Mouse.LEFTCLICK, Mouse.MOVE],function(mouse, e) {
 
 		let panFactorX = mouse.position.get("deltaX")/10;
 		let panFactorY = mouse.position.get("deltaY")/10;

@@ -1,9 +1,6 @@
 
 varying vec3 vNormal;
 
-float displacement;
-
-
 float rand(vec2 co)
 {
     highp float a = 12.9898;
@@ -20,7 +17,7 @@ void main() {
   
   light = normalize(light);
   
-  float dProd = max(rand(vec2(amplitude, 1.0)), dot(vNormal, light));
+  float dProd = max(rand(vec2(sin(vNormal.x), 1.0)), dot(vNormal, light));
 
   gl_FragColor = vec4(1.0, dProd, dProd, 1.0);  
 
