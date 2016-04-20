@@ -2,6 +2,8 @@ import { THREE } from 'three';
 import { AssetLoader } from "engine/utils/AssetLoader"
 import { Texture } from "engine/model/Texture"
 import { Shader } from "engine/model/Shader"
+import { Star } from "game/states/devMode/entities/Star";
+import { Deferred } from "engine/extensions/Deferred"
 
 let assetLoader = new AssetLoader();
 
@@ -10,27 +12,20 @@ export class StarMap {
 		let StarMap = this;
 		StarMap._data = data;
 		StarMap._mesh = null;
+		StarMap.stars = new Set();
 	}
 
 	load() {
 		
 		let StarMap = this;
-
 		let starMapMesh = new THREE.Object3D();
+		let starLoadPromises = new Set();
 
-		// let loadPromise = assetLoader.loadAll([]).then(function() {
-	
-			
-
-		// });
-
-		let starGeometry  = new THREE.SphereGeometry(0.25, 32, 32);
-
-		let starMaterialYellow  = new THREE.MeshPhongMaterial({ color: 0xfff14c});
-		let starMaterialRed  = new THREE.MeshPhongMaterial({ color: 0xe53939});
-		let starMaterialBlue  = new THREE.MeshPhongMaterial({ color: 0x3d6dba});
-		let starMaterialWhite  = new THREE.MeshPhongMaterial({ color: 0xebeef4});
-		let starMaterialBlack  = new THREE.MeshPhongMaterial({ color: 0x3e4a5e});
+		let starMaterialYellow  = 0xfff14c;
+		let starMaterialRed  = 0xe53939;
+		let starMaterialBlue  = 0x3d6dba;
+		let starMaterialWhite  = 0xebeef4;
+		let starMaterialBlack  = 0x3e4a5e;
 
 		let starTypes = [starMaterialYellow, starMaterialRed, starMaterialBlue, starMaterialWhite, starMaterialBlack]
 
@@ -38,15 +33,23 @@ export class StarMap {
 		let startY = 24;
 		let count = 0;
 		let startype = 0;
+		let size = 0.25;
 		for(let i=0; i<500; i++) {
 
 			if(startype == 5) startype = 0;
 
-			let newStar =new THREE.Mesh(starGeometry, starTypes[startype]);
-			newStar.position.x = startX+i;
-			newStar.position.y = startY;
+			let position = {
+				x: startX+i,
+				y: startY
+			}
 
-			starMapMesh.add(newStar);
+
+			let newStar = new Star(starTypes[startype], size, position);
+
+
+			StarMap.stars.add(newStar);
+			starLoadPromises.add(newStar.load());
+			
 			count++;
 			startype++;
 
@@ -59,12 +62,29 @@ export class StarMap {
 
 		StarMap._mesh = starMapMesh;
 		StarMap._mesh.position.z = 1
+		
+		let defer = new Deferred();
 
-		return this;
+		Promise.all(starLoadPromises).then(function() {
+
+			StarMap.stars.forEach(function(star) {
+				StarMap.getMesh().add(star.getMesh());
+			});
+
+			defer.resolve();
+		});
+
+		return defer.promise;
 	}
 
-	update() {
+	update(delta) {
 
+		let StarMap = this;
+
+		if(StarMap.stars)
+		StarMap.stars.forEach(function(star) {
+			star.update(delta);
+		});
 	}
 
 	getMesh() {

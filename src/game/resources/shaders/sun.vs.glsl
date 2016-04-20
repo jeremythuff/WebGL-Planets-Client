@@ -1,16 +1,15 @@
-uniform float amplitude;
-attribute float displacement;
+uniform float flow;
 varying vec3 vNormal;
+varying float vFlow;
+
+#include src/engine/resources/shaders/classicnoise3D.glsl
 
 void main() {
 
   vNormal = normal;
-
-  vec3 newPosition =
-    position + normal *
-    vec3(displacement * amplitude);
+  vFlow = flow;
 
   gl_Position = projectionMatrix *
                 modelViewMatrix *
-                vec4(newPosition, 1.0);
+                vec4(position, 1.0);
 }

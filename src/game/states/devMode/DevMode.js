@@ -19,7 +19,7 @@ DevMode.load(function() {
 	DevMode.gui.addView("Menu Bar", "src/game/states/devMode/gui/templates/devMenu.hbs");
 	DevMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-	DevMode.star = new Star();
+	DevMode.star = new Star(0xff9900, 6);
 
 	Promise.all([
 		DevMode.star.load()
@@ -37,7 +37,7 @@ DevMode.load(function() {
 });
 
 DevMode.update(function(delta) {
-	DevMode.star.update(delta, DevMode.camera);
+	DevMode.star.update(delta);
 });
 
 DevMode.render(function(delta) {

@@ -1,5 +1,6 @@
-
+uniform vec3 color;
 varying vec3 vNormal;
+varying float vFlow;
 
 #include src/engine/resources/shaders/noise3D.glsl
 
@@ -9,12 +10,10 @@ void main() {
   
   light = normalize(light);
 
-  float n = snoise(light);
-  
-  float dProd1 = max(n, dot(vNormal, light));
-  float dProd2 = max(n, dot(vNormal, light));
-  float dProd3 = max(n, dot(vNormal, light));
+  float n = snoise(vNormal * 24.0 + vFlow);
 
-  gl_FragColor = vec4(dProd1, dProd2, dProd3, 1.0);  
+  float texColor = (n+0.5) * dot(vNormal, light);
+
+  gl_FragColor = vec4(texColor + color.r, texColor+color.g, texColor+color.b, 1.0);  
 
 }

@@ -40,7 +40,6 @@ export class Mouse {
 	}
 
 	isScrolling() {
-		console.log(this.buttons.get(Mouse.SCROLL));
 		return this.buttons.get(Mouse.SCROLL);
 	}
 

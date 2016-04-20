@@ -66,6 +66,7 @@ MapMode.load(function() {
 });
 
 MapMode.update(function(delta) {
+	MapMode.starMap.update(delta)
 	MapMode.starMapBg.update(delta, MapMode);
 });
 
