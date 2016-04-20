@@ -20,7 +20,6 @@ export class Star {
 			new Shader("src/game/resources/shaders/sun.vs.glsl")
 		]).then(function(resources) {
 			
-
 			let starMesh = new THREE.Object3D();
 
 			let uniforms = {
@@ -44,8 +43,6 @@ export class Star {
 			for (let v = 0; v < vertexCount; v++) {
 			  values[v] = (Math.random() * 0.25);
 			}
-
-			console.log(values)
 
 			baseGeometry.addAttribute( 'displacement', new THREE.BufferAttribute( values, 1));
 			
