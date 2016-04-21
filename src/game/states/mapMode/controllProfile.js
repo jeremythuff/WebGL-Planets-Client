@@ -8,7 +8,7 @@ let loadControllProfile = function(MapMode) {
 	let mouse = MapMode.controls.mouse;
 
 	MapMode.minZoom = 40;
-	MapMode.maxZoom = 5;
+	MapMode.maxZoom = 2;
 	MapMode.zoomLevel = 0;
 	MapMode.panX = 0;
 	MapMode.panY = 0;

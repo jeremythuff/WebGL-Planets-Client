@@ -66,7 +66,7 @@ export class Star {
 			Star.corona = coronaMesh;
 			Star.corona.scale.set(Star.size*4,Star.size*4,1);
 			
-			starMesh.add(Star.corona);
+			baseMesh.add(Star.corona);
 
 			let rayOneMaterial = new THREE.SpriteMaterial({
 				map: resources.textures.get("raysMap"),
@@ -82,7 +82,7 @@ export class Star {
 			Star.raysOne.fading = true;
 			Star.raysOne.scale.set(Star.size*8,Star.size*8,1);
 
-			starMesh.add(Star.raysOne);
+			baseMesh.add(Star.raysOne);
 
 			let rayTwoMaterial = new THREE.SpriteMaterial({
 				map: resources.textures.get("raysMap"),
@@ -97,7 +97,7 @@ export class Star {
 			Star.raysTwo.fading = true;
 			Star.raysTwo.scale.set(Star.size*10,Star.size*10,1);
 
-			starMesh.add(Star.raysTwo);
+			baseMesh.add(Star.raysTwo);
 
 			Star._mesh = starMesh;
 			Star.loaded = true;
