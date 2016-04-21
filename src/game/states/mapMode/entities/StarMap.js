@@ -33,7 +33,7 @@ export class StarMap {
 		let startY = 24;
 		let count = 0;
 		let startype = 0;
-		let size = 0.25;
+		let size = 0.1;
 		for(let i=0; i<500; i++) {
 
 			if(startype == 5) startype = 0;

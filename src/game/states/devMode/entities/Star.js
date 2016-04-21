@@ -13,7 +13,6 @@ export class Star {
 		Star.flow = 0.0;
 		Star.color = temp ? temp : 0xffffff;
 		Star.size = size ? size : 5;
-		console.log(size);
 		Star.position = position ? position : {x:0,y:0};
 	}
 

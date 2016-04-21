@@ -5,6 +5,9 @@ import { TextureLoader } from "engine/utils/TextureLoader"
 import { ShaderLoader } from "engine/utils/ShaderLoader"
 import { ObjectLoader } from "engine/utils/ObjectLoader"
 
+let _textureCache = new Map();
+let _shaderCache = new Map();
+
 export class AssetLoader {
 	constructor() {
 
@@ -33,74 +36,101 @@ export class AssetLoader {
 	loadTexture(requesteTexture) {
 
 		let AssetLoader = this;
-		let deffered = new Deferred();
+		let defered = new Deferred();
 
-		AssetLoader._textureLoader.load( requesteTexture.getUrl(), function ( loadedTexture ) {
-			AssetLoader.resources.textures.set(requesteTexture.name, loadedTexture);
-			deffered.resolve();
-		});
+		if(!_textureCache.has(requesteTexture.getUrl())) {
+			
+			let textureCacheArray = [];
+			_textureCache.set(requesteTexture.getUrl(), textureCacheArray);
+			textureCacheArray.push(defered);
 
-		return deffered.promise;
+			AssetLoader._textureLoader.load( requesteTexture.getUrl(), function ( loadedTexture ) {
+				AssetLoader.resources.textures.set(requesteTexture.name, loadedTexture);
+				_textureCache.get(requesteTexture.getUrl()).forEach(function(defer) {
+					defer.resolve();
+				});
+				_textureCache.delete(requesteTexture.getUrl())
+			});
+
+		} else {
+			_textureCache.get(requesteTexture.getUrl()).push(defered);
+		}
+		
+
+		return defered.promise;
 
 	}
 
 	loadShader(requestedShader) {
 
 		let AssetLoader = this;
-		let deffered = new Deferred();
+		let defered = new Deferred();
 
-		AssetLoader._shaderLoader.load( requestedShader.getUrl(), function ( program ) {
-			requestedShader.setProgram(program);
-			AssetLoader.resources.shaders.set(requestedShader.name, requestedShader);
-			deffered.resolve();
-		});
+		if(!_shaderCache.has(requestedShader.getUrl())) {
 
-		return deffered.promise;
+			let shaderCacheArray = [];
+			_shaderCache.set(requestedShader.getUrl(), shaderCacheArray);
+			shaderCacheArray.push(defered);
+
+			AssetLoader._shaderLoader.load( requestedShader.getUrl(), function ( program ) {
+				requestedShader.setProgram(program);
+				AssetLoader.resources.shaders.set(requestedShader.name, requestedShader);
+				_shaderCache.get(requestedShader.getUrl()).forEach(function(defer) {
+					defer.resolve();
+				});
+				_shaderCache.delete(requestedShader.getUrl())
+			});
+
+		} else {
+			_shaderCache.get(requestedShader.getUrl()).push(defered);
+		}
+
+		return defered.promise;
 
 	}
 
 	loadImage(RequestedImage) {
 
 		let AssetLoader = this;
-		let deffered = new Deferred();
+		let defered = new Deferred();
 
 		AssetLoader._shaderLoader.load( RequestedImage.getUrl(), function ( loadedImage ) {
 			AssetLoader.resources.images.set(RequestedImage.name, loadedImage);
-			deffered.resolve();
+			defered.resolve();
 		});
 
-		return deffered.promise;
+		return defered.promise;
 
 	}
 
 	loadObject(requestedObject) {
 
 		let assetLoader = this;
-		let deffered = new Deferred();
+		let defered = new Deferred();
 
 		let load = assetLoader._objectLoader.load;
 		if(type == "json") load = assetLoader._objectLoader.loadJson;
 
 		load( requestedObject.getUrl(), function ( loadedObject ) {
 			assetLoader.resources.objects.set(requestedObject.name, loadedObject);
-			deffered.resolve();
+			defered.resolve();
 		});
 
-		return deffered.promise;
+		return defered.promise;
 
 	}
 
 	loadAsset(RequestedAsset) {
 
 		let AssetLoader = this;
-		let deffered = new Deferred();
+		let defered = new Deferred();
 
 		AssetLoader._shaderLoader.load( RequestedImage.getUrl(), function ( loadedImage ) {
 			AssetLoader.resources.misc.set(RequestedImage.name, loadedImage);
-			deffered.resolve();
+			defered.resolve();
 		});
 
-		return deffered.promise;
+		return defered.promise;
 
 	}
 
