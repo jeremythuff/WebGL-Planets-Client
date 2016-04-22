@@ -19,13 +19,13 @@ DevMode.load(function() {
 	DevMode.gui.addView("Menu Bar", "src/game/states/devMode/gui/templates/devMenu.hbs");
 	DevMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
-	DevMode.star = new Star(0xff9900, 6);
+	DevMode.star = new Star(0xff8c00, 6);
 
 	Promise.all([
 		DevMode.star.load()
 	]).then(function() {
 		
-		DevMode.scene.add(new THREE.AmbientLight( 0x666666 ));
+		//DevMode.scene.add(new THREE.AmbientLight( 0x666666 ));
 		DevMode.scene.add(DevMode.star.getMesh());
 
 		DevMode.camera.position.z = 15;

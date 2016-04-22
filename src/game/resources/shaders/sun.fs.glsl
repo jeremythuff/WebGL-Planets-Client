@@ -10,7 +10,7 @@ void main() {
   
   light = normalize(light);
 
-  float n = snoise(vNormal * 24.0 + vFlow);
+  float n = snoise(vNormal * 24.00 + vFlow);
 
   float texColor = (n+0.5) * dot(vNormal, light);
 

@@ -14,6 +14,7 @@ export class Star {
 		Star.color = temp ? temp : 0xffffff;
 		Star.size = size ? size : 5;
 		Star.position = position ? position : {x:0,y:0};
+		Star.raysFadeToggle = true;
 	}
 
 	load() {
@@ -25,28 +26,25 @@ export class Star {
 		let loadAllPromise = assetLoader.loadAll([
 			new Shader("src/game/resources/shaders/sun.fs.glsl"),		
 			new Shader("src/game/resources/shaders/sun.vs.glsl"),
+			new Shader("src/game/resources/shaders/corona.fs.glsl"),		
+			new Shader("src/game/resources/shaders/corona.vs.glsl"),
 			new Texture("src/game/resources/textures/star/corona.png", "coronaMap"),
 			new Texture("src/game/resources/textures/star/blink.png", "raysMap")
 		]).then(function(resources) {
 			
 			let starMesh = new THREE.Object3D();
 
-			let uniforms = {
+			let baseUniforms = {
 				flow: { type: 'f', value: 0.01 },
 			  	color:     { type: "c", value: new THREE.Color( Star.color ) },
 			};
 
-			Star.uniforms = uniforms;
-
-			let widthSegments = 64;
-			let heightSegments = 64;
+			Star.baseUniforms = baseUniforms;
 
 			let baseGeometry  = new THREE.SphereBufferGeometry(Star.size, 16, 16);
-
-			let vertexCount = ( ( widthSegments + 1 ) * ( heightSegments + 1 ) );
 			
 			let baseMaterial = new THREE.ShaderMaterial({
-				uniforms:       uniforms,
+				uniforms:       baseUniforms,
 				vertexShader:   resources.shaders.get("sun-vs").program,
 				fragmentShader: resources.shaders.get("sun-fs").program
 			});
@@ -54,19 +52,30 @@ export class Star {
 			baseMesh.position.x = Star.position.x;
 			baseMesh.position.y = Star.position.y;
 			starMesh.add(baseMesh);
+			
+			//let coronaGeometry = new THREE.CircleGeometry( Star.size+(Star.size/10), 32 );
+			let coronaGeometry = new THREE.CircleGeometry( 1, 64 );
 
-			let coronaMaterial = new THREE.SpriteMaterial({
-				map: resources.textures.get("coronaMap"),
-				transparent: true,
-				opacity: 1.25,
-				color: starColor.clone().addScalar(0.4)
-			});
-			let coronaMesh = new THREE.Sprite(coronaMaterial)
-			
-			Star.corona = coronaMesh;
-			Star.corona.scale.set(Star.size*4,Star.size*4,1);
-			
-			baseMesh.add(Star.corona);
+			Star.coronaUniforms = {
+				alpha: { type: "f", value: 5 },
+				color: { type: "c", value: new THREE.Color( starColor.clone().addScalar(100) ) },
+                scale: { type: "v3", value:new THREE.Vector3(Star.size+(Star.size/8),Star.size+(Star.size/8),1)}
+            };
+
+            let coronaMaterial = new THREE.ShaderMaterial( {
+                uniforms: Star.coronaUniforms,
+                vertexShader: resources.shaders.get("corona-vs").program,
+                fragmentShader: resources.shaders.get("corona-fs").program,
+                transparent: true,
+                blending:THREE.AdditiveBlending
+
+            } );
+   
+   			//let coronaMaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+            let coronaMesh = new THREE.Mesh( coronaGeometry, coronaMaterial );
+
+            baseMesh.add(coronaMesh);
+
 
 			let rayOneMaterial = new THREE.SpriteMaterial({
 				map: resources.textures.get("raysMap"),
@@ -117,7 +126,7 @@ export class Star {
 		let Star = this;
 		if(!Star.loaded) return;
 		
-		Star.uniforms.flow.value = Star.flow;
+		Star.baseUniforms.flow.value = Star.flow;
 
 		Star.flow +=  Math.sin(delta * 0.25);
 
@@ -130,7 +139,7 @@ export class Star {
 		Star.raysTwo.material.rotation -= 0.005 * delta;
 		Star.raysTwo.material.opacity -= fadeValue;
 
-		Star.corona.material.opacity += fadeValue*2;		
+		Star.coronaUniforms.alpha.value += fadeValue*20;		
 
 		if(Star.raysOne.material.opacity > 1) Star.raysFadeToggle = false;
 		if(Star.raysOne.material.opacity < 0.75) Star.raysFadeToggle = true;
