@@ -59,7 +59,7 @@ export class Star {
 			Star.coronaUniforms = {
 				alpha: { type: "f", value: 5 },
 				color: { type: "c", value: new THREE.Color( starColor.clone().addScalar(100) ) },
-                scale: { type: "v3", value:new THREE.Vector3(Star.size+(Star.size/8),Star.size+(Star.size/8),1)}
+                scale: { type: "v3", value:new THREE.Vector3(Star.size+(Star.size/10),Star.size+(Star.size/8),1)}
             };
 
             let coronaMaterial = new THREE.ShaderMaterial( {
@@ -128,21 +128,14 @@ export class Star {
 		
 		Star.baseUniforms.flow.value = Star.flow;
 
-		Star.flow +=  Math.sin(delta * 0.25);
+		Star.flow +=  delta * 0.25;
+		
+		Star.raysOne.material.rotation = Star.flow/25;
+		Star.raysOne.material.opacity = Math.abs(0.3 * Math.sin(Star.flow))+0.5;
 
-		let fadeValue = 0.025 * delta
-		if(!Star.raysFadeToggle) fadeValue = -(fadeValue);
+		Star.raysTwo.material.rotation = -(Star.flow/20);
+		Star.raysTwo.material.opacity = Math.abs(0.3 * Math.cos(Star.flow))+0.25;
 
-		Star.raysOne.material.rotation += 0.01 * delta;
-		Star.raysOne.material.opacity += fadeValue;
-
-		Star.raysTwo.material.rotation -= 0.005 * delta;
-		Star.raysTwo.material.opacity -= fadeValue;
-
-		Star.coronaUniforms.alpha.value += fadeValue*20;		
-
-		if(Star.raysOne.material.opacity > 1) Star.raysFadeToggle = false;
-		if(Star.raysOne.material.opacity < 0.75) Star.raysFadeToggle = true;
 
 	}
 
