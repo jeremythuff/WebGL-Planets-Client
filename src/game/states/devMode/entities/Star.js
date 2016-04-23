@@ -14,7 +14,15 @@ export class Star {
 		Star.color = temp ? temp : 0xffffff;
 		Star.size = size ? size : 5;
 		Star.position = position ? position : {x:0,y:0};
-		Star.raysFadeToggle = true;
+		Star.rayOneFadeToggle = true;
+		Star.rayOneFade = {
+			max: 0.8,
+			min: 0.5
+		}
+		Star.rayTwoFade = {
+			max: 0.55,
+			min: 0.25
+		}
 	}
 
 	load() {
@@ -131,10 +139,10 @@ export class Star {
 		Star.flow +=  delta * 0.25;
 		
 		Star.raysOne.material.rotation = Star.flow/25;
-		Star.raysOne.material.opacity = Math.abs(0.3 * Math.sin(Star.flow))+0.5;
+		Star.raysTwo.material.opacity = Math.abs(Star.rayOneFade.max-Star.rayOneFade.min * Math.cos(Star.flow))+Star.rayOneFade.min;
 
 		Star.raysTwo.material.rotation = -(Star.flow/20);
-		Star.raysTwo.material.opacity = Math.abs(0.3 * Math.cos(Star.flow))+0.25;
+		Star.raysTwo.material.opacity = Math.abs(Star.rayTwoFade.max-Star.rayTwoFade.min * Math.cos(Star.flow))+Star.rayTwoFade.min;
 
 
 	}
