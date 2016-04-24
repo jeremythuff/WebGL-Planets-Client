@@ -62,7 +62,7 @@ export class Star {
    			
 			let coronaSegments = 100;
 
-			let coronaGeometry = new THREE.CircleBufferGeometry(Star.size+(Star.size/6), coronaSegments);
+			let coronaGeometry = new THREE.CircleBufferGeometry(Star.size+(Star.size/7), coronaSegments);
 
 			let vertexCount = ( coronaSegments * 3 );
 

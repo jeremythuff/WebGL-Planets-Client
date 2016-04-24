@@ -10,10 +10,12 @@ void main() {
 
   float n = snoise(normal * amplitude);
 
-  vec3 newPosition = position + normal *
-    vec3(displacement * n);
+  vec3 newPosition = position + normal * vec3(displacement * n);
 
-  gl_Position = projectionMatrix *
-                modelViewMatrix *
-                vec4(newPosition, 1.0);
+  	// gl_Position = projectionMatrix *
+   //              modelViewMatrix *
+   //              vec4(newPosition.x, newPosition.y, position.z, 1.0);
+
+
+	gl_Position = projectionMatrix * (modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0) + vec4(position.x, position.y, 0.0, 0.0));
 }
