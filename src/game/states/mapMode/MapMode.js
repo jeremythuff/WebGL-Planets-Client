@@ -33,9 +33,9 @@ MapMode.load(function() {
 	
 
 	Promise.all([
+		MapMode.starMap.load(),
 		MapMode.starBox.load(),
-		MapMode.starMapBg.load(),
-		MapMode.starMap.load()
+		MapMode.starMapBg.load()
 	]).then(function() {
 		MapMode.scene.add(MapMode.lights.getAmbientLight());
 		let spotLight = MapMode.lights.getSpotLight();

@@ -25,7 +25,7 @@ DevMode.load(function() {
 		DevMode.star.load()
 	]).then(function() {
 		
-		//DevMode.scene.add(new THREE.AmbientLight( 0x666666 ));
+		DevMode.scene.add(new THREE.AmbientLight( 0x666666 ));
 		DevMode.scene.add(DevMode.star.getMesh());
 
 		DevMode.camera.position.z = 15;
@@ -37,7 +37,7 @@ DevMode.load(function() {
 });
 
 DevMode.update(function(delta) {
-	DevMode.star.update(delta);
+	DevMode.star.update(delta, DevMode);
 });
 
 DevMode.render(function(delta) {

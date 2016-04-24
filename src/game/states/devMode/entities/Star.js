@@ -34,9 +34,8 @@ export class Star {
 		let loadAllPromise = assetLoader.loadAll([
 			new Shader("src/game/resources/shaders/sun.fs.glsl"),		
 			new Shader("src/game/resources/shaders/sun.vs.glsl"),
-			new Shader("src/game/resources/shaders/corona.fs.glsl"),		
-			new Shader("src/game/resources/shaders/corona.vs.glsl"),
-			new Texture("src/game/resources/textures/star/corona.png", "coronaMap"),
+			new Shader("src/game/resources/shaders/corona2.fs.glsl"),		
+			new Shader("src/game/resources/shaders/corona2.vs.glsl"),
 			new Texture("src/game/resources/textures/star/blink.png", "raysMap")
 		]).then(function(resources) {
 			
@@ -44,7 +43,7 @@ export class Star {
 
 			let baseUniforms = {
 				flow: { type: 'f', value: 0.01 },
-			  	color:     { type: "c", value: new THREE.Color( Star.color ) },
+			  	color:     { type: "c", value: starColor.clone() },
 			};
 
 			Star.baseUniforms = baseUniforms;
@@ -54,36 +53,45 @@ export class Star {
 			let baseMaterial = new THREE.ShaderMaterial({
 				uniforms:       baseUniforms,
 				vertexShader:   resources.shaders.get("sun-vs").program,
-				fragmentShader: resources.shaders.get("sun-fs").program
+				fragmentShader: resources.shaders.get("sun-fs").program,
 			});
 			let baseMesh = new THREE.Mesh(baseGeometry, baseMaterial);
 			baseMesh.position.x = Star.position.x;
 			baseMesh.position.y = Star.position.y;
 			starMesh.add(baseMesh);
+   			
+			let coronaSegments = 100;
+
+			let coronaGeometry = new THREE.CircleBufferGeometry(Star.size+(Star.size/6), coronaSegments);
+
+			let vertexCount = ( coronaSegments * 3 );
+
+			let values = new Float32Array(vertexCount)
+ 
+ 			for (let v = 0; v < vertexCount; v++) {
+ 			  values[v] = (Math.random() * (Star.size));
+ 			}
+
+			coronaGeometry.addAttribute( 'displacement', new THREE.BufferAttribute( values, 1));
 			
-			//let coronaGeometry = new THREE.CircleGeometry( Star.size+(Star.size/10), 32 );
-			let coronaGeometry = new THREE.CircleGeometry( 1, 64 );
-
 			Star.coronaUniforms = {
-				alpha: { type: "f", value: 5 },
-				color: { type: "c", value: new THREE.Color( starColor.clone().addScalar(100) ) },
-                scale: { type: "v3", value:new THREE.Vector3(Star.size+(Star.size/10),Star.size+(Star.size/8),1)}
-            };
+ 				amplitude: { type: 'f', value: 0.01 },
+ 				color: { type: "c", value: starColor.clone().addScalar(0.5) },
+ 			};
 
-            let coronaMaterial = new THREE.ShaderMaterial( {
-                uniforms: Star.coronaUniforms,
-                vertexShader: resources.shaders.get("corona-vs").program,
-                fragmentShader: resources.shaders.get("corona-fs").program,
-                transparent: true,
-                blending:THREE.AdditiveBlending
-
-            } );
-   
-   			//let coronaMaterial = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+   			let coronaMaterial = new THREE.ShaderMaterial({
+   				transparent: true,
+   				opacity: 0.5,
+   				uniforms: Star.coronaUniforms,
+				vertexShader:   resources.shaders.get("corona2-vs").program,
+				fragmentShader: resources.shaders.get("corona2-fs").program,
+				depthWrite: false,				
+				//side: THREE.BackSide
+			});
+   			
             let coronaMesh = new THREE.Mesh( coronaGeometry, coronaMaterial );
 
             baseMesh.add(coronaMesh);
-
 
 			let rayOneMaterial = new THREE.SpriteMaterial({
 				map: resources.textures.get("raysMap"),
@@ -137,9 +145,11 @@ export class Star {
 		Star.baseUniforms.flow.value = Star.flow;
 
 		Star.flow +=  delta * 0.25;
+
+		Star.coronaUniforms.amplitude.value = Star.flow;
 		
 		Star.raysOne.material.rotation = Star.flow/25;
-		Star.raysTwo.material.opacity = Math.abs(Star.rayOneFade.max-Star.rayOneFade.min * Math.cos(Star.flow))+Star.rayOneFade.min;
+		Star.raysTwo.material.opacity = Math.abs(Star.rayOneFade.max-Star.rayOneFade.min * Math.cos(Star.flow*100))+Star.rayOneFade.min;
 
 		Star.raysTwo.material.rotation = -(Star.flow/20);
 		Star.raysTwo.material.opacity = Math.abs(Star.rayTwoFade.max-Star.rayTwoFade.min * Math.cos(Star.flow))+Star.rayTwoFade.min;

@@ -45,6 +45,8 @@ export class AssetLoader {
 			textureCacheArray.push(defered);
 
 			AssetLoader._textureLoader.load( requesteTexture.getUrl(), function ( loadedTexture ) {
+				console.log("loaded textures");
+				console.log(_textureCache.get(requesteTexture.getUrl()).length);
 				AssetLoader.resources.textures.set(requesteTexture.name, loadedTexture);
 				_textureCache.get(requesteTexture.getUrl()).forEach(function(defer) {
 					defer.resolve();
@@ -73,6 +75,8 @@ export class AssetLoader {
 			shaderCacheArray.push(defered);
 
 			AssetLoader._shaderLoader.load( requestedShader.getUrl(), function ( program ) {
+				console.log("loaded shaders");
+				console.log(_shaderCache.get(requestedShader.getUrl()).length);
 				requestedShader.setProgram(program);
 				AssetLoader.resources.shaders.set(requestedShader.name, requestedShader);
 				_shaderCache.get(requestedShader.getUrl()).forEach(function(defer) {
