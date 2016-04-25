@@ -7,7 +7,6 @@ import { StarMapBg } from "game/states/mapMode/entities/StarMapBg";
 import { StarMap } from "game/states/mapMode/entities/StarMap";
 import { loadControllProfile } from "game/states/mapMode/controllProfile";
 
-
 let MapMode = new State("Map Mode");
 
 MapMode.init(function() {
@@ -60,13 +59,13 @@ MapMode.load(function() {
 			}
 		}
 	};
-
+	
 	MapMode.gui.addView("Menu Bar", "src/game/states/mapMode/gui/templates/menuBar.hbs");
 
 });
 
 MapMode.update(function(delta) {
-	MapMode.starMap.update(delta)
+	MapMode.starMap.update(delta);
 	MapMode.starMapBg.update(delta, MapMode);
 });
 

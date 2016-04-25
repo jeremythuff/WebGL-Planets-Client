@@ -6,16 +6,16 @@ varying vec3 vNormal;
 
 void main() {
 
-  vNormal = normal;
+  	vNormal = normal;
 
-  float n = snoise(normal * amplitude);
+  	float n = snoise(normal * amplitude);
 
-  vec3 newPosition = position + normal * vec3(displacement * n);
-
+  	float newPositionX = (position.x + normal.x) * (displacement * amplitude);
+	float newPositionY = (position.y + normal.y) * (displacement * amplitude);
   	// gl_Position = projectionMatrix *
-   //              modelViewMatrix *
-   //              vec4(newPosition.x, newPosition.y, position.z, 1.0);
+   	//              modelViewMatrix *
+   	//              vec4(newPosition.x, newPosition.y, position.z, 1.0);
 
 
-	gl_Position = projectionMatrix * (modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0) + vec4(position.x, position.y, 0.0, 0.0));
+	gl_Position = projectionMatrix * (modelViewMatrix * vec4(0.0, 0.0, 0.0, 1.0) + vec4(newPositionX, newPositionY, 0.0, 0.0));
 }

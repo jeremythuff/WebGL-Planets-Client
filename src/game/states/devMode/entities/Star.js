@@ -43,7 +43,7 @@ export class Star {
 
 			let baseUniforms = {
 				flow: { type: 'f', value: 0.01 },
-			  	color:     { type: "c", value: starColor.clone() },
+			  	color: { type: "c", value: starColor.clone() },
 			};
 
 			Star.baseUniforms = baseUniforms;
@@ -60,22 +60,22 @@ export class Star {
 			baseMesh.position.y = Star.position.y;
 			starMesh.add(baseMesh);
    			
-			let coronaSegments = 100;
+			let coronaSegments = 1000;
 
-			let coronaGeometry = new THREE.CircleBufferGeometry(Star.size+(Star.size/7), coronaSegments);
+			let coronaGeometry = new THREE.CircleBufferGeometry(Star.size+(Star.size/5), coronaSegments);
 
 			let vertexCount = ( coronaSegments * 3 );
 
 			let values = new Float32Array(vertexCount)
  
  			for (let v = 0; v < vertexCount; v++) {
- 			  values[v] = (Math.random() * (Star.size));
+ 				values[v] = (Math.random() * (Star.size/20))+1;
  			}
 
 			coronaGeometry.addAttribute( 'displacement', new THREE.BufferAttribute( values, 1));
 			
 			Star.coronaUniforms = {
- 				amplitude: { type: 'f', value: 0.01 },
+ 				amplitude: { type: 'f', value: 1.0 },
  				color: { type: "c", value: starColor.clone().addScalar(0.5) },
  			};
 
@@ -146,7 +146,7 @@ export class Star {
 
 		Star.flow +=  delta * 0.25;
 
-		Star.coronaUniforms.amplitude.value = Star.flow;
+		//Star.coronaUniforms.amplitude.value = Star.flow;
 		
 		Star.raysOne.material.rotation = Star.flow/25;
 		Star.raysTwo.material.opacity = Math.abs(Star.rayOneFade.max-Star.rayOneFade.min * Math.cos(Star.flow*100))+Star.rayOneFade.min;

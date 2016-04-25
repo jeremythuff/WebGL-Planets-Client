@@ -1,0 +1,26 @@
+{
+  "exclude": ["node_modules/**", "build/**"],
+  "ecmaVersion": 6,
+  "libs": [
+    "browser",
+    "ecma6",
+    "ecma5"
+  ],
+    "loadEagerly": [
+      "src/**/*.js"
+    ],
+
+    "dontLoad": [
+      "build/**/**",
+      "node_modules/**/**"
+    ],
+  "plugins": {
+    "complete_strings": {},
+    "node": {},
+    "modules": {},
+    "es_modules": {},
+    "doc_comment": {
+      "fullDocs": true
+    }
+  }
+}
