@@ -9,7 +9,7 @@ export class Keyboard {
 
 	}
 
-	init(canvas) {
+	init() {
 
 		let keyboard = this;
 		
@@ -18,7 +18,7 @@ export class Keyboard {
 
 	}
 
-	destroy(canvas) {
+	destroy() {
 		
 		let keyboard = this;
 
@@ -51,20 +51,20 @@ export class Keyboard {
 
 let _keyDownHandler = function(e) {
     _keyDown(this, e);
-}
+};
 
 let _keyDown = function(keyboard, e) {
 	keyboard.keys.set(e.which, true);
 	_runCbs(keyboard, e);
-}	
+};	
 
 let _keyUpHandler = function(e) {
     _keyUp(this, e);
-}
+};
 
 let _keyUp = function(keyboard, e) {
 	keyboard.keys.set(e.which, false);
-}
+};
 
 let _runCbs = function(keyboard, e) {
 
@@ -85,7 +85,7 @@ let _runCbs = function(keyboard, e) {
 
 	});
 
-}
+};
 
 Keyboard.BACKSPACE = 8; 
 Keyboard.TAB = 9; 

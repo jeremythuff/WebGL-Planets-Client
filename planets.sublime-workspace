@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"Pla",
+				"PlanetMode"
+			],
+			[
+				"PlanetMode",
+				"planetMode"
+			],
+			[
 				"s",
 				"size"
 			],
@@ -506,14 +514,6 @@
 			[
 				"max",
 				"max-width"
-			],
-			[
-				"i",
-				"italic"
-			],
-			[
-				"te",
-				"text-align"
 			]
 		]
 	},
@@ -527,13 +527,25 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 354.0,
-		"last_filter": "ins",
+		"height": 320.0,
+		"last_filter": "insta",
 		"selected_items":
 		[
 			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"rmeove",
+				"Package Control: Remove Package"
+			],
+			[
 				"ins",
 				"Package Control: Install Package"
+			],
+			[
+				"add",
+				"Project: Add Folder"
 			],
 			[
 				"rem",
@@ -575,28 +587,41 @@
 	"expanded_folders":
 	[
 		"/C/development/games/WebGL-Planets-Client",
-		"/C/development/games/WebGL-Planets-Client/src",
-		"/C/development/games/WebGL-Planets-Client/src/game",
-		"/C/development/games/WebGL-Planets-Client/src/game/states",
-		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode",
-		"/C/development/games/WebGL-Planets-Client/src/game/states/planetMode"
+		"/C/development/games/WebGL-Planets-Client/src"
 	],
 	"file_history":
 	[
-		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/MapMode.js",
-		"/C/development/games/WebGL-Planets-Client/.tern-project",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/TernJS.sublime-settings",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/TernJS/TernJS.sublime-settings",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/intro/Intro.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/model/State.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/planetMode/PlanetMode.js",
+		"/C/development/games/WebGL-Planets-Client/planets.sublime-project",
+		"/C/development/games/WebGL-Planets-Client/src/main.js",
+		"/C/development/games/WebGL-Planets-Client/.tern-project",
+		"/C/development/games/WebGL-Planets-Client/src/game/planetsMain.js",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/Tern.sublime-settings",
+		"/C/development/games/WebGL-Planets-Client/src/engine/io/Keyboard.js",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/JSHint Gutter/.jshintrc",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/development/games/WebGL-Planets-Client/src/engine/io/Gamepad.js",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/Base File.sublime-settings",
+		"/C/development/games/WebGL-Planets-Client/src/engine/Engine.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/model/Game.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/MapMode.js",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/JSHint Gutter/JSHint.sublime-settings",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/planetMode/entities/Earth.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/lights/MapModeLights.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/model/Asset.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/devMode/entities/star2.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/utils/AjaxLoader.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/utils/AssetLoader.js",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/webpack.sublime-build",
+		"/C/development/games/WebGL-Planets-Client/src/context/Context.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/model/GUI.js",
 		"/C/development/games/WebGL-Planets-Client/build/planets.js",
-		"/C/development/games/WebGL-Planets-Client/src/game/states/planetMode/PlanetMode.js",
-		"/C/development/games/WebGL-Planets-Client/src/engine/io/Keyboard.js",
-		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/Tern.sublime-settings",
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/Tern.sublime-settings",
-		"/C/development/games/WebGL-Planets-Client/src/engine/Engine.js",
-		"/C/development/games/WebGL-Planets-Client/src/game/planetsMain.js",
-		"/C/development/games/WebGL-Planets-Client/src/main.js",
-		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
 		"/C/development/games/WebGL-Planets-Client/src/game/resources/shaders/corona2.fs.glsl",
 		"/C/development/games/WebGL-Planets-Client/src/game/resources/shaders/corona2.vs.glsl",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/devMode/entities/Star.js",
@@ -608,7 +633,6 @@
 		"/C/development/games/WebGL-Planets-Client/src/game/resources/shaders/galaxy-spiral.fs.glsl",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/controllProfile.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/utils/ThreeTextureLoader.js",
-		"/C/development/games/WebGL-Planets-Client/src/engine/utils/AssetLoader.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/utils/ShaderLoader.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/utils/TextureLoader.js",
 		"/C/development/games/WebGL-Planets-Client/package.json",
@@ -694,27 +718,11 @@
 		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/README.txt",
 		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/settlement.txt",
 		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/Fallout4/Fallout4Prefs.ini",
-		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/Ultra.ini",
-		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/Data/Strings/Fallout4_en.STRINGS",
-		"/C/development/apps/projectaltura/src/main/resources/static/projectaltura/app/resources/foo.html",
-		"/C/development/apps/projectaltura/src/main/resources/static/projectaltura/app/index.html",
-		"/C/Users/Huffsiz/Desktop/temp",
-		"/C/development/games/voxngine/src/main/resources/maps/0.map",
-		"/C/development/coralSearch/.htaccess",
-		"/C/development/coralSearch/index.php",
-		"/C/development/coralSearch/endpoints/search.php",
-		"/C/webDev/resources/gitAppKey",
-		"/C/development/coralSearch/endpoints/html.php",
-		"/C/development/coralSearch/endpoints/json.php",
-		"/C/development/coralSearch/endpoints/xml.php",
-		"/C/development/coralSearch/config/config.php",
-		"/C/development/coralSearch/resources/css/app.css",
-		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/SFTP.errors.log",
-		"/C/development/coralSearch/sftp-config.json"
+		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/Ultra.ini"
 	],
 	"find":
 	{
-		"height": 28.0
+		"height": 70.0
 	},
 	"find_in_files":
 	{
@@ -734,6 +742,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"ecma6",
+			"promise",
+			";\n",
 			"resources",
 			"raysFade",
 			"1000",
@@ -858,10 +869,7 @@
 			" w",
 			" w ",
 			"w",
-			"map",
-			"models[el].textures.",
-			"sand",
-			"rock"
+			"map"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -917,7 +925,7 @@
 		"cols":
 		[
 			0.0,
-			0.0381679389313,
+			0.468579554545,
 			1.0
 		],
 		"rows":
@@ -931,15 +939,23 @@
 	{
 		"height": 0.0
 	},
+	"output.exec":
+	{
+		"height": 142.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
+	},
+	"output.myOutput":
+	{
+		"height": 150.0
 	},
 	"output.sftp":
 	{
 		"height": 162.0
 	},
-	"pinned_build_system": "",
+	"pinned_build_system": "Packages/User/webpack.sublime-build",
 	"project": "planets.sublime-project",
 	"replace":
 	{
@@ -952,6 +968,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"key",
+				"src\\engine\\io\\Keyboard.js"
+			]
 		],
 		"width": 0.0
 	},
@@ -966,12 +986,32 @@
 	},
 	"select_symbol":
 	{
-		"height": 392.0,
+		"height": 354.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"Earth"
+			],
+			[
+				"MapMode",
+				"MapModeLights"
+			],
+			[
+				"Star",
+				"Star"
+			],
+			[
+				"Sta",
+				"Star"
+			],
+			[
+				"Ke",
+				"Keyboard"
+			]
 		],
-		"width": 456.0
+		"width": 374.0
 	},
 	"selected_group": 1,
 	"settings":
@@ -981,7 +1021,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 228.0,
+	"side_bar_width": 244.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

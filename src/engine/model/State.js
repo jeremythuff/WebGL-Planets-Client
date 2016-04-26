@@ -5,7 +5,7 @@ import { Controls } from "engine/io/Controls";
 export class State {
 	constructor(name) {
 
-		this.game;
+		this.game = null;
 
 		this.setName(name);
 		
@@ -24,7 +24,9 @@ export class State {
 		this.scene = new Scene();
 		this.controls = new Controls();
 
-		this.renderer;
+		this.renderer = null;
+
+		return this;
 	}
 
 	start() {
