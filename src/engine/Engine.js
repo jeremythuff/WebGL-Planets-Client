@@ -1,5 +1,4 @@
 import { THREE } from 'three';
-import { Utilities } from "engine/utils/Utilities";
 import { Context } from "context/Context";
 
 /**
@@ -17,7 +16,6 @@ export class Engine {
 	constructor() {
 		this.context = new Context();
 		this.startLoop();
-		this.utils = new Utilities();
 		this.running = false;
 	}
 

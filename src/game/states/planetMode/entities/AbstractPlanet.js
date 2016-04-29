@@ -1,13 +1,12 @@
 import { THREE } from 'three';
-import { AssetLoader } from "engine/utils/AssetLoader"
+import { Entity } from "engine/model/Entity";
 
-let assetLoader = new AssetLoader();
-
-export class AbstractPlanet {
+export class AbstractPlanet extends Entity {
 	constructor(properties) {
+
+		super();
+
 		let AbstractPlanet = this;
-		AbstractPlanet.loaded = false;
-		AbstractPlanet.mesh = null;
 
 		AbstractPlanet._unloadedResources = new Set();
 
@@ -28,9 +27,9 @@ export class AbstractPlanet {
 
 		let AbstractPlanet = this;
 
-		let loadPromise = assetLoader.loadAll(AbstractPlanet._unloadedResources).then(function(resources) {
+		let loadPromise = AbstractPlanet.assetLoader.loadAll(AbstractPlanet._unloadedResources).then(function(resources) {
 		
-			let planetGeometry  = new THREE.SphereGeometry(AbstractPlanet._size, 32, 32)
+			let planetGeometry  = new THREE.SphereGeometry(AbstractPlanet._size, 32, 32);
 			let planetMaterial  = new THREE.MeshPhongMaterial({
 				map: resources.textures.get("map"),
 				bumpMap: resources.textures.get("bump"),
@@ -39,10 +38,10 @@ export class AbstractPlanet {
 				specular: new THREE.Color('grey')
 			});
 			
-			AbstractPlanet.mesh = new THREE.Mesh(planetGeometry, planetMaterial);
-			AbstractPlanet.mesh.recievesShadow = true;
+			AbstractPlanet._mesh = new THREE.Mesh(planetGeometry, planetMaterial);
+			AbstractPlanet._mesh.recievesShadow = true;
 
-			let atmosphereGeometry   = new THREE.SphereGeometry(AbstractPlanet._size+AbstractPlanet._atmosphereSize, 32, 32)
+			let atmosphereGeometry   = new THREE.SphereGeometry(AbstractPlanet._size+AbstractPlanet._atmosphereSize, 32, 32);
 			let atmosphereMaterial  = new THREE.MeshPhongMaterial({
 				map     : resources.textures.get("atmosphere"),
 				side        : THREE.DoubleSide,
@@ -54,7 +53,7 @@ export class AbstractPlanet {
 			AbstractPlanet.atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
 			AbstractPlanet.atmosphereMesh.castShadow = true;
 
-			AbstractPlanet.mesh.add(AbstractPlanet.atmosphereMesh);
+			AbstractPlanet._mesh.add(AbstractPlanet.atmosphereMesh);
 
 			AbstractPlanet.loaded = true;
 
@@ -62,10 +61,6 @@ export class AbstractPlanet {
 
 		return loadPromise;
 
-	}
-
-	getMesh() {
-		return this.mesh;
 	}
 
 	getAtmosphereMesh() {

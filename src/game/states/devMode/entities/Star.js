@@ -1,15 +1,14 @@
 import { THREE } from 'three';
-import { AssetLoader } from "engine/utils/AssetLoader";
+import { Entity } from "engine/model/Entity";
 import { Shader } from "engine/model/Shader";
 import { Texture } from "engine/model/Texture";
 
-let assetLoader = new AssetLoader();
-
-export class Star {
+export class Star extends Entity {
 	constructor(temp, size, position) {
+
+		super();
+
 		let Star = this;
-		Star.loaded = false;
-		Star._mesh;
 		Star.flow = 0.0;
 		Star.color = temp ? temp : 0xffffff;
 		Star.size = size ? size : 5;
@@ -18,11 +17,11 @@ export class Star {
 		Star.rayOneFade = {
 			max: 0.8,
 			min: 0.5
-		}
+		};
 		Star.rayTwoFade = {
 			max: 0.55,
 			min: 0.25
-		}
+		};
 	}
 
 	load() {
@@ -31,7 +30,7 @@ export class Star {
 
 		let starColor = new THREE.Color(Star.color);
 		
-		let loadAllPromise = assetLoader.loadAll([
+		let loadAllPromise = Star.assetLoader.loadAll([
 			new Shader("src/game/resources/shaders/sun.fs.glsl"),		
 			new Shader("src/game/resources/shaders/sun.vs.glsl"),
 			new Shader("src/game/resources/shaders/corona2.fs.glsl"),		
@@ -66,7 +65,7 @@ export class Star {
 
 			let vertexCount = ( coronaSegments * 3 );
 
-			let values = new Float32Array(vertexCount)
+			let values = new Float32Array(vertexCount);
  
  			for (let v = 0; v < vertexCount; v++) {
  				values[v] = (Math.random() * (Star.size/20))+1;
@@ -85,8 +84,7 @@ export class Star {
    				uniforms: Star.coronaUniforms,
 				vertexShader:   resources.shaders.get("corona2-vs").program,
 				fragmentShader: resources.shaders.get("corona2-fs").program,
-				depthWrite: false,				
-				//side: THREE.BackSide
+				depthWrite: false
 			});
    			
             let coronaMesh = new THREE.Mesh( coronaGeometry, coronaMaterial );
@@ -101,7 +99,7 @@ export class Star {
 				depthTest: false,
 				color: starColor.clone().addScalar(15)
 			});
-			let rayOneMesh = new THREE.Sprite(rayOneMaterial)
+			let rayOneMesh = new THREE.Sprite(rayOneMaterial);
 			
 			Star.raysOne = rayOneMesh;
 			Star.raysOne.fading = true;
@@ -131,10 +129,6 @@ export class Star {
 
 		return loadAllPromise;
 
-	}
-
-	getMesh() {
-		return this._mesh;
 	}
 
 	update(delta) {

@@ -1,14 +1,15 @@
 import { THREE } from 'three';
-import { AssetLoader } from "engine/utils/AssetLoader"
-import { Texture } from "engine/model/Texture"
-import { Shader } from "engine/model/Shader"
+import { Entity } from "engine/model/Entity";
+//import { Texture } from "engine/model/Texture";
+//import { Shader } from "engine/model/Shader";
 import { Star } from "game/states/devMode/entities/Star";
-import { Deferred } from "engine/extensions/Deferred"
+import { Deferred } from "engine/extensions/Deferred";
 
-let assetLoader = new AssetLoader();
-
-export class StarMap {
+export class StarMap extends Entity {
 	constructor(data) {
+
+		super();
+
 		let StarMap = this;
 		StarMap._data = data;
 		StarMap._mesh = null;
@@ -27,7 +28,7 @@ export class StarMap {
 		let starMaterialWhite  = 0xebeef4;
 		let starMaterialBlack  = 0x3e4a5e;
 
-		let starTypes = [starMaterialYellow, starMaterialRed, starMaterialBlue, starMaterialWhite, starMaterialBlack]
+		let starTypes = [starMaterialYellow, starMaterialRed, starMaterialBlue, starMaterialWhite, starMaterialBlack];
 
 		let startX = -24;
 		let startY = 24;
@@ -41,11 +42,9 @@ export class StarMap {
 			let position = {
 				x: startX+i,
 				y: startY
-			}
-
+			};
 
 			let newStar = new Star(starTypes[startype], size, position);
-
 
 			StarMap.stars.add(newStar);
 			starLoadPromises.add(newStar.load());
@@ -61,7 +60,7 @@ export class StarMap {
 		}
 
 		StarMap._mesh = starMapMesh;
-		StarMap._mesh.position.z = 1
+		StarMap._mesh.position.z = 1;
 		
 		let defer = new Deferred();
 
@@ -85,10 +84,6 @@ export class StarMap {
 		StarMap.stars.forEach(function(star) {
 			star.update(delta);
 		});
-	}
-
-	getMesh() {
-		return this._mesh
 	}
 
 }

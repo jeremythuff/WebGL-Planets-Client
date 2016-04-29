@@ -1,14 +1,14 @@
 import { THREE } from 'three';
-import { Deferred } from "engine/extensions/Deferred"
-import { AjaxLoader } from "engine/utils/AjaxLoader"
-import { TextureLoader } from "engine/utils/TextureLoader"
-import { ShaderLoader } from "engine/utils/ShaderLoader"
-import { ObjectLoader } from "engine/utils/ObjectLoader"
+import { Deferred } from "engine/extensions/Deferred";
+import { AjaxLoader } from "engine/utils/AjaxLoader";
+import { TextureLoader } from "engine/utils/TextureLoader";
+import { ShaderLoader } from "engine/utils/ShaderLoader";
+import { ObjectLoader } from "engine/utils/ObjectLoader";
 
 let _textureCache = new Map();
 let _shaderCache = new Map();
 
-export class AssetLoader {
+class AssetLoader {
 	constructor() {
 
 		let AssetLoader = this;
@@ -19,8 +19,17 @@ export class AssetLoader {
 		AssetLoader._imageLoader = new AjaxLoader();
 		AssetLoader._shaderLoader = new ShaderLoader();
 
+		AssetLoader._manager.onLoad = function () {
+			console.log( "All Loaded!");
+		};
+
 		AssetLoader._manager.onProgress = function ( item, loaded, total ) {
 			console.log( item, loaded, total );
+		};
+
+		AssetLoader._manager.onError = function (e) {
+			console.log("ERROR");
+			console.log(e);
 		};
 
 		AssetLoader.resources = {
@@ -29,7 +38,7 @@ export class AssetLoader {
 			"objects": new Map(),
 			"textures": new Map(),
 			"misc": new Map()
-		}
+		};
 
 	}
 
@@ -51,14 +60,13 @@ export class AssetLoader {
 				_textureCache.get(requesteTexture.getUrl()).forEach(function(defer) {
 					defer.resolve();
 				});
-				_textureCache.delete(requesteTexture.getUrl())
+				_textureCache.delete(requesteTexture.getUrl());
 			});
 
 		} else {
 			_textureCache.get(requesteTexture.getUrl()).push(defered);
 		}
 		
-
 		return defered.promise;
 
 	}
@@ -82,7 +90,7 @@ export class AssetLoader {
 				_shaderCache.get(requestedShader.getUrl()).forEach(function(defer) {
 					defer.resolve();
 				});
-				_shaderCache.delete(requestedShader.getUrl())
+				_shaderCache.delete(requestedShader.getUrl());
 			});
 
 		} else {
@@ -113,7 +121,7 @@ export class AssetLoader {
 		let defered = new Deferred();
 
 		let load = assetLoader._objectLoader.load;
-		if(type == "json") load = assetLoader._objectLoader.loadJson;
+		if(requestedObject.type == "json") load = assetLoader._objectLoader.loadJson;
 
 		load( requestedObject.getUrl(), function ( loadedObject ) {
 			assetLoader.resources.objects.set(requestedObject.name, loadedObject);
@@ -124,13 +132,13 @@ export class AssetLoader {
 
 	}
 
-	loadAsset(RequestedAsset) {
+	loadAsset(requestedAsset) {
 
 		let AssetLoader = this;
 		let defered = new Deferred();
 
-		AssetLoader._shaderLoader.load( RequestedImage.getUrl(), function ( loadedImage ) {
-			AssetLoader.resources.misc.set(RequestedImage.name, loadedImage);
+		AssetLoader._shaderLoader.load( requestedAsset.getUrl(), function ( loadedImage ) {
+			AssetLoader.resources.misc.set(requestedAsset.name, loadedImage);
 			defered.resolve();
 		});
 
@@ -167,12 +175,21 @@ export class AssetLoader {
 	
 		});
 
-		Promise.all(promises).then(function() {
-			loadAllDefer.resolve(assetLoader.resources);
-		});
+		//TODO: This timout is allowing texture requests enough
+		// time to queue up. This is a hack that will not scale.
+		// Anothoer solution is needed.
+		setTimeout(function() {
+			Promise.all(promises).then(function() {
+				loadAllDefer.resolve(assetLoader.resources);
+			});
+		}, 1500);
 
 		return loadAllDefer.promise; 
 
 	}
 
 }
+
+let assetLoader = new AssetLoader();
+
+export { assetLoader };

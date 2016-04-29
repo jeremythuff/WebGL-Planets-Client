@@ -32,7 +32,7 @@ PlanetMode.load(function() {
 	
 	if(PlanetMode.loaded) return;
 
-	PlanetMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+	PlanetMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 	PlanetMode.lights = new PlanetModeLights();
     PlanetMode.planet = new Earth();
     PlanetMode.startfield = new StarBox();
@@ -44,7 +44,7 @@ PlanetMode.load(function() {
     	
     	PlanetMode.camera.position.z = 1;
 
-    	PlanetMode.scene.add(PlanetMode.planet.mesh);
+    	PlanetMode.scene.add(PlanetMode.planet.getMesh());
     	PlanetMode.scene.add(PlanetMode.startfield.getMesh());
     	PlanetMode.scene.add(PlanetMode.lights.getSpotlight());
     	

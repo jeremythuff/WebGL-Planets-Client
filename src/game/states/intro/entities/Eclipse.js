@@ -1,9 +1,9 @@
 import { THREE } from 'three';
+import { Entity } from "engine/model/Entity";
 
-export class Eclipse {
-	constructor() {
-		let Eclipse = this;
-		Eclipse._mesh = null;
+export class Eclipse extends Entity {
+	constructor() {		
+		super();
 	}
 
 	load() {
@@ -20,10 +20,6 @@ export class Eclipse {
 
 		return this;
 
-	}
-
-	getMesh() {
-		return this._mesh
 	}
 
 }

@@ -1,25 +1,23 @@
 import { THREE } from 'three';
-import { AssetLoader } from "engine/utils/AssetLoader"
-import { Texture } from "engine/model/Texture"
-import { Shader } from "engine/model/Shader"
+import { Entity } from "engine/model/Entity";
+import { Texture } from "engine/model/Texture";
+import { Shader } from "engine/model/Shader";
 
-
-let assetLoader = new AssetLoader();
-
-export class StarMapBg {
+export class StarMapBg extends Entity {
 	constructor() {
+
+		super();
+		
 		let StarMapBg = this;
 		StarMapBg.loaded = false;
-		StarMapBg._mesh = null;
 		StarMapBg._rockLeft = true;
-
 	}
 
 	load() {
 
 		let StarMapBg = this;
 
-		let loadPromise = assetLoader.loadAll([
+		let loadPromise = StarMapBg.assetLoader.loadAll([
 			new Texture("src/game/resources/textures/spiral-galaxy.png"),		
 			new Texture("src/game/resources/textures/glowSpan.png"),
 			new Texture("src/game/resources/textures/bg-light.png"),
@@ -94,7 +92,7 @@ export class StarMapBg {
 		 	MapMode.updateZoom = false;
 		}
 
-		if(MapMode.controls.mouse.isMoving() && MapMode.panOffsetX != 0 && MapMode.panOffsetY != 0) {
+		if(MapMode.controls.mouse.isMoving() && MapMode.panOffsetX !== 0 && MapMode.panOffsetY !== 0) {
 			
 			MapMode.camera.position.y += MapMode.panY;
 			MapMode.camera.position.x += MapMode.panX;
@@ -103,10 +101,6 @@ export class StarMapBg {
 			MapMode.panY = 0;
 		}
 	
-	}
-
-	getMesh() {
-		return this._mesh;
 	}
 
 }
@@ -127,7 +121,7 @@ let drawNebula = function(mesh, resources) {
 	mesh.add(nebulaMesh);
 
 	return nebulaMesh;
-}
+};
 
 let drawSquareGuide = function(mesh, resources) {
 
@@ -161,14 +155,14 @@ let drawSquareGuide = function(mesh, resources) {
 	gridMesh.material.map.onUpdate = function(){
 		this.offset.y += 0.0025;
 		this.needsUpdate = true;
-	}
+	};
 
 	gridMeshUnder.add(gridMesh);
 	mesh.add(gridMeshUnder);
 
 	return gridMesh;
 
-}
+};
 
 let drawGalaxy = function(mesh, resources) {
 	// Galaxy properties
@@ -250,8 +244,8 @@ let drawGalaxy = function(mesh, resources) {
 
 	return particleSystem;
 
-}
+};
 
 let rand = function() {
 	return Math.random() - 0.5;
-}
+};

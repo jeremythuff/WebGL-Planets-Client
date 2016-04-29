@@ -1,23 +1,17 @@
 import { THREE } from 'three';
-import { AssetLoader } from "engine/utils/AssetLoader"
-import { Texture } from "engine/model/Texture"
+import { Texture } from "engine/model/Texture";
+import { Entity } from "engine/model/Entity";
 
-let assetLoader = new AssetLoader();
-
-export class StarBox {
+export class StarBox extends Entity {
 	constructor() {
-
-		let StarBox = this;
-		StarBox.loaded = false;
-		StarBox.mesh = null;
-
+		super();
 	}
 
 	load() {
 
 		let StarBox = this;
 
-		let loadPromise = assetLoader.loadAll([
+		let loadPromise = StarBox.assetLoader.loadAll([
 			new Texture("src/game/resources/textures/starfield.png")
 		]).then(function(resources) {
 
@@ -29,16 +23,13 @@ export class StarBox {
 				side: THREE.BackSide
 			});
 			
-			StarBox.mesh  = new THREE.Mesh(geometry, material);
-			StarBox.loaded = true
+			StarBox._mesh  = new THREE.Mesh(geometry, material);
+			StarBox.loaded = true;
 			
 		});
 
 		return loadPromise;
 
 	}
-
-	getMesh() {
-		return this.mesh;
-	}
+	
 }
