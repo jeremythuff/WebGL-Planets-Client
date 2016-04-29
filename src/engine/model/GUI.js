@@ -48,9 +48,8 @@ export class GUI {
 		return eval("GUI._context." + key);
 	}
 
-	callOnContext(toCall) {
+	callOnContext(toCall, elem, e) {
 		let GUI = this;
-		console.log(GUI._context);
 		eval("GUI._context." + toCall);
 	}
 

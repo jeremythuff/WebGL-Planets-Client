@@ -27,6 +27,8 @@ export class AbstractPlanet extends Entity {
 
 		let AbstractPlanet = this;
 
+		AbstractPlanet._mesh = new THREE.Object3D();
+
 		let loadPromise = AbstractPlanet.assetLoader.loadAll(AbstractPlanet._unloadedResources).then(function(resources) {
 		
 			let planetGeometry  = new THREE.SphereGeometry(AbstractPlanet._size, 32, 32);
@@ -38,9 +40,11 @@ export class AbstractPlanet extends Entity {
 				specular: new THREE.Color('grey')
 			});
 			
-			AbstractPlanet._mesh = new THREE.Mesh(planetGeometry, planetMaterial);
-			AbstractPlanet._mesh.recievesShadow = true;
-
+			AbstractPlanet.baseMesh = new THREE.Mesh(planetGeometry, planetMaterial)
+			AbstractPlanet.baseMesh.recievesShadow = true;
+			
+			AbstractPlanet._mesh.add(AbstractPlanet.baseMesh);
+			
 			let atmosphereGeometry   = new THREE.SphereGeometry(AbstractPlanet._size+AbstractPlanet._atmosphereSize, 32, 32);
 			let atmosphereMaterial  = new THREE.MeshPhongMaterial({
 				map     : resources.textures.get("atmosphere"),
@@ -53,7 +57,12 @@ export class AbstractPlanet extends Entity {
 			AbstractPlanet.atmosphereMesh = new THREE.Mesh(atmosphereGeometry, atmosphereMaterial);
 			AbstractPlanet.atmosphereMesh.castShadow = true;
 
-			AbstractPlanet._mesh.add(AbstractPlanet.atmosphereMesh);
+			AbstractPlanet.baseMesh.add(AbstractPlanet.atmosphereMesh);
+
+			var directionalLight = new THREE.DirectionalLight( 0xEFEFEF, 0.75 );
+			directionalLight.position.set( -100, 50, 25 );
+
+			AbstractPlanet._mesh.add(directionalLight);
 
 			AbstractPlanet.loaded = true;
 
@@ -72,9 +81,9 @@ export class AbstractPlanet extends Entity {
 		let planet = this;
 		if(!planet.loaded) return;
 		
-		planet.getMesh().rotation.y  += planet._rotationSpeed * delta;
-		planet.getAtmosphereMesh().rotation.y  += planet._windSpeed * delta;
-		planet.getAtmosphereMesh().rotation.x  += planet._windSpeed/2 * delta;
+		planet.baseMesh.rotation.y  += planet._rotationSpeed * delta;
+		planet.atmosphereMesh.rotation.y  += planet._windSpeed * delta;
+		planet.atmosphereMesh.rotation.x  += planet._windSpeed/2 * delta;
 	
 	}
 }

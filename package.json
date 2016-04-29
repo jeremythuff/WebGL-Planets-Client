@@ -21,7 +21,8 @@
     "postinstall": "nohup webpack -w > ./webpack.log 2>&1 &",
     "prestart": "npm install",
     "preupdate-webdriver": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1"
+    "start": "http-server -a localhost -p 8000 -c-1",
+    "server": "http-server -a localhost -p 8000 -c-1"
   },
   "dependencies": {
     "file-loader": "^0.8.5",

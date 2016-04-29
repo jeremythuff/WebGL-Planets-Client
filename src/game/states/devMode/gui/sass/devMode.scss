@@ -1,3 +1,39 @@
 .dev-mode.menu {
 	color: $primary-color;
+    padding: 25px;
+    width: 250px;
+    background: rgba(250,250,250,0.25);
+}
+
+.dev-mode.menu ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+
+.dev-mode.menu ul li:hover {
+    cursor: pointer;
+    color: $highlight-color;
+}
+
+.dev-mode.menu ul li {
+    position: relative;
+}
+
+.dev-mode.menu ul li:active,
+.dev-mode.menu ul li.active, {
+    color: $success-color;
+}
+
+.dev-mode.menu ul li.active:before {
+    content: "\F054";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+    font-size: 15px;
+    padding-right: 1em;
+    position: absolute;
+    top: 2px;
+    left: -15px;
 }

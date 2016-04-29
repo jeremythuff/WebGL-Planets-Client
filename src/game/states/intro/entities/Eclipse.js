@@ -1,5 +1,6 @@
 import { THREE } from 'three';
 import { Entity } from "engine/model/Entity";
+import { Deferred } from "engine/extensions/Deferred";
 
 export class Eclipse extends Entity {
 	constructor() {		
@@ -10,6 +11,8 @@ export class Eclipse extends Entity {
 
 		let Eclipse = this;
 
+		let defered = new Deferred();
+
 		let eclipseMesh = new THREE.Object3D();
 		let planetGeometry  = new THREE.SphereGeometry(5, 64, 64);
 		let planetMesh = new THREE.Mesh(planetGeometry, new THREE.MeshPhongMaterial({ color: 0x121212}));
@@ -18,7 +21,9 @@ export class Eclipse extends Entity {
 
 		Eclipse._mesh = eclipseMesh;
 
-		return this;
+		defered.resolve();
+
+		return defered.promise;
 
 	}
 

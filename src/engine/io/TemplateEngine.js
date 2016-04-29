@@ -106,7 +106,7 @@ export class TemplateEngine {
 
 
 			let eventHandler = function(e) {
-				TemplateEngine.GUI.callOnContext(functionToCall);
+				TemplateEngine.GUI.callOnContext(functionToCall, eventElem, e);
 			}
 
 			eventElem.addEventListener(eventType, eventHandler);

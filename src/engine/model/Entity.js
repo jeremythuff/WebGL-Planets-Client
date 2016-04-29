@@ -15,6 +15,12 @@ export class Entity {
 
     update() {}
 
-    destroy() {}
+    destroy(scene) {
+        let Entity = this;
+        let meshId = Entity.getMesh().id;
+        console.log(Entity.getMesh().id);
+        let selectedObject = scene.getObjectById(meshId);
+        scene.remove( selectedObject );
+    }
 
 }

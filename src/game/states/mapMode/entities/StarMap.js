@@ -2,7 +2,7 @@ import { THREE } from 'three';
 import { Entity } from "engine/model/Entity";
 //import { Texture } from "engine/model/Texture";
 //import { Shader } from "engine/model/Shader";
-import { Star } from "game/states/devMode/entities/Star";
+import { Star } from "game/entities/Star";
 import { Deferred } from "engine/extensions/Deferred";
 
 export class StarMap extends Entity {

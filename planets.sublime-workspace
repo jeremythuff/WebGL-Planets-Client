@@ -527,10 +527,54 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 320.0,
-		"last_filter": "insta",
+		"height": 354.0,
+		"last_filter": "ins",
 		"selected_items":
 		[
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ",
+				"Package Control: List Unmanaged Packages"
+			],
+			[
+				"git",
+				"Git: Status"
+			],
+			[
+				"rem",
+				"Package Control: Remove Package"
+			],
+			[
+				"git commit",
+				"Git: Commit"
+			],
+			[
+				"git p",
+				"Git: Push"
+			],
+			[
+				"Git s",
+				"Git: Status"
+			],
+			[
+				"Git commit",
+				"Git: Commit"
+			],
+			[
+				"Git",
+				"Git: Add All"
+			],
+			[
+				"Install",
+				"Package Control: Install Package"
+			],
+			[
+				"Rem",
+				"Package Control: Remove Package"
+			],
 			[
 				"insta",
 				"Package Control: Install Package"
@@ -540,16 +584,8 @@
 				"Package Control: Remove Package"
 			],
 			[
-				"ins",
-				"Package Control: Install Package"
-			],
-			[
 				"add",
 				"Project: Add Folder"
-			],
-			[
-				"rem",
-				"Package Control: Remove Package"
 			],
 			[
 				"remo",
@@ -564,13 +600,15 @@
 				"Package Control: Install Package"
 			]
 		],
-		"width": 398.0
+		"width": 382.0
 	},
 	"console":
 	{
 		"height": 126.0,
 		"history":
 		[
+			"git",
+			"git status",
 			"import urllib.request,os,sys; exec(\"if sys.version_info < (3,) or os.name != 'nt': raise OSError('This code is for Windows ST3 only!')\"); pr='Preferences.sublime-settings'; ip='ignored_packages'; n='Package Control'; s=sublime.load_settings(pr); ig=s.get(ip); ig.append(n); s.set(ip,ig); sublime.save_settings('Preferences.sublime-settings'); pf=n+'.sublime-package'; urllib.request.install_opener(urllib.request.build_opener(urllib.request.ProxyHandler())); by=urllib.request.urlopen('https://packagecontrol.io/'+pf.replace(' ','%20')).read(); open(os.path.join(sublime.installed_packages_path(),pf),'wb').write(by); ig.remove(n); s.set(ip,ig); sublime.save_settings(pr); print('Package Control: 3.0.0 upgrade successful!')",
 			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
 		]
@@ -586,37 +624,51 @@
 	},
 	"expanded_folders":
 	[
-		"/C/development/games/WebGL-Planets-Client",
-		"/C/development/games/WebGL-Planets-Client/src"
+		"/C/Users/Huffsiz/development/games/WebGL-Planets-Client"
 	],
 	"file_history":
 	[
+		"/C/Users/Huffsiz/css/app.css",
+		"/C/development/games/WebGL-Planets-Client/planets.sublime-project",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/planetMode/entities/Earth.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/planetMode/PlanetMode.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/utils/AssetLoader.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/entities/StarMapBg.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/entities/StarMap.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/entities/StarBox.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/intro/entities/Eclipse.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/devMode/entities/Star.js",
+		"/C/development/games/WebGL-Planets-Client/src/game/states/planetMode/entities/AbstractPlanet.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/model/Entity.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/Engine.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/io/Controls.js",
+		"/C/development/games/WebGL-Planets-Client/package.json",
+		"/C/development/games/WebGL-Planets-Client/src/engine/io/Mouse.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/io/Keyboard.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/io/Gamepad.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/extensions/completeAssign.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/io/TemplateEngine.js",
+		"/C/development/games/WebGL-Planets-Client/src/engine/extensions/Deferred.js",
+		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/Base File.sublime-settings",
+		"/C/Program Files/Sublime Text 3/COMMIT_EDITMSG.COMMIT_EDITMSG",
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/TernJS.sublime-settings",
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/TernJS/TernJS.sublime-settings",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/intro/Intro.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/model/State.js",
-		"/C/development/games/WebGL-Planets-Client/src/game/states/planetMode/PlanetMode.js",
-		"/C/development/games/WebGL-Planets-Client/planets.sublime-project",
 		"/C/development/games/WebGL-Planets-Client/src/main.js",
 		"/C/development/games/WebGL-Planets-Client/.tern-project",
 		"/C/development/games/WebGL-Planets-Client/src/game/planetsMain.js",
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/Tern.sublime-settings",
-		"/C/development/games/WebGL-Planets-Client/src/engine/io/Keyboard.js",
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/JSHint Gutter/.jshintrc",
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
-		"/C/development/games/WebGL-Planets-Client/src/engine/io/Gamepad.js",
-		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/Base File.sublime-settings",
-		"/C/development/games/WebGL-Planets-Client/src/engine/Engine.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/model/Game.js",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/MapMode.js",
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/JSHint Gutter/JSHint.sublime-settings",
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
-		"/C/development/games/WebGL-Planets-Client/src/game/states/planetMode/entities/Earth.js",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/lights/MapModeLights.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/model/Asset.js",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/devMode/entities/star2.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/utils/AjaxLoader.js",
-		"/C/development/games/WebGL-Planets-Client/src/engine/utils/AssetLoader.js",
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/User/webpack.sublime-build",
 		"/C/development/games/WebGL-Planets-Client/src/context/Context.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/model/GUI.js",
@@ -624,18 +676,15 @@
 		"/C/Users/Huffsiz/AppData/Roaming/Sublime Text 3/Packages/tern_for_sublime/Tern.sublime-settings",
 		"/C/development/games/WebGL-Planets-Client/src/game/resources/shaders/corona2.fs.glsl",
 		"/C/development/games/WebGL-Planets-Client/src/game/resources/shaders/corona2.vs.glsl",
-		"/C/development/games/WebGL-Planets-Client/src/game/states/devMode/entities/Star.js",
 		"/C/development/games/WebGL-Planets-Client/src/game/resources/shaders/corona.fs.glsl",
 		"/C/development/games/WebGL-Planets-Client/src/game/resources/shaders/corona.vs.glsl",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/devMode/DevMode.js",
-		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/entities/StarMap.js",
 		"/C/development/games/WebGL-Planets-Client/node_modules/three/src/renderers/webgl/plugins/SpritePlugin.js",
 		"/C/development/games/WebGL-Planets-Client/src/game/resources/shaders/galaxy-spiral.fs.glsl",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/mapMode/controllProfile.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/utils/ThreeTextureLoader.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/utils/ShaderLoader.js",
 		"/C/development/games/WebGL-Planets-Client/src/engine/utils/TextureLoader.js",
-		"/C/development/games/WebGL-Planets-Client/package.json",
 		"/C/Program Files (x86)/Raptr Inc/Raptr/shaders/Widget.ps",
 		"/C/development/apps/angular2-ui-prototype/src/app/view/test.js",
 		"/C/development/apps/angular2-ui-prototype/src/app/register.component.ts",
@@ -649,7 +698,6 @@
 		"/C/development/games/WebGL-Planets-Client/src/game/entities/StarMapBg.js",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/PlanetMode.js",
 		"/C/development/games/WebGL-Planets-Client/src/game/states/DevMode.js",
-		"/C/development/games/WebGL-Planets-Client/src/game/entities/StarBox.js",
 		"/C/development/games/WebGL-Planets-Client/src/game/entities/planets/Earth.js",
 		"/C/development/games/WebGL-Planets-Client/src/game/entities/planets/AbstractPlanet.js",
 		"/C/development/games/WebGL-Planets-Client/build/js/build.js",
@@ -658,7 +706,6 @@
 		"/C/development/games/webglengine/game/states/playing.js",
 		"/C/development/games/webglengine/game/data/maps/testMap.json",
 		"/C/Users/Huffsiz/css/main.css",
-		"/C/Users/Huffsiz/css/app.css",
 		"/C/Users/Huffsiz/.mongorc.js",
 		"/C/development/games/webglengine/game/states/mainmenu.js",
 		"/C/development/games/webglengine/game/entities/world/voxelMaterials/dirtMaterial.js",
@@ -708,17 +755,7 @@
 		"/C/Users/Huffsiz/AppData/Local/Temp/scp09555/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/views/admin/settings/email.html",
 		"/C/Users/Huffsiz/AppData/Local/Temp/scp08684/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/views/admin/settings/theme.html",
 		"/C/Users/Huffsiz/AppData/Local/Temp/scp07196/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/views/admin/settings/submission.html",
-		"/C/Users/Huffsiz/AppData/Local/Temp/scp05387/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/views/admin/settings/application.html",
-		"/C/Users/Huffsiz/AppData/Local/Temp/scp11887/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/controllers/loginController.js",
-		"/C/Users/Huffsiz/AppData/Local/Temp/scp05302/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/controllers/adminController.js",
-		"/C/Users/Huffsiz/AppData/Local/Temp/scp07032/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/views/admin/settings/user.html",
-		"/C/Users/Huffsiz/AppData/Local/Temp/scp35688/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/resources/images/logo.gif",
-		"/C/Users/Huffsiz/AppData/Local/Temp/scp11320/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/controllers/HeaderCotnroller.js",
-		"/C/Users/Huffsiz/AppData/Local/Temp/scp25488/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/views/settings/user.html",
-		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/README.txt",
-		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/settlement.txt",
-		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/Fallout4/Fallout4Prefs.ini",
-		"/C/Program Files (x86)/Steam/steamapps/common/Fallout 4/Ultra.ini"
+		"/C/Users/Huffsiz/AppData/Local/Temp/scp05387/Users/huff/development/java/apps/TDL-Vireo/src/main/webapp/WEB-INF/app/views/admin/settings/application.html"
 	],
 	"find":
 	{
@@ -739,9 +776,12 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"mesh",
+			".mesh",
+			"rand",
 			"ecma6",
 			"promise",
 			";\n",
@@ -866,10 +906,7 @@
 			"subMenu",
 			"$location.search()",
 			"stompClient",
-			" w",
-			" w ",
-			"w",
-			"map"
+			" w"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -878,7 +915,7 @@
 		"replace_history":
 		[
 		],
-		"reverse": true,
+		"reverse": false,
 		"show_context": true,
 		"use_buffer2": true,
 		"whole_word": false,
@@ -925,7 +962,7 @@
 		"cols":
 		[
 			0.0,
-			0.468579554545,
+			0.633701711243,
 			1.0
 		],
 		"rows":
@@ -946,6 +983,10 @@
 	"output.find_results":
 	{
 		"height": 0.0
+	},
+	"output.git":
+	{
+		"height": 156.0
 	},
 	"output.myOutput":
 	{
@@ -987,9 +1028,13 @@
 	"select_symbol":
 	{
 		"height": 354.0,
-		"last_filter": "",
+		"last_filter": "Asset",
 		"selected_items":
 		[
+			[
+				"Asset",
+				"AssetLoader"
+			],
 			[
 				"",
 				"Earth"
@@ -1013,7 +1058,7 @@
 		],
 		"width": 374.0
 	},
-	"selected_group": 1,
+	"selected_group": 0,
 	"settings":
 	{
 	},

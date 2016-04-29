@@ -1,3 +1,14 @@
 <guibox class="dev-mode menu">
-	<h1 lass="dev-mode-menu">Dev Menu</h1>
+	<h1 lass="dev-mode-menu">Entities</h1>
+    
+     <ul>
+        {{#each menu as |option|}}
+            <li class="menu-item" data-on="click, menu.{{@key}}.action(elem)">
+                {{option.gloss}}
+            </li>
+        {{/each}}
+    </ul>
+
+    <p class="float-right" data-on="click, backBtn()">MENU</p>
+
 </guibox>
