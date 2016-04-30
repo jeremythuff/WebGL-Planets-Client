@@ -12,7 +12,7 @@ export class Star extends Entity {
 		Star.flow = 0.0;
 		Star.color = temp ? temp : 0xffffff;
 		Star.size = size ? size : 5;
-		Star.position = position ? position : {x:0,y:0};
+		Star.position = position ? position : {x:0,y:0,z:0};
 		Star.rayOneFadeToggle = true;
 		Star.rayOneFade = {
 			max: 0.8,
@@ -57,6 +57,7 @@ export class Star extends Entity {
 			let baseMesh = new THREE.Mesh(baseGeometry, baseMaterial);
 			baseMesh.position.x = Star.position.x;
 			baseMesh.position.y = Star.position.y;
+			baseMesh.position.z = Star.position.z;
 			starMesh.add(baseMesh);
    			
 			let coronaSegments = 1000;
