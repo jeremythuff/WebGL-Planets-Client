@@ -19,6 +19,30 @@ MainMenu.load(function() {
 	if(MainMenu.loaded) return;
 	
 	MainMenu.context.menu = {
+		createGame: {
+			gloss: "Create Game",
+			action: function(e) {
+				MainMenu.game.setCurrentState("Create Game");
+			}
+		},
+		currentGames: {
+			gloss: "Current Games",
+			action: function(e) {
+				MainMenu.game.setCurrentState("Current Games");
+			}
+		},
+		editProfile: {
+			gloss: "Edit Profile",
+			action: function(e) {
+				MainMenu.game.setCurrentState("Edit Profile");
+			}
+		},
+		options: {
+			gloss: "Options",
+			action: function(e) {
+				MainMenu.game.setCurrentState("Options");
+			}
+		},
 		mapMode: {
 			gloss: "Map Mode",
 			action: function(e) {
