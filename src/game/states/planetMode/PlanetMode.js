@@ -33,7 +33,7 @@ PlanetMode.load(function() {
 	
 	if(PlanetMode.loaded) return;
 
-	PlanetMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+	PlanetMode.camera = new Camera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 	PlanetMode.star = new Star(0xff8c00, 1, {x: -15, y: 10, z: -20});
     PlanetMode.planet = new Earth();
     PlanetMode.startfield = new StarBox();

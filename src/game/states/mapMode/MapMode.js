@@ -23,7 +23,7 @@ MapMode.load(function() {
 
 	if(MapMode.loaded) return;
 
-	MapMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+	MapMode.camera = new Camera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 	MapMode.lights = new MapModeLights();
 	MapMode.starBox = new StarBox();

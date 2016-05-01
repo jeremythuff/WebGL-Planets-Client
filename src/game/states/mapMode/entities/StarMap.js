@@ -41,7 +41,8 @@ export class StarMap extends Entity {
 
 			let position = {
 				x: startX+i,
-				y: startY
+				y: startY,
+				z: 0
 			};
 
 			let newStar = new Star(starTypes[startype], size, position);

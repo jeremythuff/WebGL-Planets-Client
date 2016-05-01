@@ -22,7 +22,7 @@ DevMode.init(function() {
 DevMode.load(function() {
 
 	DevMode.gui.addView("Menu Bar", "src/game/states/devMode/gui/templates/devMenu.hbs");
-	DevMode.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+	DevMode.camera = new Camera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 	DevMode.eclipse = new Eclipse();
 	console.log(DevMode.eclipse);

@@ -24,7 +24,7 @@ Intro.init(function() {
 Intro.load(function() {
 	if(Intro.loaded) return;
 
-	Intro.camera = new Camera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+	Intro.camera = new Camera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
 	Intro.lights = new IntroLights();
 	Intro.starBox = new StarBox();
 	Intro.eclipse = new Eclipse();
