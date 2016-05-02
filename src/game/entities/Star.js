@@ -123,6 +123,9 @@ export class Star extends Entity {
 
 			baseMesh.add(Star.raysTwo);
 
+			var light = new THREE.PointLight( starColor.clone().addScalar(0.5), 5, 100 );
+			baseMesh.add(light);
+
 			Star._mesh = starMesh;
 			Star.loaded = true;
 

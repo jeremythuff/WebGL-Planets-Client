@@ -48,7 +48,7 @@ DevMode.load(function() {
 		star: {
 			gloss: "Star",
 			action: function(elem) {
-				DevMode.camera.position.z = 15;
+				DevMode.camera.position.z = 25;
 				DevMode.reset(DevMode.star, elem);
 			}
 		},
