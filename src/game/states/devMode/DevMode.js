@@ -55,7 +55,7 @@ DevMode.load(function() {
 		planet: {
 			gloss: "Planet",
 			action: function(elem) {
-				DevMode.camera.position.z = 1;
+				DevMode.camera.position.z = 2;
 				DevMode.reset(DevMode.planet, elem);
 			}
 		},
