@@ -21,49 +21,55 @@ MainMenu.load(function() {
 	MainMenu.context.menu = {
 		createGame: {
 			gloss: "Create Game",
-			action: function(e) {
+			action: function() {
 				MainMenu.game.setCurrentState("Create Game");
 			}
 		},
 		currentGames: {
 			gloss: "Current Games",
-			action: function(e) {
+			action: function() {
 				MainMenu.game.setCurrentState("Current Games");
 			}
 		},
 		editProfile: {
 			gloss: "Edit Profile",
-			action: function(e) {
+			action: function() {
 				MainMenu.game.setCurrentState("Edit Profile");
 			}
 		},
 		options: {
 			gloss: "Options",
-			action: function(e) {
+			action: function() {
 				MainMenu.game.setCurrentState("Options");
 			}
 		},
 		mapMode: {
-			gloss: "Map Mode",
-			action: function(e) {
+			gloss: "Jump to Map",
+			action: function() {
 				MainMenu.game.setCurrentState("Map Mode");
 			}
 		},
 		planetMode: {
-			gloss: "Planet Mode",
-			action: function(e) {
+			gloss: "Jump to Planets",
+			action: function() {
 				MainMenu.game.setCurrentState("Planet Mode");
+			}
+		},
+		shipMode: {
+			gloss: "Jump to Ships",
+			action: function() {
+				MainMenu.game.setCurrentState("Ship Mode");
 			}
 		},
 		devMode: {
 			gloss: "Development Mode",
-			action: function(e) {
+			action: function() {
 				MainMenu.game.setCurrentState("Development Mode");
 			}
 		},
 		exit: {
 			gloss: "Exit",
-			action: function(e) {
+			action: function() {
 				MainMenu.game.stop();
 			}
 		}
@@ -76,9 +82,9 @@ MainMenu.load(function() {
 	console.log("MainMenu loaded");
 });
 
-MainMenu.update(function(delta) {});
+MainMenu.update(function() {}); // Will take pass delta as arg if needed
 
-MainMenu.render(function(delta) {});
+MainMenu.render(function() {}); // Will take pass delta as arg if needed
 
 MainMenu.close(function() {
 	MainMenu.gui.close();

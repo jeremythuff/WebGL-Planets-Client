@@ -4,7 +4,7 @@ import { Camera } from "engine/model/Camera";
 import { Keyboard } from "engine/io/Keyboard";
 import { StarBox } from "game/entities/StarBox";
 import { Star } from "game/entities/Star";
-import { PlanetModeLights } from "game/states/planetMode/lights/PlanetModeLights";
+//import { PlanetModeLights } from "game/states/planetMode/lights/PlanetModeLights";
 import { Earth } from "game/states/planetMode/entities/Earth";
 
 let PlanetMode = new State("Planet Mode");
