@@ -1,4 +1,4 @@
-
+import { THREE } from 'three';
 import { State } from "engine/model/State";
 import { Camera } from "engine/model/Camera";
 import { Keyboard } from "engine/io/Keyboard";
@@ -33,8 +33,11 @@ PlanetMode.load(function() {
 	
 	if(PlanetMode.loaded) return;
 
+    var starColor = new THREE.Color( 0xff8c00 );
 	PlanetMode.camera = new Camera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
-	PlanetMode.star = new Star(0xff8c00, 1, {x: -15, y: 6, z: -20});
+	PlanetMode.star = new Star(starColor.clone().getHex(), 1, {x: -15, y: 6, z: -20});
+
+    PlanetMode.starLight = new THREE.PointLight( starColor.clone().addScalar(0.5), 5, 100 );
     PlanetMode.planet = new Earth();
     PlanetMode.startfield = new StarBox();
 
@@ -44,7 +47,13 @@ PlanetMode.load(function() {
         PlanetMode.star.load()
     ]).then(function() {
     	
-    	PlanetMode.camera.position.z =2;
+    	PlanetMode.camera.position.z = 2;
+
+        PlanetMode.planet.getMesh().add(PlanetMode.starLight);
+
+        var directionalLight = new THREE.DirectionalLight( starColor.clone().addScalar(1.5), 0.5 );
+        directionalLight.position.set(-5, 2, 2);
+        PlanetMode.planet.getMesh().add(directionalLight);
 
         PlanetMode.scene.add(PlanetMode.star.getMesh());
     	PlanetMode.scene.add(PlanetMode.planet.getMesh());

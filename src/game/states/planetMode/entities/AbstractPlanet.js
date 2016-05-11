@@ -32,10 +32,11 @@ export class AbstractPlanet extends Entity {
 		let loadPromise = AbstractPlanet.assetLoader.loadAll(AbstractPlanet._unloadedResources).then(function(resources) {
 		
 			let planetGeometry  = new THREE.SphereGeometry(AbstractPlanet._size, 32, 32);
-			let planetMaterial  = new THREE.MeshLambertMaterial({
+			let planetMaterial  = new THREE.MeshPhongMaterial({
 				map: resources.textures.get("map"),
 				bumpMap: resources.textures.get("bump"),
 				bumpScale: 0.005,
+				shininess: 10,
 				specularMap: resources.textures.get("spec"),
 				specular: new THREE.Color('grey')
 			});
@@ -58,11 +59,6 @@ export class AbstractPlanet extends Entity {
 			AbstractPlanet.atmosphereMesh.castShadow = true;
 
 			AbstractPlanet.baseMesh.add(AbstractPlanet.atmosphereMesh);
-
-			var directionalLight = new THREE.DirectionalLight( 0xEFEFEF, 0.75 );
-			directionalLight.position.set(-5, 2, 2);
-
-			AbstractPlanet._mesh.add(directionalLight);
 
 			AbstractPlanet.loaded = true;
 
