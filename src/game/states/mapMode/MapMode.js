@@ -40,9 +40,16 @@ MapMode.load(function() {
 		let spotLight = MapMode.lights.getSpotLight();
 		MapMode.scene.add(spotLight);
 		MapMode.scene.add(spotLight.target);
+
+
+		MapMode.starBox.getMesh().renderOrder = 1;
+		MapMode.starMapBg.getMesh().renderOrder = 2;
+		MapMode.starMap.getMesh().renderOrder = 3;
+		MapMode.starBox.getMesh().material.opacity = 0.2
+		
+		MapMode.scene.add(MapMode.starBox.getMesh());
 		MapMode.scene.add(MapMode.starMapBg.getMesh());
 		MapMode.scene.add(MapMode.starMap.getMesh());
-		MapMode.scene.add(MapMode.starBox.getMesh());
 
 	    MapMode.camera.position.z = MapMode.minZoom;
 	 	MapMode.camera.lookAt(MapMode.starMapBg.getMesh().position);

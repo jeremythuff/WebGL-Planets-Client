@@ -31,6 +31,10 @@ export class StarMapBg extends Entity {
 			StarMapBg.gridMesh = drawSquareGuide(StarMapBg._mesh, resources);
 			StarMapBg.galaxyMesh = drawGalaxy(StarMapBg._mesh, resources);
 
+			StarMapBg.nebulaMesh.renderOrder = 4;
+			StarMapBg.galaxyMesh.renderOrder = 5; 
+			StarMapBg.gridMesh.renderOrder = 6;
+
 			StarMapBg.loaded = true;
 
 		});
@@ -110,7 +114,8 @@ let drawNebula = function(mesh, resources) {
 	let nebulaGeometry = new THREE.PlaneGeometry(180, 180, 1, 1);
 	let nebulaMaterial  = new THREE.MeshPhongMaterial({
 		transparent: true, 
-		opacity: 0.35,
+		opacity: 0.15,
+		depthTest:true,
 		map: resources.textures.get("spiral-galaxy")
 	});
 	
