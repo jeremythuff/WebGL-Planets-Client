@@ -8,19 +8,19 @@ export class Game extends Engine {
   		
   		this.setName(name);
       
-      this.renderer = new Renderer();
-      this.renderer.shadowMap.enabled = true;
-      this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.renderer = new Renderer();
+        this.renderer.shadowMap.enabled = true;
+        this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   		
-      this.lastState = null;
-      this.currentState = null;
+        this.lastState = null;
+        this.currentState = null;
   		this.states = new Map();
 
   	}
 
     stop() {
-      this.renderer.clear();
-      super.stop();
+        this.renderer.clear();
+        super.stop();
     }
 
   	init(stateName) {
@@ -108,13 +108,13 @@ export class Game extends Engine {
   	}
 
   	getCurrentState() {
-      let game = this;
+        let game = this;
   		return game.currentState;
   	}
 
     getLastState() {
-      let game = this;
-      return game.lastState;
+        let game = this;
+        return game.lastState;
     }
 
   	setCurrentState(stateName) {
@@ -130,7 +130,7 @@ export class Game extends Engine {
             game.lastState.stop().then(function() {
                 if(nextState) {
                     stateLoadedPromise = nextState.start();
-                    game.currentState = nextState;
+                    game.currentState = nextState; 
                 }
             });
         } else {

@@ -46,6 +46,7 @@ MainMenu.load(function() {
 		mapMode: {
 			gloss: "Jump to Map",
 			action: function() {
+				MainMenu.renderer.clear();
 				MainMenu.game.setCurrentState("Map Mode");
 			}
 		},

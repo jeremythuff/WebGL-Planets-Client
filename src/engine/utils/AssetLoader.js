@@ -7,6 +7,7 @@ import { ObjectLoader } from "engine/utils/ObjectLoader";
 
 let _textureCache = new Map();
 let _shaderCache = new Map();
+let _assetDefers = new Map();
 
 class AssetLoader {
 	constructor() {
@@ -149,42 +150,45 @@ class AssetLoader {
 	loadAll(requestedAssets) {
 
 		let assetLoader = this;
-		let loadAllDefer = new Deferred();
-		let promises = new Set();
 
-		requestedAssets.forEach(function(requestedAsset) {
+		if(!_assetDefers.has(requestedAssets)) {
 
-			switch(requestedAsset.type) {
-				case "IMAGE":
-					let loadPromise = assetLoader.loadImage(requestedAsset);	
-					break;
-				case "SHADER":
-					loadPromise = assetLoader.loadShader(requestedAsset);
-					break;
-				case "OBJECT":
-					loadPromise = assetLoader.loadObject(requestedAsset);
-					break;
-				case "TEXTURE":
-					loadPromise = assetLoader.loadTexture(requestedAsset);	
-					break;
-				default: 
-					loadPromise = assetLoader.loadAsset(requestedAsset);	
-			}
+			let loadAllDefer = new Deferred();
+			_assetDefers.set(requestedAssets, loadAllDefer);
 
-			promises.add(loadPromise);
-	
-		});
+			let promises = new Set();
 
-		//TODO: This timout is allowing texture requests enough
-		// time to queue up. This is a hack that will not scale.
-		// Anothoer solution is needed.
-		setTimeout(function() {
-			Promise.all(promises).then(function() {
+			requestedAssets.forEach(function(requestedAsset) {
+
+				switch(requestedAsset.type) {
+					case "IMAGE":
+						let loadPromise = assetLoader.loadImage(requestedAsset);	
+						break;
+					case "SHADER":
+						loadPromise = assetLoader.loadShader(requestedAsset);
+						break;
+					case "OBJECT":
+						loadPromise = assetLoader.loadObject(requestedAsset);
+						break;
+					case "TEXTURE":
+						loadPromise = assetLoader.loadTexture(requestedAsset);	
+						break;
+					default: 
+						loadPromise = assetLoader.loadAsset(requestedAsset);	
+				}
+
+				promises.add(loadPromise);
+		
+			});
+
+			let loadAllPromise = Promise.all(promises);
+
+			loadAllPromise.then(function() {
 				loadAllDefer.resolve(assetLoader.resources);
 			});
-		}, 1500);
+		}
 
-		return loadAllDefer.promise; 
+		return _assetDefers.get(requestedAssets).promise; 
 
 	}
 
