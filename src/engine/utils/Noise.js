@@ -18,7 +18,7 @@ export class Noise {
  */
 
 (function(global){
-  var module = global.generate = {};
+  var module = global;
 
   function Grad(x, y, z) {
     this.x = x; this.y = y; this.z = z;
