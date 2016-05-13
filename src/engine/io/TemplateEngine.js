@@ -1,5 +1,5 @@
 import { Deferred } from "engine/extensions/Deferred";
-import { AjaxLoader } from "engine/utils/AjaxLoader"
+import { AjaxLoader } from "engine/utils/assets/AjaxLoader"
 import Handlebars from "handlebars/dist/handlebars"
 
 export class TemplateEngine {

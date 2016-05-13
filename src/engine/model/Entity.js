@@ -1,4 +1,4 @@
-import { assetLoader } from "engine/utils/AssetLoader";
+import { assetLoader } from "engine/utils/assets/AssetLoader";
 
 export class Entity {
     constructor() {

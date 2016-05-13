@@ -1,9 +1,9 @@
 import { THREE } from 'three';
 import { Deferred } from "engine/extensions/Deferred";
-import { AjaxLoader } from "engine/utils/AjaxLoader";
-import { TextureLoader } from "engine/utils/TextureLoader";
-import { ShaderLoader } from "engine/utils/ShaderLoader";
-import { ObjectLoader } from "engine/utils/ObjectLoader";
+import { AjaxLoader } from "engine/utils/assets/AjaxLoader";
+import { TextureLoader } from "engine/utils/assets/TextureLoader";
+import { ShaderLoader } from "engine/utils/assets/ShaderLoader";
+import { ObjectLoader } from "engine/utils/assets/ObjectLoader";
 
 let _textureCache = new Map();
 let _shaderCache = new Map();

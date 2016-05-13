@@ -1,5 +1,6 @@
 import { THREE } from 'three';
 import { Context } from "context/Context";
+import { Utilities } from "engine/utils/Utilities";
 
 /**
  *  @description Main class for the Engine.
@@ -78,3 +79,5 @@ export class Engine {
 	destroy() {}
 
 }
+
+Engine.utils = new Utilities();
