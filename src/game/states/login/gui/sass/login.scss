@@ -1,0 +1,80 @@
+
+.login.login-form {
+    top: 250px;
+    left: 50%;
+    width: 250px;
+    margin-left: -125px;
+    color: white;
+}
+
+.login.login-form ul {
+    list-style-type: none;
+    list-style-position:inside;
+    margin:0;
+    padding:0;
+    width: 250px;
+    font-size: .85em;
+    color: $lowlight-color;
+}
+
+.login.login-form ul li {
+    cursor: pointer;
+    height: 25px;
+    position: relative;
+    margin-bottom: 10px;
+    text-align: center;
+    padding: 5px 25px;
+    box-shadow: inset 0 0 -1px 1px $highlight-color;
+    background: linear-gradient(135deg,rgba( $dark-accesnt, .2 ),rgba( $dark-accesnt, .2 ));
+    border-bottom: thin solid $dark-accesnt;
+    transition: color 0.25s ease-out, box-shadow 0.5s ease-out;
+}
+
+.login.login-form ul li input {
+    color: $lowlight-color;
+    background-color: inherit;
+    text-align: center;
+    font-size: 1em;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.login.login-form ul li input:focus {
+    border-color: $success-color;
+    box-shadow: 0 1px 1px $success-color inset, 0 0 8px $success-color;
+    outline: 0 none;
+}
+
+.login.login-form ul li input.invalid {
+    border-color: $danger-color;
+    box-shadow: 0 1px 1px $danger-color inset, 0 0 8px $danger-color;
+}
+
+/*.login.login-form ul li::before {
+    content: '';
+    position: absolute;
+    background: darken( $primary-color, 50% );
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-filter: blur(4px);
+    opacity: 0.8;
+    z-index: -1;
+}*/
+
+.login.login-form ul li:hover {
+    color: $highlight-color;
+    box-shadow: inset 0 -4px 10px -5px #AAFFFC;
+}
+
+.login.login-form ul li:active {
+    color: $success-color;
+}
+
