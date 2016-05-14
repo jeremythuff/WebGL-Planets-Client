@@ -5,8 +5,10 @@
 
 @import './src/game/states/intro/gui/sass/intro.scss';
 @import './src/game/states/mainMenu/gui/sass/mainMenu.scss';
+@import './src/game/states/login/gui/sass/login.scss';
 @import './src/game/states/mapMode/gui/sass/mapMode.scss';
 @import './src/game/states/devMode/gui/sass/devMode.scss';
+
 
 body, html, canvas { 
     margin: 0; 

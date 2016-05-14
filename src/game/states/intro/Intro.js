@@ -1,7 +1,10 @@
 import { THREE } from 'three';
+
 import { State } from "engine/model/State";
+import { storageService } from "engine/services/StorageService";
 import { Keyboard } from "engine/io/Keyboard";
 import { Camera } from "engine/model/Camera";
+
 import { StarBox } from "game/entities/StarBox";
 import { IntroLights } from "game/states/intro/lights/IntroLights";
 import { Eclipse } from "game/states/intro/entities/Eclipse";
@@ -16,7 +19,13 @@ Intro.init(function() {
 	Intro.renderer.clear();
 	
 	Intro.controls.keyboard.when([Keyboard.ENTER], function() {
-		Intro.game.setCurrentState("Main Menu");
+		
+		if(storageService.get("login")) {
+			Intro.game.setCurrentState("Main Menu");	
+		} else {
+			Intro.game.setCurrentState("Login");	
+		}
+
 	});
 
 });
