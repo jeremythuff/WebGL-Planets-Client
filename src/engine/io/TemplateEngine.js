@@ -29,7 +29,7 @@ export class TemplateEngine {
 		Handlebars.registerHelper("bindinput", function(binding) {
 			let template = Handlebars.compile("data-bind='"+binding+"' value='{{"+binding+"}}'");
 			let result = template(TemplateEngine.GUI._context);
-		  	return  new Handlebars.SafeString(result);
+		  	return new Handlebars.SafeString(result);
 		});
 
 		Handlebars.registerHelper("bindcheck", function(binding) {
@@ -67,7 +67,7 @@ export class TemplateEngine {
 	  		(function() {
 	  			let binding = bindings[i];
 
-		  		if(binding.type == "text" || binding.type == "textarea") {
+		  		if(binding.type == "text" || binding.type == "textarea" || binding.type == "email" || binding.type == "password") {
 		  			binding.addEventListener("input", function() {
 				  		TemplateEngine.GUI.updateContext(binding.dataset.bind, binding.value)
 				  	}, false);	
