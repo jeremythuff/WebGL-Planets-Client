@@ -33,7 +33,12 @@ module.exports = {
 						'stage-0'
 					]
 				}
-	    	}, 
+	    	},
+	    	//JSON
+	    	{ 
+	    		test: /\.json$/, 
+	    		loader: 'json'
+	    	},
 	    	// FONTS
 	    	{
 				test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
@@ -66,7 +71,11 @@ module.exports = {
     	includePaths: [path.resolve(__dirname, "./src/resources/styles/sass/")]
   	},
   	node: {
-	  fs: "empty"
+  		net: 'empty',
+  		tls: 'empty',
+	  	fs: "empty",
+	  	dgram: "empty",
+		module: "empty",
+		child_process: "empty"
 	}
-
 };

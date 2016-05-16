@@ -2,7 +2,9 @@ import { Service } from "context/Service";
 import { Deferred } from "engine/extensions/Deferred";
 
 export class AjaxLoader {
-	constructor() {}
+	constructor(headers) {
+		this.headers = typeof headers !== undefined ? headers: {};
+	}
 
 	GET(url) {
 		let deferred = new Deferred();
@@ -46,9 +48,14 @@ let _makeXhrReq = function(method, url, data, deferred) {
 				uri += encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
 			}
 		}
+
+
 	}
 
 	client.open(method, uri);
+
+	//client.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+
     client.send();
 
 	client.onload = function () {

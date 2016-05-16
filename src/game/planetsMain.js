@@ -1,6 +1,7 @@
 import { Game } from "engine/model/Game";
 
 import { Intro } from "game/states/intro/Intro";
+import { Register } from "game/states/register/Register";
 import { Login } from "game/states/login/Login";
 import { MainMenu } from "game/states/mainMenu/MainMenu";
 import { MapMode } from "game/states/mapMode/MapMode";
@@ -19,6 +20,7 @@ export class Planets extends Game {
 	init(initialStateName) {
 		this.addState(Intro);
 		this.addState(MainMenu);
+		this.addState(Register);
 		this.addState(Login);
 		this.addState(MapMode);
 		this.addState(PlanetMode);

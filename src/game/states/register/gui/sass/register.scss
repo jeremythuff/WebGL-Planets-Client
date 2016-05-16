@@ -1,5 +1,5 @@
 
-.login.login-form {
+.register.register-form {
     top: 150px;
     left: 50%;
     width: 450px;
@@ -8,18 +8,18 @@
     color: white;
 }
 
-.login.login-form form {
+.register.register-form form {
     width: 100%;
    /* background-color: red;*/
 }
 
-.login.login-form form ul {
+.register.register-form form ul {
     padding: 0px;
     margin: 0px;
     list-style: none;
 }
 
-.login.login-form form ul li {
+.register.register-form form ul li {
     /*background-color: green;*/
     margin-bottom: 10px;
     padding: 0px;
@@ -27,7 +27,7 @@
     min-height: 20px;
 }
 
-.login.login-form form ul li input {
+.register.register-form form ul li input {
     color: $lowlight-color;
     font-size: 1.25em;
     text-align: center;
@@ -42,20 +42,20 @@
     transition: color 0.25s ease-out, box-shadow 0.5s ease-out;
 }
 
-.login.login-form form ul li input::-webkit-input-placeholder {
+.register.register-form form ul li input::-webkit-input-placeholder {
     color: darken($lowlight-color, 25%);
 }
 
-.login.login-form form ul li input:focus {
+.register.register-form form ul li input:focus {
     outline:none;
     box-shadow: 0px 0px 2px 3px $success-color, inset 0 -4px 10px -5px #AAFFFC;
 }
 
-.login.login-form form ul li input.invalid {
+.register.register-form form ul li input.invalid {
     box-shadow: 0px 0px 2px 3px $danger-color, inset 0 -4px 10px -5px #AAFFFC;
 }
 
-.login.login-form form ul li button {
+.register.register-form form ul li button {
     color: $lowlight-color;
     height: 20px;
     width: 75px;
@@ -69,8 +69,8 @@
     transition: color 0.25s ease-out, box-shadow 0.5s ease-out;
 }
 
-.login.login-form ul li input::before 
-.login.login-form ul li button::before{
+.register.register-form ul li input::before 
+.register.register-form ul li button::before{
     content: '';
     position: absolute;
     background: darken( $primary-color, 50% );
@@ -85,35 +85,35 @@
     z-index: -1;
 }
 
-.login.login-form ul li button:hover:not([disabled]) {
+.register.register-form ul li button:hover:not([disabled]) {
     color: $highlight-color;
     box-shadow: inset 0 -4px 10px -5px #AAFFFC;
 }
 
-.login.login-form ul li button[disabled] {
+.register.register-form ul li button[disabled] {
     background: linear-gradient(135deg,rgba( $dark-accesnt, .2 ),rgba( darken($danger-color, 35%), .2 ));
     color: darken($lowlight-color, 25%);
     box-shadow: inset 0 0 -1px 1px $danger-color;
     border-bottom: thin solid $danger-color;
 }
 
-.login.login-form ul li button[disabled]:hover {
+.register.register-form ul li button[disabled]:hover {
     cursor: not-allowed;
 }
 
-.login.login-form form ul li button:active,
-.login.login-form form ul li button:focus {
+.register.register-form form ul li button:active,
+.register.register-form form ul li button:focus {
     color: $success-color;
     border: none;
     outline: none;
 }
 
-.login.login-form form ul li button.login-btn,
-.login.login-form form.valid ul li button[disabled] {
+.register.register-form form ul li button.register-btn,
+.register.register-form form.valid ul li button[disabled] {
     display: none;
 }
 
-.login.login-form form.valid ul li button.login-btn {
+.register.register-form form.valid ul li button.register-btn {
     display: inline-block;
 }
 

@@ -102,8 +102,11 @@ export class TemplateEngine {
 		Array.from(nodeList).forEach(function(eventElem) {
 			let eventArray = eventElem.dataset.on.split(",");
 			let eventType = eventArray[0];
-			let functionToCall = eventArray[1];
-
+			let functionToCall = ""
+			for(let i=1; i<eventArray.length; i++) {
+				functionToCall += eventArray[i];
+				if(eventArray[i+1]) functionToCall += ","
+			}
 
 			let eventHandler = function(e) {
 				TemplateEngine.GUI.callOnContext(functionToCall, eventElem, e);

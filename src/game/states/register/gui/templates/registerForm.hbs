@@ -1,0 +1,25 @@
+<guibox class="register register-form">
+	<form name="register" data-on="input, forms.register.validateForm(elem)">
+		<ul>
+			<li>
+				 <input type="email" placeholder="register email" {{bindinput "forms.register.email.value"}} data-on="input, forms.register.email.validation(elem)" required />
+			</li>
+			<li>
+				 <input type="email" placeholder="confirg email" {{bindinput "forms.register.confirmEmail.value"}} data-on="input, forms.register.confirmEmail.validation(elem)" required />
+			</li>
+			<li>
+				 <input type="password" placeholder="set password" {{bindinput "forms.register.password.value"}} data-on="input, forms.register.password.validation(elem)" required />
+			</li>
+			<li>
+				 <input type="password" placeholder="confirm password" {{bindinput "forms.register.confirmPassword.value"}} data-on="input, forms.register.confirmPassword.validation(elem)" required />
+			</li>
+			<li >
+				<button disabled>register</button>
+				<button data-on="click, forms.register.register(e)" class="register-btn">register</button>
+			</li>
+			<li >
+				<button data-on="click, forms.register.returnToLogin(e)" class="start-registration-btn">back</button>
+			</li>
+		</ul>
+	</form>
+</guibox>
