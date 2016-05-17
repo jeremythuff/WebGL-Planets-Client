@@ -2,15 +2,11 @@ import { State } from "engine/model/State";
 import { Keyboard } from "engine/io/Keyboard";
 import { validators } from "engine/utils/validation/Validators";
 import { ApiService } from "engine/services/ApiService"
-import { AjaxLoader } from "engine/utils/assets/AjaxLoader"
 
 let Register = new State("Register");
-let apiService = new ApiService("http://localhost:9000");
-let ajax = new AjaxLoader();
 
 Register.init(function() {
 	console.log("Register init");
-	console.log(apiService);
 });
 
 Register.load(function() {
@@ -46,13 +42,18 @@ Register.load(function() {
 		register: function(e) {
 			e.preventDefault();
 
-			let registerPromise = ajax.POST("http://localhost:9000/auth/register", {
+			let registerPromise = ApiService.fetch("/auth/register", {
 				email: Register.context.forms.register.email.value,
 				password: Register.context.forms.register.password.value
 			});
 
 			registerPromise.then(function(res) {
-				console.log(JSON.parse(res));
+				console.log(res);
+				Register.gui.updateContext("forms.register.email.value", "");
+				Register.gui.updateContext("forms.register.confirmEmail.value", "");
+				Register.gui.updateContext("forms.register.password.value", "");
+				Register.gui.updateContext("forms.register.confirmPassword.value", "");
+				Register.game.setCurrentState("Login");
 			});
 
 			console.log("Register");

@@ -1,6 +1,8 @@
 
 import { State } from "engine/model/State";
 import { Keyboard } from "engine/io/Keyboard";
+import { StorageService } from "engine/services/StorageService";
+import { ApiService } from "engine/services/ApiService"
 
 let MainMenu = new State("Main Menu");
 
@@ -66,6 +68,14 @@ MainMenu.load(function() {
 			gloss: "Development Mode",
 			action: function() {
 				MainMenu.game.setCurrentState("Development Mode");
+			}
+		},
+		logout: {
+			gloss: "Logout",
+			action: function() {
+				StorageService.remove("JWT");
+				//ApiService.setMode(ApiService.modeType.AJAX);
+				MainMenu.game.setCurrentState("Login");
 			}
 		},
 		exit: {

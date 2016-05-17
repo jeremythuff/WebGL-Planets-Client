@@ -1,7 +1,7 @@
 import { THREE } from 'three';
 
 import { State } from "engine/model/State";
-import { storageService } from "engine/services/StorageService";
+import { StorageService } from "engine/services/StorageService";
 import { Keyboard } from "engine/io/Keyboard";
 import { Camera } from "engine/model/Camera";
 
@@ -20,7 +20,7 @@ Intro.init(function() {
 	
 	Intro.controls.keyboard.when([Keyboard.ENTER], function() {
 		
-		if(storageService.get("login")) {
+		if(StorageService.get("JWT")) {
 			Intro.game.setCurrentState("Main Menu");	
 		} else {
 			Intro.game.setCurrentState("Login");	

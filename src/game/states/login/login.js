@@ -1,6 +1,8 @@
 import { State } from "engine/model/State";
 import { Keyboard } from "engine/io/Keyboard";
 import { validators } from "engine/utils/validation/Validators";
+import { StorageService } from "engine/services/StorageService";
+import { ApiService } from "engine/services/ApiService"
 
 let Login = new State("Login");
 
@@ -28,8 +30,18 @@ Login.load(function() {
 		},
 		login: function(e) {
 			e.preventDefault();
-			console.log(Login.context.forms.login.email.value);
-			console.log(Login.context.forms.login.password.value);
+			let loginPromise = ApiService.fetch("/auth/login", {
+				email: Login.context.forms.login.email.value,
+				password: Login.context.forms.login.password.value
+			});
+
+			loginPromise.then(function(apiResponse) {
+				if(apiResponse.meta.type == "SUCCESS") {
+					StorageService.set("JWT", apiResponse.payload.JWT);
+					ApiService.setMode(ApiService.modeType.WS);
+					Login.game.setCurrentState("Main Menu");
+				}
+			});
 		},
 		startRegistration: function(e) {
 			e.preventDefault();

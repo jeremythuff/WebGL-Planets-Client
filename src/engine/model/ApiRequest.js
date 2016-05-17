@@ -3,9 +3,15 @@ import { Deferred } from "engine/extensions/Deferred"
 let idGenerator = {
     lastId: 0,
     next: function() {
-        lastId += 1;
-        return lastId;
+        idGenerator.lastId += 1;
+        return idGenerator.lastId;
     }
+}
+
+let statuses ={
+    PREFLIGHT: "PREFLIGHT",
+    PENDING: "PENDING",
+    RESOLVED: "RESOLVED"
 }
 
 export class ApiRequest {
@@ -14,16 +20,20 @@ export class ApiRequest {
         let ApiRequest = this;
 
         ApiRequest.id = idGenerator.next();
-        ApiRequest.defer = new Deferred();
-        ApiRequest.status =  ApiRequest.statuses.PREFLIGHT;
-        ApiRequest.channel = argObj.channel;
+        ApiRequest.deferred = new Deferred();
+        ApiRequest.status =  statuses.PREFLIGHT;
+        ApiRequest.statuses = statuses;
+        ApiRequest.channel = argObj.endpoint;
         ApiRequest.data = argObj.data;
 
     }
-}
 
-ApiRequest.statuses ={
-    PREFLIGHT: "PREFLIGHT",
-    PENDING: "PENDING",
-    RESOLVED: "RESOLVED"
+    setStatus(status) {
+        this.status = status;
+    } 
+
+    getStatus() {
+        return this.status;
+    }
+
 }

@@ -38,4 +38,4 @@ class StorageService {
 
 let storageService = new StorageService();
 
-export { storageService };
+export { storageService as StorageService};

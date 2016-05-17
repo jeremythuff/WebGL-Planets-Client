@@ -13,8 +13,8 @@ export class WSService {
 
         let WSService = this;
 
+        WSService.statuses = statuses;
         WSService.status = statuses.DISSCONNECTED;
-
         WSService.ws = new SockJS(webserviceUrl+"/connect");
         WSService.stomp = Stomp.over(WSService.ws);
 
@@ -35,6 +35,10 @@ export class WSService {
         function() {    
             WSService.status = statuses.DISSCONNECTED;
         });
+
+    }
+
+    send() {
 
     }
 
