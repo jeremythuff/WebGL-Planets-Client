@@ -5,7 +5,7 @@ To run, simply serve up index.html from a webserver.
 To develop:
 
 (On Windows)
-1. npm istall
+1. npm install
 2. npm -g install webpack
 3. webpack -w
 
