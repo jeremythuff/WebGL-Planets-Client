@@ -21,11 +21,25 @@ export class ApiRequest {
 
         ApiRequest.id = idGenerator.next();
         ApiRequest.deferred = new Deferred();
+        ApiRequest.headers = argObj.headers ? argObj.headers : {};
         ApiRequest.status =  statuses.PREFLIGHT;
         ApiRequest.statuses = statuses;
-        ApiRequest.channel = argObj.endpoint;
-        ApiRequest.data = argObj.data;
+        ApiRequest.domain = argObj.domain;
+        ApiRequest.endpoint = argObj.endpoint;
+        ApiRequest.data = argObj.data ? argObj.data : "";
 
+    }
+
+    addHeader(key, value) {
+        this.headers[key] = value;
+    }
+
+    setHeaders(headers) {
+        this.headers = headers;
+    }
+
+    getHeaders() {
+        return this.headers;
     }
 
     setStatus(status) {
@@ -34,6 +48,14 @@ export class ApiRequest {
 
     getStatus() {
         return this.status;
+    }
+
+    setChannel(channel) {
+        this.channel = channel;
+    }
+
+    getChannel() {
+        return this.channel;
     }
 
 }

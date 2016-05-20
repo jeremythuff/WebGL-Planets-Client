@@ -37,8 +37,7 @@ Login.load(function() {
 
 			loginPromise.then(function(apiResponse) {
 				if(apiResponse.meta.type == "SUCCESS") {
-					StorageService.set("JWT", apiResponse.payload.JWT);
-					ApiService.setMode(ApiService.modeType.WS);
+					StorageService.setValue("JWT", apiResponse.payload.JWT.tokenAsString);
 					Login.game.setCurrentState("Main Menu");
 				}
 			});

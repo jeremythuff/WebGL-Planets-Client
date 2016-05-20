@@ -19,7 +19,13 @@ MainMenu.init(function() {
 
 MainMenu.load(function() {
 	if(MainMenu.loaded) return;
+
+
 	
+	ApiService.fetch("/user/credentials").then(function(res) {
+		console.log(res);
+	});
+
 	MainMenu.context.menu = {
 		createGame: {
 			gloss: "Create Game",
@@ -73,7 +79,7 @@ MainMenu.load(function() {
 		logout: {
 			gloss: "Logout",
 			action: function() {
-				StorageService.remove("JWT");
+				StorageService.removeValue("JWT");
 				//ApiService.setMode(ApiService.modeType.AJAX);
 				MainMenu.game.setCurrentState("Login");
 			}
@@ -85,12 +91,13 @@ MainMenu.load(function() {
 			}
 		}
 	};
-		
+	
 	MainMenu.gui.addView("Title", "src/game/states/MainMenu/gui/templates/title.hbs");
 	MainMenu.gui.addView("Menu", "src/game/states/MainMenu/gui/templates/menu.hbs");
 
 	console.log(MainMenu);
 	console.log("MainMenu loaded");
+
 });
 
 MainMenu.update(function() {}); // Will take pass delta as arg if needed

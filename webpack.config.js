@@ -26,11 +26,13 @@ module.exports = {
 					cacheDirectory: true,
 					plugins: [
 						'transform-decorators-legacy', 
-						'syntax-decorators'
+						'syntax-decorators',
+						'transform-runtime'
 					],
 					presets: [
 						'es2015', 
-						'stage-0'
+						'stage-0',
+						'stage-2'
 					]
 				}
 	    	},

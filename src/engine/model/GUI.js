@@ -73,6 +73,9 @@ export class GUI {
 		});
 
 		GUI._templateEngine.load();
+
+		return GUI._loadPromises;
+		
 	}
 
 	init(cb) {

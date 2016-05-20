@@ -3,6 +3,7 @@ import { Deferred } from "engine/extensions/Deferred"
 import { WSService } from "engine/services/WSService"
 import { ApiResponse } from "engine/model/ApiResponse"
 import { ApiRequest } from "engine/model/ApiRequest"
+import { StorageService } from "engine/services/StorageService"
 
 let modeType = {
     WS: "WS",
@@ -11,20 +12,38 @@ let modeType = {
 
 class ApiService {
     constructor(domain, mode) {
+
+        let ApiService = this;
+
         this.modeType = modeType;
         this._domain = domain;
         this["_"+modeType.AJAX] = new AjaxLoader();
         this["_"+modeType.WS] = new WSService(domain);
         this._mode = typeof mode !== undefined ? modeType.AJAX : mode;
-    }
 
-    fetch(endpoint, data) {
+        if(StorageService.getValue("JWT")) {
+            ApiService.setMode(modeType.WS);
+            ApiService["_"+modeType.WS].connect();
+        }
+
+        StorageService.when('JWT', function() {
+            ApiService.setMode(modeType.WS);
+            ApiService["_"+modeType.WS].connect();
+        }, function() {
+            ApiService.setMode(modeType.AJAX);
+            ApiService["_"+modeType.WS].disconnect();
+        });
+
+    };
+
+    fetch(endpoint, data, forceMode) {
 
         let ApiService = this;
         let ApiFetchDefer = new Deferred();
 
         let fetchPromise = ApiService[ApiService._mode+"Fetch"](new ApiRequest({
-            endpoint: ApiService._domain+endpoint,
+            domain: ApiService._domain,
+            endpoint: endpoint,
             data: data
         }));
 
@@ -35,12 +54,18 @@ class ApiService {
 
         return ApiFetchDefer.promise;
 
-    }
+    };
 
-    [modeType.WS+"Fetch"](endpoint, data) {
-       
+    [modeType.WS+"Fetch"](ApiRequest) {
 
-    }
+        let fetchDeferred = new Deferred();
+
+        this["_"+modeType.WS].send(ApiRequest).then(function() {
+            fetchDeferred.resolve("{}");
+        });
+
+        return fetchDeferred.promise;
+    };
 
     [modeType.AJAX+"Fetch"](ApiRequest) {
         
@@ -53,7 +78,10 @@ class ApiService {
         }
 
         ApiRequest.setStatus(ApiRequest.statuses.PENDING);
-        let ajaxPromise = ajaxToCall(ApiRequest.channel, ApiRequest.data);
+
+        console.log(ApiService._domain);
+
+        let ajaxPromise = ajaxToCall(ApiRequest.domain+ApiRequest.endpoint, ApiRequest.data);
 
         ajaxPromise.then(function(res) {
             ApiRequest.deferred.resolve(res);
@@ -62,11 +90,11 @@ class ApiService {
 
         return ApiRequest.deferred.promise;
 
-    }
+    };
 
     setMode(mode) {
         this._mode = mode;
-    }
+    };
 
 }
 

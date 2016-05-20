@@ -20,7 +20,7 @@ Intro.init(function() {
 	
 	Intro.controls.keyboard.when([Keyboard.ENTER], function() {
 		
-		if(StorageService.get("JWT")) {
+		if(StorageService.getValue("JWT")) {
 			Intro.game.setCurrentState("Main Menu");	
 		} else {
 			Intro.game.setCurrentState("Login");	
