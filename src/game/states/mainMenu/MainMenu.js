@@ -4,6 +4,8 @@ import { Keyboard } from "engine/io/Keyboard";
 import { StorageService } from "engine/services/StorageService";
 import { ApiService } from "engine/services/ApiService"
 
+import { Credentials } from "engine/model/Credentials"
+
 let MainMenu = new State("Main Menu");
 
 MainMenu.init(function() {
@@ -19,11 +21,9 @@ MainMenu.init(function() {
 
 MainMenu.load(function() {
 	if(MainMenu.loaded) return;
-
-
 	
-	ApiService.fetch("/user/credentials").then(function(res) {
-		console.log(res);
+	ApiService.fetch(Credentials, "/user/credentials").then(function(credentials) {
+		MainMenu.gui.updateContext("credentials", credentials);
 	});
 
 	MainMenu.context.menu = {

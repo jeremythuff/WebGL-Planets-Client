@@ -22,20 +22,21 @@ export class GUI {
 		let GUI = this;
 		eval("GUI._context." + key + " = value");
 
-		let bindings = document.querySelectorAll("[data-bind='"+key+"']");
+		let bindings = document.querySelectorAll("[data-bind^='"+key.split('.')[0]+"']");
+
 		for (let i = 0; i < bindings.length; ++i) {
 
 			(function() {
 				let binding = bindings[i];
-		  	
+		  		console.log();
 			  	if(binding.type == "text" || binding.type == "textarea") {
-		  			binding.value = value;
+		  			binding.value = eval("GUI._context." + binding.dataset.bind);
 		  		} else if(binding.type == "checkbox") {
-		  			binding.checked = value;
+		  			binding.checked = eval("GUI._context." + binding.dataset.bind);
 		  		} else if(binding.tagName == "SELECT") {
-		  			binding.value = value;
+		  			binding.value = eval("GUI._context." + binding.dataset.bind);
 		  		} else {
-		  			binding.innerHTML = value;
+		  			binding.innerHTML = eval("GUI._context." + binding.dataset.bind);
 		  		}	
 			})(i);
 

@@ -51,9 +51,7 @@ export class WSService {
 
         let WSService = this;
 
-        let deferred = new Deferred();
-
-        let channel = ApiRequest.domain+'/private/queue'+ApiRequest.endpoint
+        let channel = '/private/queue'+ApiRequest.endpoint
 
         if(!WSService.subscriptions.has(channel)) {
 
@@ -66,10 +64,10 @@ export class WSService {
             WSService.stomp.subscribe(subObj.channel, function(res) {
                 ApiRequest.setStatus(ApiRequest.statuses.RESOLVED);
                 ApiRequest.deferred.resolve(res);
-                console.log(res);
-            }, function(e) {
-                console.log(e);
-                ApiRequest.deferred.reject(res);
+            }, function(err) {
+                ApiRequest.setStatus(ApiRequest.statuses.REJECTED);
+                console.log(err);
+                ApiRequest.deferred.reject(err);
             });
         }
 
@@ -77,9 +75,9 @@ export class WSService {
         ApiRequest.addHeader("id", ApiRequest.id);
         ApiRequest.addHeader("data", ApiRequest.data);
 
-        WSService.stomp.send(ApiRequest.domain+'/ws'+ApiRequest.endpoint, ApiRequest.headers, {});
+        WSService.stomp.send('/ws'+ApiRequest.endpoint, ApiRequest.headers, {});
         ApiRequest.setStatus(ApiRequest.statuses.PENDING);
-        return deferred.promise;
+        return ApiRequest.deferred.promise;
 
     }
 

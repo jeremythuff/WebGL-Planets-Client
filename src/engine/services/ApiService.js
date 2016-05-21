@@ -36,10 +36,15 @@ class ApiService {
 
     };
 
-    fetch(endpoint, data, forceMode) {
+    fetch(type, endpoint, data, forceMode) {
+
+        if(typeof type == "string") {
+            endpoint = type;
+            type = Object;
+        }
 
         let ApiService = this;
-        let ApiFetchDefer = new Deferred();
+        let apiFetchDefer = new Deferred();
 
         let fetchPromise = ApiService[ApiService._mode+"Fetch"](new ApiRequest({
             domain: ApiService._domain,
@@ -49,10 +54,13 @@ class ApiService {
 
         fetchPromise.then(function(rawResponse) {
             let apiResponse = new ApiResponse(rawResponse);
-            ApiFetchDefer.resolve(apiResponse);
+
+            let returnObj = new type(apiResponse.payload[type.name]);
+
+            apiFetchDefer.resolve(returnObj, ApiResponse);
         });
 
-        return ApiFetchDefer.promise;
+        return apiFetchDefer.promise;
 
     };
 
@@ -60,8 +68,8 @@ class ApiService {
 
         let fetchDeferred = new Deferred();
 
-        this["_"+modeType.WS].send(ApiRequest).then(function() {
-            fetchDeferred.resolve("{}");
+        this["_"+modeType.WS].send(ApiRequest).then(function(res) {
+            fetchDeferred.resolve(res);
         });
 
         return fetchDeferred.promise;

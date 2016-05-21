@@ -11,7 +11,8 @@ let idGenerator = {
 let statuses ={
     PREFLIGHT: "PREFLIGHT",
     PENDING: "PENDING",
-    RESOLVED: "RESOLVED"
+    RESOLVED: "RESOLVED",
+    RESOLVED: "REJECTED"
 }
 
 export class ApiRequest {
@@ -26,7 +27,8 @@ export class ApiRequest {
         ApiRequest.statuses = statuses;
         ApiRequest.domain = argObj.domain;
         ApiRequest.endpoint = argObj.endpoint;
-        ApiRequest.data = argObj.data ? argObj.data : "";
+        ApiRequest.data = argObj.data;
+        ApiRequest.type = argObj.type;
 
     }
 
