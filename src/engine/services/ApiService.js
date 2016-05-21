@@ -39,6 +39,8 @@ class ApiService {
     fetch(type, endpoint, data, forceMode) {
 
         if(typeof type == "string") {
+            forceMode = data;
+            data = endpoint;
             endpoint = type;
             type = Object;
         }
@@ -54,10 +56,10 @@ class ApiService {
 
         fetchPromise.then(function(rawResponse) {
             let apiResponse = new ApiResponse(rawResponse);
+            
+            let returnObj = type.name=="Object" ? apiResponse : new type(apiResponse.payload[type.name]);
 
-            let returnObj = new type(apiResponse.payload[type.name]);
-
-            apiFetchDefer.resolve(returnObj, ApiResponse);
+            apiFetchDefer.resolve(returnObj);
         });
 
         return apiFetchDefer.promise;
@@ -69,7 +71,7 @@ class ApiService {
         let fetchDeferred = new Deferred();
 
         this["_"+modeType.WS].send(ApiRequest).then(function(res) {
-            fetchDeferred.resolve(res);
+            fetchDeferred.resolve(res.body);
         });
 
         return fetchDeferred.promise;
@@ -86,8 +88,6 @@ class ApiService {
         }
 
         ApiRequest.setStatus(ApiRequest.statuses.PENDING);
-
-        console.log(ApiService._domain);
 
         let ajaxPromise = ajaxToCall(ApiRequest.domain+ApiRequest.endpoint, ApiRequest.data);
 

@@ -14,7 +14,7 @@ export class AjaxLoader {
 
 	POST(url, data) {
 		let deferred = new Deferred();
-		_makeXhrReq("POST", url, data, deferred);				
+		_makeXhrReq("POST", url, data, deferred);			
 		return deferred.promise;
 	}
 

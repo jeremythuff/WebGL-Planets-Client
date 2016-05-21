@@ -94,6 +94,7 @@ MainMenu.load(function() {
 	
 	MainMenu.gui.addView("Title", "src/game/states/MainMenu/gui/templates/title.hbs");
 	MainMenu.gui.addView("Menu", "src/game/states/MainMenu/gui/templates/menu.hbs");
+	MainMenu.gui.addView("LoginInfo", "src/game/states/MainMenu/gui/templates/loginInfo.hbs");
 
 	console.log(MainMenu);
 	console.log("MainMenu loaded");
