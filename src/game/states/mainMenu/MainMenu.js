@@ -80,7 +80,6 @@ MainMenu.load(function() {
 			gloss: "Logout",
 			action: function() {
 				StorageService.removeValue("JWT");
-				//ApiService.setMode(ApiService.modeType.AJAX);
 				MainMenu.game.setCurrentState("Login");
 			}
 		},

@@ -59,7 +59,12 @@ class ApiService {
             
             let returnObj = type.name=="Object" ? apiResponse : new type(apiResponse.payload[type.name]);
 
-            apiFetchDefer.resolve(returnObj);
+            if(apiResponse.meta.type == "SUCCESS") {
+                apiFetchDefer.resolve(returnObj); 
+            } else if(apiResponse.meta.type == "ERROR") {
+                apiFetchDefer.reject(apiResponse); 
+            }
+
         });
 
         return apiFetchDefer.promise;

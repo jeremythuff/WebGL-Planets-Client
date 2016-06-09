@@ -15,12 +15,14 @@ Login.init(function() {
 Login.load(function() {
 	if(Login.loaded) return;
 	
-	Login.context.forms = {};
+	Login.context.form = {};
 	
-	Login.context.forms.login = {
+	Login.context.form.login = {
 		email: {
 			value: "",
-			validation: validators.email
+			validation: function(elem) {
+				validators.email(elem);
+			}
 		},
 		password: {
 			value: "",
@@ -31,23 +33,32 @@ Login.load(function() {
 		login: function(e) {
 			e.preventDefault();
 			let loginPromise = ApiService.fetch("/auth/login", {
-				email: Login.context.forms.login.email.value,
-				password: Login.context.forms.login.password.value
+				email: Login.context.form.login.email.value,
+				password: Login.context.form.login.password.value
 			});
 
-			loginPromise.then(function(apiResponse) {
-				if(apiResponse.meta.type == "SUCCESS") {
-					StorageService.setValue("JWT", apiResponse.payload.JWT.tokenAsString);
-					Login.game.setCurrentState("Main Menu");
+			loginPromise.then(
+				function(apiResponse) {
+					if(apiResponse.meta.type == "SUCCESS") {
+						StorageService.setValue("JWT", apiResponse.payload.JWT.tokenAsString);
+						Login.game.setCurrentState("Main Menu");
+					} 
+				}, 
+				function(apiResponse) {
+					Login.gui.updateContext("form.error", apiResponse.meta.message);
 				}
-			});
+			);
 		},
 		startRegistration: function(e) {
 			e.preventDefault();
 			Login.game.setCurrentState("Register");
 			console.log("Register");
 		},
-		validateForm: validators.form
+		validateForm: function(elem) {
+			if(!validators.form(elem)) {
+				Login.gui.updateContext("form.error", elem.getAttribute("error"));
+			}
+		}
 	}
 
 	Login.gui.addView("Login", "src/game/states/login/gui/templates/loginForm.hbs");

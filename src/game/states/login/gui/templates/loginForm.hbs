@@ -1,18 +1,23 @@
 <guibox class="login login-form">
-	<form name="login" data-on="input, forms.login.validateForm(elem)">
+	<form name="login" data-on="input, form.login.validateForm(elem)">
+
+		<ul class="errors">
+			<li>{{bind "form.error"}}</li>
+		</ul>
+
 		<ul>
 			<li>
-				 <input type="email" placeholder="login email" {{bindinput "forms.login.email.value"}} data-on="input, forms.login.email.validation(elem)" required />
+				 <input type="email" placeholder="login email" {{bindinput "form.login.email.value"}} data-on="input, form.login.email.validation(elem)" required />
 			</li>
 			<li>
-				 <input type="password" placeholder="password" {{bindinput "forms.login.password.value"}} data-on="input, forms.login.password.validation(elem)" required />
+				 <input type="password" placeholder="password" {{bindinput "form.login.password.value"}} data-on="input, form.login.password.validation(elem)" required />
 			</li>
 			<li >
 				<button disabled>login</button>
-				<button data-on="click, forms.login.login(e)" class="login-btn">login</button>
+				<button data-on="click, form.login.login(e)" class="login-btn">login</button>
 			</li>
 			<li >
-				<button data-on="click, forms.login.startRegistration(e)" class="start-registration-btn">register</button>
+				<button data-on="click, form.login.startRegistration(e)" class="start-registration-btn">register</button>
 			</li>
 		</ul>
 	</form>

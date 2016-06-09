@@ -11,11 +11,16 @@ export function form(elem) {
         }
     }
 
+    let valid = true;
     if(isVallid && isComplete) {
+        valid = true;
         elem.classList.add("valid");
         elem.classList.remove("invalid");
     } else {
+        valid = false;
         elem.classList.add("invalid");
         elem.classList.remove("valid");
     }
+
+    return valid;
 }
