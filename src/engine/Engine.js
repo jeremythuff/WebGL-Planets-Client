@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 import { Context } from "context/Context";
 import { Utilities } from "engine/utils/Utilities";
 

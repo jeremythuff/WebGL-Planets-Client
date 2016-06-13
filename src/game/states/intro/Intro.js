@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 
 import { State } from "engine/model/State";
 import { StorageService } from "engine/services/StorageService";

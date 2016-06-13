@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 import { Deferred } from "engine/extensions/Deferred";
 import { AjaxLoader } from "engine/utils/assets/AjaxLoader";
 import { TextureLoader } from "engine/utils/assets/TextureLoader";

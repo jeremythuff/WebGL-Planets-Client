@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 import { Entity } from "engine/model/Entity";
 import { Deferred } from "engine/extensions/Deferred";
 

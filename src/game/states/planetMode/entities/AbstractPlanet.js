@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 import { Entity } from "engine/model/Entity";
 
 export class AbstractPlanet extends Entity {

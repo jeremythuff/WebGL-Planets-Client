@@ -33,6 +33,6 @@
     "handlebars": "^4.0.5",
     "sockjs-client": "^1.0.3",
     "stompjs": "*",
-    "three": "*"
+    "three": "^0.77.1"
   }
 }

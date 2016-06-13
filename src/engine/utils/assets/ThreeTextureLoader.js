@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 
 export class ThreeTextureLoader {
 	constructor(manager) {

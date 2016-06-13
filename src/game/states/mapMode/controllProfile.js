@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 import { Keyboard } from "engine/io/Keyboard";
 import { Mouse } from "engine/io/Mouse";
 

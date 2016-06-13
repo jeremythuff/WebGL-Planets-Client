@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 import { Texture } from "engine/model/Texture";
 import { Entity } from "engine/model/Entity";
 

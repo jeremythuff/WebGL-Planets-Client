@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 import { Engine } from "engine/Engine.js";
 import { Renderer } from "engine/model/Renderer.js";
 

@@ -1,4 +1,4 @@
-import { THREE } from 'three';
+import THREE from 'THREE';
 import { Entity } from "engine/model/Entity";
 import { Shader } from "engine/model/Shader";
 import { Texture } from "engine/model/Texture";
@@ -62,7 +62,7 @@ export class Star extends Entity {
    			
 			let coronaSegments = 1000;
 
-			let coronaGeometry = new THREE.CircleBufferGeometry(Star.size+(Star.size/5), coronaSegments);
+			let coronaGeometry = new THREE.RingBufferGeometry(Star.size, Star.size+(Star.size/5), coronaSegments);
 
 			let vertexCount = ( coronaSegments * 3 );
 
@@ -80,11 +80,12 @@ export class Star extends Entity {
  			};
 
    			let coronaMaterial = new THREE.ShaderMaterial({
-   				transparent: true,
-   				opacity: 0.5,
+   				transparent: false,
+   				opacity: 1,
    				uniforms: Star.coronaUniforms,
 				vertexShader:   resources.shaders.get("corona2-vs").program,
 				fragmentShader: resources.shaders.get("corona2-fs").program,
+				blending: THREE.AdditiveBlending,
 				depthWrite: false
 			});
    			
@@ -95,7 +96,7 @@ export class Star extends Entity {
 			let rayOneMaterial = new THREE.SpriteMaterial({
 				map: resources.textures.get("raysMap"),
 				transparent: true,
-				opacity: 1,
+				opacity: 0.5,
 				depthWrite: false,
 				depthTest: false,
 				color: starColor.clone().addScalar(15)
@@ -141,7 +142,7 @@ export class Star extends Entity {
 
 		Star.flow +=  delta * 0.25;
 
-		//Star.coronaUniforms.amplitude.value = Star.flow;
+		//Star.coronaUniforms.amplitude.value =  Math.abs(Star.rayOneFade.max-Star.rayOneFade.min * Math.cos(Star.flow*100))+Star.rayOneFade.min;;
 		
 		Star.raysOne.material.rotation = Star.flow/25;
 		Star.raysTwo.material.opacity = Math.abs(Star.rayOneFade.max-Star.rayOneFade.min * Math.cos(Star.flow*100))+Star.rayOneFade.min;
